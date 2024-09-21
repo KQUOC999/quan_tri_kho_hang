@@ -1,21 +1,57 @@
 {
+  "homepage": "http://KQUOC999.github.io/admitration_warehouse_app",
   "name": "admitration_warehouse_app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mui/icons-material": "^5.16.4",
+    "@react-spring/web": "^9.7.4",
+    "@rjsf/core": "^5.18.4",
+    "@rjsf/utils": "^5.18.4",
+    "@rjsf/validator-ajv8": "^5.18.4",
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow/tfjs": "^4.20.0",
+    "admitration_warehouse_app": "file:",
+    "ag-grid-community": "^32.1.0",
+    "ag-grid-react": "^32.1.0",
+    "axios": "^1.7.2",
+    "boostrap": "^2.0.0",
+    "core-js": "^3.37.1",
+    "file-saver": "^2.0.5",
+    "form-salary-page": "file:",
+    "formik": "^2.4.6",
+    "helmet": "^7.1.0",
+    "http-proxy-middleware": "^3.0.0",
+    "mitt": "^3.0.1",
+    "mqtt": "^5.7.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-d3-tree": "^3.6.2",
+    "react-data-grid": "^7.0.0-beta.44",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "^5.0.1",
+    "react-spreadsheet": "^0.9.5",
+    "react-table": "^7.8.0",
+    "react-toastify": "^10.0.5",
+    "react-treeview": "^0.4.7",
+    "realm-web": "^2.0.1",
+    "use-debounce": "^10.0.1",
+    "util": "^0.12.5",
+    "utils": "^0.3.1",
+    "uuid": "^10.0.0",
+    "web-vitals": "^4.0.1",
+    "webgl-utils": "^1.0.1",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +70,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "cross-env": "^7.0.3",
+    "gh-pages": "^6.1.1"
   }
 }
