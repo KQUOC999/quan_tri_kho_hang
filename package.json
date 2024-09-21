@@ -41,9 +41,7 @@
     "util": "^0.12.5",
     "utils": "^0.3.1",
     "uuid": "^10.0.0",
-    "web-vitals": "^4.0.1",
-    "webgl-utils": "^1.0.1",
-    "xlsx": "^0.18.5"
+    "web-vitals": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
