@@ -1,0 +1,36 @@
+/* SubTaskbar.css */
+:root {
+  --primary-color: #158fe0;
+  --secondary-color: #2ecc71;
+  --text-color: #333;
+  --background-color: #f5f5f5;
+  --tab-header-bg: #ecf0f1;
+  --tab-header-active-bg: #bdc3c7;
+  --button-bg: var(--primary-color);
+  --button-hover-bg: #2980b9;
+  --items-hover-bg: #a5bbc9;
+  --button-text-color: #fff;
+}
+.sub-taskbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-bottom: 0.2px solid #d8d4d4;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Thêm bóng chân */
+
+}
+
+.subTaskbar-items{
+  color: #070707;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 0.5vw 0.5vw;
+  border-radius: 5px;
+}
+
+.subTaskbar-items:hover {
+  background-color: var(--items-hover-bg);
+  cursor: pointer;
+}

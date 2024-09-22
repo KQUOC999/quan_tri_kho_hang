@@ -1,23 +1,39 @@
-
-import './App.css';
+import React, { Suspense, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import MainPage from './component/MainPage';
+import './index.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+
+  useEffect(() => {
+    // Giả sử đã đăng nhập thành công
+    setIsLoggedIn(true);
+    setInitializing(false);
+
+    // Cập nhật các thẻ <head> khi component được mount
+    document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+    document.title = "Your App Title";
+  }, []);
+
+  if (initializing) {
+    return <div>Loading....</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Suspense fallback={<div>Loading....</div>}>
+        <Routes>
+          {!isLoggedIn ? (
+            <Route path="/*" element={<Navigate to="/admitration_warehouse_app" />} />
+          ) : (
+            <Route path="/*" element={<MainPage />} />
+          )}
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 
