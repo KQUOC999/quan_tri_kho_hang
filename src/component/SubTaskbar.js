@@ -3,11 +3,15 @@ import './SubTaskbar.css'
 
 const SubTaskbar = ({ items, onSelect }) => {
   return (
-    
-    <div className="sub-taskbar">
+    <div className="subtaskbarContainer">
       {items && items.map((item, index) => (
-        <div className="subTaskbar-items" key={index} onClick={() => onSelect(item)}>
-          {item.label}
+        <div className="subtaskbarItems" key={index} onClick={() => onSelect(item)}>
+          <div className="subtaskbarIcons">
+            {item.icon}
+          </div>
+          <div className="subtaskbarLabel">
+            <span>{item.label}</span>
+          </div>
         </div>
       ))}
     </div>

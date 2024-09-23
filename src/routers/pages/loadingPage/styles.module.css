@@ -1,0 +1,29 @@
+/* This is styles css for loading Pages */
+/* You can use all pages by using import param */
+
+.containerText {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: #322f2f;
+  font-size: 20px;
+  height: 100vh;
+}
+
+.loadingText {
+  animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0; /* Bắt đầu với độ mờ 0 */
+  }
+  50% {
+    opacity: 1; /* Độ mờ 100% */
+  }
+  100% {
+    opacity: 0; /* Kết thúc với độ mờ 0 */
+  }
+}

@@ -1,12 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import * as Realm from 'realm-web';
 import './MainPage.css';
+
+import { IoPeopleOutline } from "react-icons/io5";
+import { RiCustomerService2Line } from "react-icons/ri";
+import { MdOutlineAddHomeWork } from "react-icons/md";
+import { PiPackage } from "react-icons/pi";
+import { IoAccessibilityOutline } from "react-icons/io5";
+import { TbPackageImport } from "react-icons/tb";
+import { TbReportAnalytics } from "react-icons/tb";
+import { TbPackageExport } from "react-icons/tb";
+import { TbRulerMeasure } from "react-icons/tb";
+
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
-import Account from "../routers/pages/accountLogin/highAdminAccount";
+import Account from "../routers/pages/accountLogin/adminAccount";
 import AttendancePage from "../routers/pages/home/AttendancePage";
-
+import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -41,32 +52,41 @@ const MainPage = () => {
       setActiveTab(storedTabs[0]);
     }
   }, []);
-/*
-  const checkUserRole = async (user) => {
+  const user = app.currentUser;
+  const checkUserRole = useCallback ( async () => {
     try {
       if (!user || !user.profile || !user.profile.email) {
         throw new Error("User is not logged in or does not have an email.");
       }
-      const functionName = "checkUserRole";
+      const functionName = "adminAccountRole";
       const userProfile = await user.functions[functionName](user.profile.email);
+      console.log(userProfile);
+
       if (userProfile.error) {
         throw new Error(userProfile.error);
       }
-      setRole(userProfile.role);
+
+      //setRole(userProfile.role);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Failed to check user role:", error);
     } finally {
       setLoading(false);
     }
-  };
-*/
+  }, [user]);
+
+  useEffect (() => {
+    if (isLoggedIn) {
+      checkUserRole();
+    }
+  }, [isLoggedIn, checkUserRole])
+
   const logout = async () => {
     if (currentUser) {
       await currentUser.logOut();
       setCurrentUser(null);
       setIsLoggedIn(false);
-      navigate('/form-salary-page');
+      navigate('/admitration_warehouse_app');
     }
   };
 
@@ -76,15 +96,18 @@ const MainPage = () => {
   };
 
   const handleSubTaskbarSelect = (subTaskbarItem) => {
+    const { path, label } = subTaskbarItem; 
+    const newTab = { path, label };
+    
     setOpenTabs(prevTabs => {
-      // Remove existing tab if it exists
-      const updatedTabs = prevTabs.filter(tab => tab.path !== subTaskbarItem.path);
-      const newTabs = [subTaskbarItem, ...updatedTabs];
+      const updatedTabs = prevTabs.filter(tab => tab.path !== newTab.path);
+      const newTabs = [newTab, ...updatedTabs];
       localStorage.setItem('openTabs', JSON.stringify(newTabs));
-      setActiveTab(subTaskbarItem);
+      setActiveTab(newTab);
       return newTabs;
     });
   };
+  
 
   const handleCloseTab = (tabPath) => {
     const updatedTabs = openTabs.filter(tab => tab.path !== tabPath);
@@ -103,17 +126,15 @@ const MainPage = () => {
     if (!activeTab) return null; // No active tab
 
     switch(activeTab.path) {
-      case "/main-page":
+      case "/quản_trị/unit":
         return <AttendancePage />;
-      case "/client-page":
+      case "/quản_trị/supplier":
+        return <LoadingPage/>;
+      case "/quản_trị/package":
         return null;
-      case "/search-page":
+      case "/quản_trị/employee":
         return null;
-      case "/tính_công/employee":
-        return null;
-      case "/tính_công/workshift":
-        return null;;
-      case "/tính_công/marking_scheme":
+      case "/quản_trị/customer":
         return null;
       case "/tính_công/schedule":
         return null;
@@ -127,7 +148,9 @@ const MainPage = () => {
         return null;
       case "/tính_công/current_status":
         return null;
-      case "/tùy_chỉnh/phân_quyền":
+      case "/tùy_chỉnh/decentralization":
+        return null;
+      case "/quản_trị/reporting":
         return null;
       case "/tùy_chỉnh/sơ_đồ":
         return null;
@@ -147,24 +170,23 @@ const MainPage = () => {
   };
 
   const taskbarItems = [
-    { label: "Tính công", path: "/tính_công" },
+    { label: "Quản trị", path: "/quản_trị" },
     { label: "Tùy chỉnh", path: "/tùy_chỉnh" }
   ];
 
   const attendanceSubTaskbarItems = [
-    { label: "Nhân viên", path: "/tính_công/employee" },
-    { label: "Ca làm việc", path: "/tính_công/workshift" },
-    { label: "Cách chấm", path: "/tính_công/marking_scheme" },
-    { label: "Lịch trình", path: "/tính_công/schedule" },
-    { label: "Lịch nhân viên", path: "/tính_công/employee_schedule" },
-    { label: "Máy chấm công", path: "/tính_công/time_clock_machine" },
-    { label: "Báo cáo", path: "/tính_công/reporting" },
-    { label: "Giờ chấm công", path: "/tính_công/time_clock_hours" },
-    { label: "Hiện hành", path: "/tính_công/current_status" }
+    { label: "Đơn vị", path: "/quản_trị/unit", icon: <TbRulerMeasure size={20}/> },
+    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={20}/> },
+    { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={20} />},
+    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={20}/> },
+    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={20}/> },
+    { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={20}/> },
+    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={20}/>},
+    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={20}/> }
   ];
 
   const customizationSubTaskbarItems = [
-    { label: "Phân quyền", path: "/tùy_chỉnh/phân_quyền" },
+    { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={20}/> },
     { label: "Sơ đồ", path: "/tùy_chỉnh/sơ_đồ" },
     { label: "Nghỉ chế độ", path: "/tùy_chỉnh/nghỉ_chế_độ"},
     { label: "Phép năm", path: "/tùy_chỉnh/phép_năm" },
@@ -176,7 +198,7 @@ const MainPage = () => {
   ];
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div> <LoadingPage /> </div>;
   }
 
   return (
@@ -190,7 +212,7 @@ const MainPage = () => {
           {selectedTaskbar && (
             <SubTaskbar
               items={
-                selectedTaskbar.label === "Tính công"
+                selectedTaskbar.label === "Quản trị"
                   ? attendanceSubTaskbarItems
                   : customizationSubTaskbarItems
               }
