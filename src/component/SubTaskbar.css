@@ -30,7 +30,8 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
+  flex-wrap: wrap;
 }
 
 
