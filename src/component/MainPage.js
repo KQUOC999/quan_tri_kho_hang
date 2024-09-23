@@ -221,7 +221,6 @@ const MainPage = () => {
           )}
           
           <div className="container-main-page">
-            {/* Display list of open tabs horizontally */}
             <div className="open-tabs">
               {openTabs.reverse().map(tab => (
                 <div key={tab.path} className="tab-item">
@@ -235,7 +234,6 @@ const MainPage = () => {
                 </div>
               ))}
             </div>
-            {/* Display content of the active tab */}
             {activeTab && (
               <div className="tab-content">
                 <div className="tab-body">

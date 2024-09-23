@@ -32,6 +32,7 @@
   align-items: center;
   transition: background-color 0.3s;
   flex-wrap: wrap;
+  gap: 0.5vw;
 }
 
 
@@ -42,5 +43,4 @@
 
 .subtaskbarIcons {
   flex: 1;
-  padding-right: 0.5vw;
 }
