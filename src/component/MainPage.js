@@ -92,8 +92,13 @@ const MainPage = () => {
 
   const handleTaskbarSelect = (taskbar) => {
     setSelectedTaskbar(taskbar);
-    sessionStorage.setItem('selectedTaskbar', JSON.stringify(taskbar));
+    sessionStorage.setItem('selectedTaskbar', JSON.stringify({
+      label: taskbar.label,
+      path: taskbar.path,
+      icon: taskbar.icon 
+    }));
   };
+  
 
   const handleSubTaskbarSelect = (subTaskbarItem) => {
     const { path, label } = subTaskbarItem; 
