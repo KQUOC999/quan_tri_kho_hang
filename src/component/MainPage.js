@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+//import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import * as Realm from 'realm-web';
 import './MainPage.css';
 
@@ -14,6 +15,8 @@ import { TbPackageExport } from "react-icons/tb";
 import { TbRulerMeasure } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineContactSupport } from "react-icons/md";
+import { BiMessageEdit } from "react-icons/bi";
+import { AiOutlineMail } from "react-icons/ai";
 
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
@@ -26,12 +29,29 @@ const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(app.currentUser);
+  //const [currentUser, setCurrentUser] = useState(app.currentUser);
+  const [currentUser, ] = useState(app.currentUser);
   //const [, setRole] = useState('');
   const [selectedTaskbar, setSelectedTaskbar] = useState(null);
   const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
   const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
+
+  useEffect(() => {
+    // Hàm lắng nghe sự thay đổi kích thước màn hình
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1000);
+    };
+
+    // Gắn sự kiện resize
+    window.addEventListener('resize', handleResize);
+
+    // Dọn dẹp sự kiện khi component bị hủy
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
@@ -200,7 +220,7 @@ const MainPage = () => {
   if (loading) {
     return <div> <LoadingPage /> </div>;
   }
-
+  
   return (
     <div className="main-page">
       {isLoggedIn ? (
@@ -210,22 +230,22 @@ const MainPage = () => {
             <div className="extendTaskbarList">
               <div className="extendTaskbarListContainer">
                 <div className="supportInTaskbarList">
-                  <MdOutlineContactSupport size={20}/>
+                  <MdOutlineContactSupport size={isSmallScreen ? 10 : 20}/>
                   <span>Hỗ trợ</span>
                 </div>
 
                 <div className="supportInTaskbarList">
-                  <MdOutlineContactSupport size={20}/>
+                  <BiMessageEdit size={isSmallScreen ? 15 : 20}/>
                   <span>Góp ý</span>
                 </div>
 
                 <div className="supportInTaskbarList">
-                  <MdOutlineContactSupport size={20}/>
+                  <AiOutlineMail size={isSmallScreen ? 15 : 20}/>
                   <span>Hộp thư</span>
                 </div>
 
                 <div className="supportInTaskbarList">
-                  <FaUserCircle size={20} />
+                  <FaUserCircle size={isSmallScreen ? 15 : 20} />
                 </div>
               </div>
             </div>
