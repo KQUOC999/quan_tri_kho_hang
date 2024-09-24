@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import './styles.taskbar.css'
-import logo from '../logo/logo_warehouse.png';
+import logo from '../logo/Logo-DH-Ton-Duc-Thang-TDT.jpg';
 
 const Taskbar = ({ items, onSelect }) => {
   return (

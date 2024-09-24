@@ -12,6 +12,8 @@ import { TbPackageImport } from "react-icons/tb";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPackageExport } from "react-icons/tb";
 import { TbRulerMeasure } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
+import { MdOutlineContactSupport } from "react-icons/md";
 
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
@@ -207,10 +209,24 @@ const MainPage = () => {
             <Taskbar items={taskbarItems} onSelect={handleTaskbarSelect} />
             <div className="extendTaskbarList">
               <div className="extendTaskbarListContainer">
-                <span>Hỗ trợ</span>
-                <span>Góp ý</span>
-                <span>Hộp thư</span>
-                <span>Tài khoản</span>
+                <div className="supportInTaskbarList">
+                  <MdOutlineContactSupport size={20}/>
+                  <span>Hỗ trợ</span>
+                </div>
+
+                <div className="supportInTaskbarList">
+                  <MdOutlineContactSupport size={20}/>
+                  <span>Góp ý</span>
+                </div>
+
+                <div className="supportInTaskbarList">
+                  <MdOutlineContactSupport size={20}/>
+                  <span>Hộp thư</span>
+                </div>
+
+                <div className="supportInTaskbarList">
+                  <FaUserCircle size={20} />
+                </div>
               </div>
             </div>
           </div>
