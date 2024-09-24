@@ -80,7 +80,7 @@ const MainPage = () => {
       checkUserRole();
     }
   }, [isLoggedIn, checkUserRole])
-
+/*
   const logout = async () => {
     if (currentUser) {
       await currentUser.logOut();
@@ -89,7 +89,7 @@ const MainPage = () => {
       navigate('/admitration_warehouse_app');
     }
   };
-
+*/
   const handleTaskbarSelect = (taskbar) => {
     setSelectedTaskbar(taskbar);
     sessionStorage.setItem('selectedTaskbar', JSON.stringify({
@@ -131,7 +131,7 @@ const MainPage = () => {
     if (!activeTab) return null; // No active tab
 
     switch(activeTab.path) {
-      case "/quản_trị/unit":
+      case "/quản_trị/overview":
         return <AttendancePage />;
       case "/quản_trị/supplier":
         return <LoadingPage/>;
@@ -141,23 +141,16 @@ const MainPage = () => {
         return null;
       case "/quản_trị/customer":
         return null;
-      case "/tính_công/schedule":
+      case "/quản_trị/importPackage":
         return null;
-      case "/tính_công/employee_schedule":
-        return null;
-      case "/tính_công/time_clock_machine":
-        return null;
-      case "/tính_công/reporting":
-        return null;
-      case "/tính_công/time_clock_hours":
-        return null;
-      case "/tính_công/current_status":
-        return null;
-      case "/tùy_chỉnh/decentralization":
+      case "/quản_trị/exportPackage":
         return null;
       case "/quản_trị/reporting":
         return null;
-      case "/tùy_chỉnh/sơ_đồ":
+
+      case "/tùy_chỉnh/decentralization":
+        return null;
+      case "/tùy_chỉnh/unit":
         return null;
       case "/tùy_chỉnh/nghỉ_chế_độ":
         return null;
@@ -176,11 +169,11 @@ const MainPage = () => {
 
   const taskbarItems = [
     { label: "Quản trị", path: "/quản_trị" },
-    { label: "Tùy chỉnh", path: "/tùy_chỉnh" }
+    { label: "Tùy chỉnh", path: "/tùy_chỉnh" },
   ];
 
   const attendanceSubTaskbarItems = [
-    { label: "Đơn vị", path: "/quản_trị/unit", icon: <TbRulerMeasure size={20}/> },
+    { label: "Tổng quan", path: "/quản_trị/overview", icon: <TbRulerMeasure size={20}/> },
     { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={20}/> },
     { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={20} />},
     { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={20}/> },
@@ -192,7 +185,7 @@ const MainPage = () => {
 
   const customizationSubTaskbarItems = [
     { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={20}/> },
-    { label: "Sơ đồ", path: "/tùy_chỉnh/sơ_đồ" },
+    { label: "Đơn vị", path: "/tùy_chỉnh/unit", icon: <TbRulerMeasure size={20}/> },
     { label: "Nghỉ chế độ", path: "/tùy_chỉnh/nghỉ_chế_độ"},
     { label: "Phép năm", path: "/tùy_chỉnh/phép_năm" },
     { label: "Phân giờ", path: "/tùy_chỉnh/phân_giờ" },
@@ -212,7 +205,14 @@ const MainPage = () => {
         <>
           <div className="taskbar-container">
             <Taskbar items={taskbarItems} onSelect={handleTaskbarSelect} />
-            <button onClick={logout}>Logout</button>
+            <div className="extendTaskbarList">
+              <div className="extendTaskbarListContainer">
+                <span>Hỗ trợ</span>
+                <span>Góp ý</span>
+                <span>Hộp thư</span>
+                <span>Tài khoản</span>
+              </div>
+            </div>
           </div>
           {selectedTaskbar && (
             <SubTaskbar
