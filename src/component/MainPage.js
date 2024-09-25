@@ -4,6 +4,7 @@ import { Routes, Route} from 'react-router-dom';
 import * as Realm from 'realm-web';
 import './MainPage.css';
 
+import { FaRegEye } from "react-icons/fa";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiCustomerService2Line } from "react-icons/ri";
 import { MdOutlineAddHomeWork } from "react-icons/md";
@@ -17,6 +18,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { BiMessageEdit } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { IoFileTrayStackedOutline } from "react-icons/io5";
+import { LuFileBarChart2 } from "react-icons/lu";
+import { BiPrinter } from "react-icons/bi";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
@@ -38,7 +44,16 @@ const MainPage = () => {
   //const navigate = useNavigate();
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
+  const [isVisible, setIsVisible] = useState(false);
 
+  // Hàm toggle để hiện hoặc ẩn sidebar
+  const toggleSidebar = () => {
+    setIsVisible(!isVisible);
+  };
+  // Hàm để đóng sidebar
+  const closeSidebar = () => {
+    setIsVisible(false);
+  };
   useEffect(() => {
     // Hàm lắng nghe sự thay đổi kích thước màn hình
     const handleResize = () => {
@@ -211,13 +226,13 @@ const MainPage = () => {
   ];
 
   const attendanceSubTaskbarItems = [
-    { label: "Tổng quan", path: "/quản_trị/overview", icon: <TbRulerMeasure size={isSmallScreen ? 15 : 20} /> },
+    { label: "Tổng quan", path: "/quản_trị/overview", icon: <FaRegEye size={isSmallScreen ? 15 : 20} /> },
     { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
     { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={isSmallScreen ? 15 : 20} />},
     { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
     { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> },
     { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={isSmallScreen ? 15 : 20} /> },
-    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} />},
+    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} /> },
     { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> }
   ];
 
@@ -248,6 +263,15 @@ const MainPage = () => {
                 <div className="supportInTaskbarList">
                   <MdOutlineContactSupport size={isSmallScreen ? 15 : 20}/>
                   <span>Hỗ trợ</span>
+                  <div class="dropdownContainer">
+                    <div className="dropdownListItem">
+                      <li>Hướng dẫn sử dụng</li>
+                      <li>Thông tin liên hệ</li>
+                      <li>Tải TeamViewwer</li>
+                      <li>Tải UltraViewer</li>
+                      <li>Kết nối công cụ</li>
+                    </div>                    
+                  </div>
                 </div>
 
                 <div className="supportInTaskbarList">
@@ -260,8 +284,43 @@ const MainPage = () => {
                   <span>Hộp thư</span>
                 </div>
 
-                <div className="supportInTaskbarList">
-                  <FaUserCircle size={isSmallScreen ? 15 : 20} />
+                <div className="supportInTaskbarList" onClick={toggleSidebar}>
+                  <FaUserCircle size={20} />
+                </div>
+                {/* Sidebar */}
+                <div className={`sidebar ${isVisible ? "visible" : ""}`}>
+                  <div className="sidebarHeader">
+                    <h4>Account Details</h4>
+                    <button className="closeButton" onClick={closeSidebar}>x</button>
+                  </div>
+                  <div className="sidebarContent">
+                    <ul>
+                      <div className="logoutButtonTaskbar">
+                        <RiAccountCircleLine size={isSmallScreen ? 15 : 20} />
+                        <li>Tài khoản</li>
+                      </div>
+
+                      <div className="logoutButtonTaskbar">
+                        <IoFileTrayStackedOutline size={isSmallScreen ? 15 : 20} />
+                        <li>Hồ sơ</li>
+                      </div>
+
+                      <div className="logoutButtonTaskbar">
+                        <LuFileBarChart2 size={isSmallScreen ? 15 : 20} />
+                        <li>Quản lý chi nhánh</li>
+                      </div>
+
+                      <div className="logoutButtonTaskbar">
+                        <BiPrinter size={isSmallScreen ? 15 : 20} />
+                        <li>Quản lý mẫu in</li>
+                      </div>
+                    
+                      <div className="logoutButtonTaskbar">
+                        <RiLogoutBoxRLine size={isSmallScreen ? 15 : 20} />
+                        <li>Đăng xuất</li>
+                      </div>                     
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
