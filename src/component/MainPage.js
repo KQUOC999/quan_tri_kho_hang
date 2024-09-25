@@ -266,12 +266,19 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-          {selectedTaskbar && (
+          {selectedTaskbar ? (
             <SubTaskbar
               items={
                 selectedTaskbar.label === "Quản trị"
                   ? attendanceSubTaskbarItems
                   : customizationSubTaskbarItems
+              }
+              onSelect={handleSubTaskbarSelect}
+            />
+          ) : (
+            <SubTaskbar
+              items={
+                attendanceSubTaskbarItems
               }
               onSelect={handleSubTaskbarSelect}
             />
