@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-//import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import * as Realm from 'realm-web';
 import './MainPage.css';
 
@@ -35,13 +34,12 @@ const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //const [currentUser, setCurrentUser] = useState(app.currentUser);
-  const [currentUser, ] = useState(app.currentUser);
+  const [currentUser, setCurrentUser] = useState(app.currentUser);
   //const [, setRole] = useState('');
   const [selectedTaskbar, setSelectedTaskbar] = useState(null);
   const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
   const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
@@ -59,10 +57,8 @@ const MainPage = () => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 1000);
     };
-
     // Gắn sự kiện resize
     window.addEventListener('resize', handleResize);
-
     // Dọn dẹp sự kiện khi component bị hủy
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -118,7 +114,7 @@ const MainPage = () => {
       checkUserRole();
     }
   }, [isLoggedIn, checkUserRole])
-/*
+
   const logout = async () => {
     if (currentUser) {
       await currentUser.logOut();
@@ -127,7 +123,7 @@ const MainPage = () => {
       navigate('/admitration_warehouse_app');
     }
   };
-*/
+
   const handleTaskbarSelect = (taskbar) => {
     setSelectedTaskbar(taskbar);
     sessionStorage.setItem('selectedTaskbar', JSON.stringify({
@@ -315,7 +311,7 @@ const MainPage = () => {
                         <li>Quản lý mẫu in</li>
                       </div>
                     
-                      <div className="logoutButtonTaskbar">
+                      <div className="logoutButtonTaskbar" onClick={logout}>
                         <RiLogoutBoxRLine size={isSmallScreen ? 15 : 20} />
                         <li>Đăng xuất</li>
                       </div>                     
