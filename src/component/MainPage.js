@@ -36,6 +36,7 @@ const MainPage = () => {
   const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
   const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
   //const navigate = useNavigate();
+  const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
@@ -135,7 +136,6 @@ const MainPage = () => {
     });
   };
   
-
   const handleCloseTab = (tabPath) => {
     const updatedTabs = openTabs.filter(tab => tab.path !== tabPath);
     setOpenTabs(updatedTabs);
@@ -147,10 +147,26 @@ const MainPage = () => {
     } else if (updatedTabs.length === 0) {
       setActiveTab(null);
     }
+    setCloseTabStatus(true);
   };
 
+  const defaultTabOpen = () => {
+    const path = "/quản_trị/overview";
+    const label = "Tổng quan";
+    const newTab = { path, label };
+    if (openTabs.length === 0 && closeTabStatus !== true) {
+      setActiveTab(newTab);
+      setOpenTabs([newTab]);
+      return <AttendancePage />;
+    }
+    if (openTabs.length === 0 && closeTabStatus === true) {
+      return null;
+    }
+    return null; 
+  }
+
   const renderTabContent = () => {
-    if (!activeTab) return null; // No active tab
+    if (!activeTab) return null;
 
     switch(activeTab.path) {
       case "/quản_trị/overview":
@@ -195,19 +211,19 @@ const MainPage = () => {
   ];
 
   const attendanceSubTaskbarItems = [
-    { label: "Tổng quan", path: "/quản_trị/overview", icon: <TbRulerMeasure size={20}/> },
-    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={20}/> },
-    { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={20} />},
-    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={20}/> },
-    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={20}/> },
-    { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={20}/> },
-    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={20}/>},
-    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={20}/> }
+    { label: "Tổng quan", path: "/quản_trị/overview", icon: <TbRulerMeasure size={isSmallScreen ? 15 : 20} /> },
+    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
+    { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={isSmallScreen ? 15 : 20} />},
+    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
+    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> },
+    { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={isSmallScreen ? 15 : 20} /> },
+    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} />},
+    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> }
   ];
 
   const customizationSubTaskbarItems = [
-    { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={20}/> },
-    { label: "Đơn vị", path: "/tùy_chỉnh/unit", icon: <TbRulerMeasure size={20}/> },
+    { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={isSmallScreen ? 15 : 20} /> },
+    { label: "Đơn vị", path: "/tùy_chỉnh/unit", icon: <TbRulerMeasure size={isSmallScreen ? 15 : 20} /> },
     { label: "Nghỉ chế độ", path: "/tùy_chỉnh/nghỉ_chế_độ"},
     { label: "Phép năm", path: "/tùy_chỉnh/phép_năm" },
     { label: "Phân giờ", path: "/tùy_chỉnh/phân_giờ" },
@@ -230,7 +246,7 @@ const MainPage = () => {
             <div className="extendTaskbarList">
               <div className="extendTaskbarListContainer">
                 <div className="supportInTaskbarList">
-                  <MdOutlineContactSupport size={isSmallScreen ? 10 : 20}/>
+                  <MdOutlineContactSupport size={isSmallScreen ? 15 : 20}/>
                   <span>Hỗ trợ</span>
                 </div>
 
@@ -275,10 +291,16 @@ const MainPage = () => {
                 </div>
               ))}
             </div>
-            {activeTab && (
+            {activeTab ? (
               <div className="tab-content">
                 <div className="tab-body">
                   {renderTabContent()}
+                </div>
+              </div>
+            ) : (
+              <div className="tab-content">
+                <div className="tab-body">
+                  {defaultTabOpen()}
                 </div>
               </div>
             )}

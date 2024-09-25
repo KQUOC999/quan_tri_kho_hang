@@ -35,7 +35,11 @@
   flex-wrap: wrap;
   gap: 0.5vw;
 }
-
+@media screen and (max-width: 1000px) {
+  .subtaskbarItems {
+    font-size: 12px;
+  }
+}
 
 .subtaskbarItems:hover {
   background-color: var(--items-hover-bg);
