@@ -28,6 +28,7 @@ import SubTaskbar from "./SubTaskbar";
 import Account from "../routers/pages/accountLogin/adminAccount";
 import AttendancePage from "../routers/pages/home/AttendancePage";
 import LoadingPage from "../routers/pages/loadingPage/loadingPage";
+import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -43,6 +44,11 @@ const MainPage = () => {
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
+  const [showAccountDetails, setShowAccountDetails] = useState(false);
+
+  const handleOpenAccountClick = () => {
+    setShowAccountDetails(true);
+  };
 
   // Hàm toggle để hiện hoặc ẩn sidebar
   const toggleSidebar = () => {
@@ -291,7 +297,12 @@ const MainPage = () => {
                   </div>
                   <div className="sidebarContent">
                     <ul>
-                      <div className="logoutButtonTaskbar">
+                      <div className="logoutButtonTaskbar" onClick={handleOpenAccountClick}>
+                        {showAccountDetails && (
+                          <div className="accountDetailsContainer">
+                            <AccountDetails />
+                          </div>
+                        )}
                         <RiAccountCircleLine size={isSmallScreen ? 15 : 20} />
                         <li>Tài khoản</li>
                       </div>
