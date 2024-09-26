@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import * as Realm from 'realm-web';
 import './MainPage.css';
+import { useAppContext } from '../routers/pages/appContext/AppContext';
 
 import { FaRegEye } from "react-icons/fa";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -44,11 +45,18 @@ const MainPage = () => {
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
+  const { data } = useAppContext();
   const [showAccountDetails, setShowAccountDetails] = useState(false);
 
   const handleOpenAccountClick = () => {
-    setShowAccountDetails(true);
+    setShowAccountDetails(!showAccountDetails);
   };
+
+  useEffect (() => {
+    if (data === false) {
+      setShowAccountDetails(data)
+    }
+  }, [data])
 
   // Hàm toggle để hiện hoặc ẩn sidebar
   const toggleSidebar = () => {
@@ -298,14 +306,14 @@ const MainPage = () => {
                   <div className="sidebarContent">
                     <ul>
                       <div className="logoutButtonTaskbar" onClick={handleOpenAccountClick}>
-                        {showAccountDetails && (
-                          <div className="accountDetailsContainer">
-                            <AccountDetails />
-                          </div>
-                        )}
                         <RiAccountCircleLine size={isSmallScreen ? 15 : 20} />
                         <li>Tài khoản</li>
                       </div>
+                      {showAccountDetails && (
+                          <div className="accountDetailsContainer">
+                            <AccountDetails />
+                          </div>                       
+                      )}
 
                       <div className="logoutButtonTaskbar">
                         <IoFileTrayStackedOutline size={isSmallScreen ? 15 : 20} />
