@@ -192,6 +192,7 @@ const AccountDetails = ({ initialFormData }) => {
   
     // Xử lý thay đổi cho Tỉnh/Thành phố
     if (currentCity !== selectedCity) {
+      setSelectedDistrict('');
       setSelectedCity(currentCity);
       listDistrict(currentCity);
       const districtEnum = listDistrictEnums; 
