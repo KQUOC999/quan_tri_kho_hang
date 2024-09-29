@@ -273,7 +273,7 @@ const MainPage = () => {
                 <div className="supportInTaskbarList">
                   <MdOutlineContactSupport size={isSmallScreen ? 15 : 20}/>
                   <span>Hỗ trợ</span>
-                  <div class="dropdownContainer">
+                  <div className="dropdownContainer">
                     <div className="dropdownListItem">
                       <li>Hướng dẫn sử dụng</li>
                       <li>Thông tin liên hệ</li>

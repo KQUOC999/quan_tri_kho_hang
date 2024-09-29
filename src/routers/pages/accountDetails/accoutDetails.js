@@ -9,7 +9,9 @@ import LoadingPage from '../loadingPage/loadingPage';
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
+
 const AccountDetails = ({ initialFormData }) => {
+  const [isFormReady, setIsFormReady] = useState(false);
   const [jsonSchemaAccountDetails, setJonSchemaAccountDetails] = useState(null);
   const [showAccountDetails, setShowAccountDetails] = useState(true);
   const [dataDataAdress, setDataAdress] = useState([]);
@@ -73,12 +75,11 @@ const AccountDetails = ({ initialFormData }) => {
     }
     fetchAllData();
   }
-  
+
   useEffect(() => {
     fetchData();
   }, []);
   
-
   const listCity = useCallback(() => {
     if (!dataDataAdress || dataDataAdress.length === 0) {
       return;
@@ -148,11 +149,12 @@ const AccountDetails = ({ initialFormData }) => {
    // Hàm cập nhật enum trong JSON Schema
    const updateJsonSchemaEnums = useCallback(() => {
     if (jsonSchemaAccountDetails) {
-      const updatedSchema = { ...jsonSchemaAccountDetails };
+      const updatedSchema = { ...jsonSchemaAccountDetails};
 
       // Cập nhật enum cho Tỉnh/Thành phố
       if (listCityEnums.length > 0) {
         updatedSchema.properties.userProvinceCity.enum = listCityEnums;
+        console.log(formData)
       }
 
       // Cập nhật enum cho Quận/Huyện
@@ -172,9 +174,12 @@ const AccountDetails = ({ initialFormData }) => {
       if (JSON.stringify(updatedSchema) !== JSON.stringify(jsonSchemaAccountDetails)) {
         setJonSchemaAccountDetails(updatedSchema);
       }
+      if (listCityEnums.length > 0) {
+        setIsFormReady(true);
+      }
       return null;
     }
-  }, [jsonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums]);
+  }, [jsonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums, formData]);
 
   useEffect(() => {
     updateJsonSchemaEnums();
@@ -216,9 +221,8 @@ const AccountDetails = ({ initialFormData }) => {
   
   }, [selectedCity, selectedDistrict, listDistrictEnums, listDistrict, listCommunesWards, listCommunesWardsEnums]);
   
-
-  if (!jsonSchemaAccountDetails || !dataDataAdress.length) {
-    return <LoadingPage />;
+  if (!isFormReady) {
+    return <LoadingPage />; 
   }
 
   return (
