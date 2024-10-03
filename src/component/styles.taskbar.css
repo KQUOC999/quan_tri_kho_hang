@@ -19,6 +19,7 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden; /* Đảm bảo không có phần tử con nào vượt quá */
   width: 100%; 
+  min-height: 50px;
   box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
   gap: 20%;
 }

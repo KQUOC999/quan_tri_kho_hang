@@ -20,17 +20,37 @@
 }
 
 .loadingText {
-  animation: fadeInOut 2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-@keyframes fadeInOut {
-  0% {
-    opacity: 0; /* Bắt đầu với độ mờ 0 */
+.logoImage {
+  width: 10%;
+  height: 10%;
+  z-index: 1;
+}
+
+
+.outerCircle {
+  position: absolute;
+  top: 50%; /* Căn giữa dọc */
+  left: 50%; /* Căn giữa ngang */
+  width: 80px; /* Kích thước của vòng tròn */
+  height: 80px; /* Kích thước của vòng tròn */
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Màu sắc và kích thước của vòng */
+  border-top-color: rgba(75, 192, 192, 1); /* Màu sắc của phần trên */
+  border-radius: 50%; /* Tạo hình tròn */
+  animation: spinOuterCircle 3s linear infinite; /* Hiệu ứng xoay */
+  transform: translate(-50%, -50%); /* Căn giữa vòng tròn */
+}
+
+@keyframes spinOuterCircle {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg); /* Quay 0 độ */
   }
-  50% {
-    opacity: 1; /* Độ mờ 100% */
-  }
-  100% {
-    opacity: 0; /* Kết thúc với độ mờ 0 */
+  to {
+    transform: translate(-50%, -50%) rotate(360deg); /* Quay 360 độ */
   }
 }

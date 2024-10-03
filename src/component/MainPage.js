@@ -27,9 +27,10 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
 import Account from "../routers/pages/accountLogin/adminAccount";
-import AttendancePage from "../routers/pages/home/AttendancePage";
+//import AttendancePage from "../routers/pages/home/AttendancePage";
 import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
+import Overall from "../routers/pages/overAll/overall";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -182,7 +183,7 @@ const MainPage = () => {
     if (openTabs.length === 0 && closeTabStatus !== true) {
       setActiveTab(newTab);
       setOpenTabs([newTab]);
-      return <AttendancePage />;
+      return <Overall />;
     }
     if (openTabs.length === 0 && closeTabStatus === true) {
       return null;
@@ -195,9 +196,9 @@ const MainPage = () => {
 
     switch(activeTab.path) {
       case "/quản_trị/overview":
-        return <AttendancePage />;
+        return <Overall />;
       case "/quản_trị/supplier":
-        return <LoadingPage/>;
+        return null;
       case "/quản_trị/package":
         return null;
       case "/quản_trị/employee":
