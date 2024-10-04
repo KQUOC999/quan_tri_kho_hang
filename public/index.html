@@ -24,11 +24,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <!--Link my style css customer-->
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles_html.css">
+
     <title>React App</title>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+  <body>   
+    <div class= "bodyHTMLPAGE" id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +41,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <footer id="footer">
+      <p>Bản quyền © 2024 Công ty của bạn. Mọi quyền được bảo lưu.</p>
+      <ul>
+        <li><a href="/about">Giới thiệu</a></li>
+        <li><a href="/privacy">Chính sách bảo mật</a></li>
+        <li><a href="/contact">Liên hệ</a></li>
+      </ul>
+    </footer>
+
+    <script>
+      const currentPath = window.location.pathname;
+      const loginPath = '/admitration_warehouse_app/login';
+      if (currentPath === loginPath) {
+        const footer = document.getElementById('footer');
+        if (footer) {
+          footer.style.display = 'none';
+        }
+      }
+    </script>
   </body>
 </html>

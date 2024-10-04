@@ -31,6 +31,7 @@ import Account from "../routers/pages/accountLogin/adminAccount";
 import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 import Overall from "../routers/pages/overAll/overall";
+import Merchandise from "../routers/pages/merchandise/merchandise";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -135,7 +136,8 @@ const MainPage = () => {
       await currentUser.logOut();
       setCurrentUser(null);
       setIsLoggedIn(false);
-      navigate('/admitration_warehouse_app');
+      navigate('/admitration_warehouse_app/login');
+      window.location.reload(true);
     }
   };
 
@@ -197,10 +199,8 @@ const MainPage = () => {
     switch(activeTab.path) {
       case "/quản_trị/overview":
         return <Overall />;
-      case "/quản_trị/supplier":
-        return null;
       case "/quản_trị/package":
-        return null;
+        return <Merchandise />;
       case "/quản_trị/employee":
         return null;
       case "/quản_trị/customer":
@@ -238,13 +238,14 @@ const MainPage = () => {
 
   const attendanceSubTaskbarItems = [
     { label: "Tổng quan", path: "/quản_trị/overview", icon: <FaRegEye size={isSmallScreen ? 15 : 20} /> },
-    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
     { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={isSmallScreen ? 15 : 20} />},
-    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
-    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> },
     { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={isSmallScreen ? 15 : 20} /> },
     { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} /> },
-    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> }
+    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> },
+    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
+    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
+    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> }
+
   ];
 
   const customizationSubTaskbarItems = [
@@ -391,7 +392,7 @@ const MainPage = () => {
       ) : (
         <div className="flex items-center justify-center h-screen">
           <Routes>
-            <Route path="/admitration_warehouse_app" element={<Account />} />
+            <Route path="/admitration_warehouse_app/login" element={<Account />} />
           </Routes>
         </div>
       )}

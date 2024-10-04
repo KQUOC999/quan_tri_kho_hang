@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import * as Realm from 'realm-web';
+import {useNavigate } from 'react-router-dom';
 import Form from '@rjsf/core';
 import validator from '@rjsf/validator-ajv8';
 import video from '../../../video/work.mp4';
@@ -22,7 +23,7 @@ const Account = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const navigate = useNavigate();
 
   const login = async (form) => {
     const { email, password } = form.formData;
@@ -33,6 +34,7 @@ const Account = () => {
       setLoading(false);
       setUser(loggedInUser);
       setIsLoggedIn(true);
+      navigate('/admitration_warehouse_app');
       window.location.reload(true)
 
     } catch (error) {
