@@ -32,7 +32,7 @@ import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 import Overall from "../routers/pages/overAll/overall";
 import Merchandise from "../routers/pages/merchandise/merchandise";
-
+ 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
 const MainPage = () => {
@@ -137,6 +137,7 @@ const MainPage = () => {
       setCurrentUser(null);
       setIsLoggedIn(false);
       navigate('/admitration_warehouse_app');
+      window.location.reload(true);
     }
   };
 

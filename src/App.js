@@ -1,7 +1,11 @@
 import React, { Suspense, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import * as Realm from 'realm-web';
 import MainPage from './component/MainPage';
 import './index.css';
+import Footers from "./routers/pages/footer/footer";
+
+const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,9 +33,10 @@ function App() {
           {!isLoggedIn ? (
             <Route path="/*" element={<Navigate to="/admitration_warehouse_app" />} />
           ) : (
-            <Route path="/*" element={<MainPage />} />
+            <Route path="/*" element={<MainPage />}/>
           )}
         </Routes>
+        {app.currentUser !== null && <Footers />}
       </Suspense>
     </Router>
   );
