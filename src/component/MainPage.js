@@ -261,7 +261,11 @@ const MainPage = () => {
   ];
 
   if (loading) {
-    return <div> <LoadingPage /> </div>;
+    return (
+      <div className="main-page">
+        <div><LoadingPage /> </div>
+      </div>
+    );
   }
   
   return (
