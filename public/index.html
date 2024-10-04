@@ -29,7 +29,8 @@
 
     <title>React App</title>
   </head>
-  <body>   
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class= "bodyHTMLPAGE" id="root"></div>
     <!--
       This HTML file is a template.
@@ -41,7 +42,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <footer id="footer">
+    <footer>
       <p>Bản quyền © 2024 Công ty của bạn. Mọi quyền được bảo lưu.</p>
       <ul>
         <li><a href="/about">Giới thiệu</a></li>
@@ -49,16 +50,5 @@
         <li><a href="/contact">Liên hệ</a></li>
       </ul>
     </footer>
-
-    <script>
-      const currentPath = window.location.pathname;
-      const loginPath = '/admitration_warehouse_app/login';
-      if (currentPath === loginPath) {
-        const footer = document.getElementById('footer');
-        if (footer) {
-          footer.style.display = 'none';
-        }
-      }
-    </script>
   </body>
 </html>

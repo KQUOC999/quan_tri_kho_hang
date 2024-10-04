@@ -27,7 +27,7 @@ function App() {
       <Suspense fallback={<div>Loading....</div>}>
         <Routes>
           {!isLoggedIn ? (
-            <Route path="/*" element={<Navigate to="/admitration_warehouse_app/login" />} />
+            <Route path="/*" element={<Navigate to="/admitration_warehouse_app" />} />
           ) : (
             <Route path="/*" element={<MainPage />} />
           )}

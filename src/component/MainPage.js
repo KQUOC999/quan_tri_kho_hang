@@ -136,8 +136,7 @@ const MainPage = () => {
       await currentUser.logOut();
       setCurrentUser(null);
       setIsLoggedIn(false);
-      navigate('/admitration_warehouse_app/login');
-      window.location.reload(true);
+      navigate('/admitration_warehouse_app');
     }
   };
 
@@ -392,7 +391,7 @@ const MainPage = () => {
       ) : (
         <div className="flex items-center justify-center h-screen">
           <Routes>
-            <Route path="/admitration_warehouse_app/login" element={<Account />} />
+            <Route path="/admitration_warehouse_app" element={<Account />} />
           </Routes>
         </div>
       )}
