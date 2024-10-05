@@ -1,3 +1,41 @@
+
+:root {
+  /* Màu chính (Primary colors) */
+  --contanerBody-color: #3498db; /* Màu xanh biển */
+  --contanerBody-light: #5dade2; /* Màu xanh biển nhạt */
+  --contanerBody-dark: #2e86c1; /* Màu xanh biển đậm */
+
+  /* Màu phụ (Secondary colors) */
+  --Revenue-color: #4CAF50; /* Màu đỏ */
+  --Retail-color: #2196F3; /* Màu đỏ nhạt */
+  --Order-color: #FF7043; /* Màu đỏ đậm */
+  --Inventory-color: #876a37; /* Màu đỏ đậm */
+
+  /* Màu nền (Background colors) */
+  --background-color: #f4f4f4; /* Màu nền chung */
+  --background-item: white; /* Màu nền tối */
+  --background-light: #ffffff; /* Màu nền sáng */
+
+  /* Màu văn bản (Text colors) */
+  --textItems-color: white; /* Màu văn bản chính */
+  --text-light: #ecf0f1; /* Màu văn bản sáng */
+  --text-dark: #876a37; /* Màu văn bản đậm */
+
+  /* Màu nhấn (Accent colors) */
+  --accent-color: #f1c40f; /* Màu vàng nhấn */
+  --accent-light: #f7dc6f; /* Màu vàng nhạt */
+  --accent-dark: #d4ac0d; /* Màu vàng đậm */
+  --activeButtonBackground-color: rgb(176, 176, 176);
+
+  /* Màu cảnh báo, thông báo (Alert colors) */
+  --success-color: #2ecc71; /* Màu xanh lá cho thành công */
+  --error-color: #e74c3c; /* Màu đỏ cho lỗi */
+  --warning-color: #f39c12; /* Màu cam cho cảnh báo */
+
+  /*Đổ bóng chân*/
+  --boxShadow-color: 0 4px 8px rgba(0, 0, 0, 0.1) ;
+}
+
 .main-page {
   display: flex;
   flex-direction: column;
@@ -89,6 +127,9 @@
 }
 
 .tab-body {
+  display: flex;
   flex: 1;
   overflow-y: auto;
+  position: relative;
+  background-color: var(--background-color);
 }
