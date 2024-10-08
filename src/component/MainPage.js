@@ -31,7 +31,7 @@ import Account from "../routers/pages/accountLogin/adminAccount";
 import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 import Overall from "../routers/pages/overAll/overall";
-import Merchandise from "../routers/pages/merchandise/merchandise";
+import Merchandise from "../routers/pages/merchandise/main/merchandise";
  
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
