@@ -213,9 +213,9 @@
 .sidebar {
   position: fixed;
   top: 0;
-  right: -30vw;
-  width: 30vw; 
-  max-width: 300px;
+  right: -40vw;
+  width: 40vw; 
+  max-width: 250px;
   height: 100%;
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
