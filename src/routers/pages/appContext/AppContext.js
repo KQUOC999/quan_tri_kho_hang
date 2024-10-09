@@ -5,11 +5,11 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
     const [data, setData] = useState({});
-    const [addNewItem, setAddNewItem] = useState({});
-    const [closeAddNewItem, setCloseAddNewItem] = useState(false);
+    const [addNewItem, setAddNewItem] = useState(false);
+    const [addPrintCode, setAddPrintCode] = useState(false);
 
     return (
-        <AppContext.Provider value={{ data, setData, addNewItem, setAddNewItem, closeAddNewItem, setCloseAddNewItem }}>
+        <AppContext.Provider value={{   data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode }}>
             {children}
         </AppContext.Provider>
     );
