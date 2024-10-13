@@ -32,7 +32,10 @@ import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 import Overall from "../routers/pages/overAll/overall";
 import Merchandise from "../routers/pages/merchandise/main/merchandise";
- 
+import ImportPackage from "../routers/pages/importPackage/main/importPackage";
+import ExportPackage from "../routers/pages/exportPackage/main/exportPackage";
+import Reporting from "../routers/pages/reporting/reporting";
+
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
 const MainPage = () => {
@@ -206,11 +209,11 @@ const MainPage = () => {
       case "/quản_trị/customer":
         return null;
       case "/quản_trị/importPackage":
-        return null;
+        return <ImportPackage />;
       case "/quản_trị/exportPackage":
-        return null;
+        return <ExportPackage />;
       case "/quản_trị/reporting":
-        return null;
+        return <Reporting />;
 
       case "/tùy_chỉnh/decentralization":
         return null;
@@ -367,7 +370,7 @@ const MainPage = () => {
           <div className="container-main-page">
             <div className="open-tabs">
               {openTabs.reverse().map(tab => (
-                <div key={tab.path} className="tab-item">
+                <div key={tab.path} className={`tab-item ${tab.path === activeTab?.path ? 'active' : ''}`}>
                   <span
                     className={`tab-label ${tab.path === activeTab?.path ? 'active' : ''}`}
                     onClick={() => setActiveTab(tab)}

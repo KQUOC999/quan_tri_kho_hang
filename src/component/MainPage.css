@@ -84,8 +84,13 @@
   margin-right: 5px;
 }
 
+.tab-item.active {
+  background-color: #2303a5;
+}
+
 .tab-item .tab-label.active {
   font-weight: bold;
+  color: white;
 }
 
 .tab-item button {
