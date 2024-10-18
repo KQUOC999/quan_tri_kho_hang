@@ -34,7 +34,7 @@ import Overall from "../routers/pages/overAll/overall";
 import Merchandise from "../routers/pages/merchandise/main/merchandise";
 import ImportPackage from "../routers/pages/importPackage/main/importPackage";
 import ExportPackage from "../routers/pages/exportPackage/main/exportPackage";
-import Reporting from "../routers/pages/reporting/reporting";
+import Reporting from "../routers/pages/reporting/main/reporting";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 

@@ -7,9 +7,11 @@ export const AppProvider = ({ children }) => {
     const [data, setData] = useState({});
     const [addNewItem, setAddNewItem] = useState(false);
     const [addPrintCode, setAddPrintCode] = useState(false);
+    const [selectedDay, setSelectedDay] = useState('Hôm qua');
 
     return (
-        <AppContext.Provider value={{   data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode }}>
+        <AppContext.Provider value={{   data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
+                                        selectedDay, setSelectedDay}}>
             {children}
         </AppContext.Provider>
     );
