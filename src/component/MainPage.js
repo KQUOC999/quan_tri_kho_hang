@@ -35,14 +35,16 @@ import Merchandise from "../routers/pages/merchandise/main/merchandise";
 import ImportPackage from "../routers/pages/importPackage/main/importPackage";
 import ExportPackage from "../routers/pages/exportPackage/main/exportPackage";
 import Reporting from "../routers/pages/reporting/main/reporting";
+import NotAccessPage from "../routers/pages/notAccess/notAccess";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+const highAdminRole = process.env.REACT_APP_HIGH_ADMIN_ROLE;
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(app.currentUser);
-  //const [, setRole] = useState('');
+  const [access, setAccess] = useState(null);
   const [selectedTaskbar, setSelectedTaskbar] = useState(null);
   const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
   const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
@@ -113,7 +115,7 @@ const MainPage = () => {
       }
       const functionName = "adminAccountRole";
       const userProfile = await user.functions[functionName](user.profile.email);
-      console.log(userProfile);
+      setAccess(userProfile?.role);
 
       if (userProfile.error) {
         throw new Error(userProfile.error);
@@ -216,7 +218,8 @@ const MainPage = () => {
         return <Reporting />;
 
       case "/tùy_chỉnh/decentralization":
-        return null;
+        if (access !== highAdminRole) return <NotAccessPage />;
+          return null;
       case "/tùy_chỉnh/unit":
         return null;
       case "/tùy_chỉnh/nghỉ_chế_độ":
@@ -319,9 +322,9 @@ const MainPage = () => {
                         <li>Tài khoản</li>
                       </div>
                       {showAccountDetails && (
-                          <div className="accountDetailsContainer">
-                            <AccountDetails />
-                          </div>                       
+                        <div className="accountDetailsContainer">
+                          <AccountDetails />
+                        </div>                       
                       )}
 
                       <div className="logoutButtonTaskbar">
