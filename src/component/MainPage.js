@@ -36,6 +36,7 @@ import ImportPackage from "../routers/pages/importPackage/main/importPackage";
 import ExportPackage from "../routers/pages/exportPackage/main/exportPackage";
 import Reporting from "../routers/pages/reporting/main/reporting";
 import NotAccessPage from "../routers/pages/notAccess/notAccess";
+import DecentralizationPage from "../routers/pages/decentralization/main/decentralization";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 const highAdminRole = process.env.REACT_APP_HIGH_ADMIN_ROLE;
@@ -219,7 +220,7 @@ const MainPage = () => {
 
       case "/tùy_chỉnh/decentralization":
         if (access !== highAdminRole) return <NotAccessPage />;
-          return null;
+          return <DecentralizationPage />;
       case "/tùy_chỉnh/unit":
         return null;
       case "/tùy_chỉnh/nghỉ_chế_độ":
