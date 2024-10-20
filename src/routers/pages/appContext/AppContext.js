@@ -8,10 +8,11 @@ export const AppProvider = ({ children }) => {
     const [addNewItem, setAddNewItem] = useState(false);
     const [addPrintCode, setAddPrintCode] = useState(false);
     const [selectedDay, setSelectedDay] = useState('Hôm qua');
+    const [addNewEmployees, setAddNewEmployees] = useState(false);
 
     return (
         <AppContext.Provider value={{   data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
-                                        selectedDay, setSelectedDay}}>
+                                        selectedDay, setSelectedDay, addNewEmployees, setAddNewEmployees}}>
             {children}
         </AppContext.Provider>
     );
