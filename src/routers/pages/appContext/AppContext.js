@@ -10,11 +10,13 @@ export const AppProvider = ({ children }) => {
     const [selectedDay, setSelectedDay] = useState('Hôm qua');
     const [addNewEmployees, setAddNewEmployees] = useState(false);
     const [addNewItemImportPackage, setAddNewItemImportPackage] = useState(false);
+    const [addNewItemExportPackage, setAddNewItemExportPackage] = useState(false);
 
     return (
         <AppContext.Provider value={{   data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
                                         selectedDay, setSelectedDay, addNewEmployees, setAddNewEmployees,
-                                        addNewItemImportPackage, setAddNewItemImportPackage}}>
+                                        addNewItemImportPackage, setAddNewItemImportPackage,
+                                        addNewItemExportPackage, setAddNewItemExportPackage}}>
             {children}
         </AppContext.Provider>
     );
