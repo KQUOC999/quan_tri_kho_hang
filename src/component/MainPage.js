@@ -6,8 +6,8 @@ import { useAppContext } from '../routers/pages/appContext/AppContext';
 
 import { FaRegEye } from "react-icons/fa";
 import { IoPeopleOutline } from "react-icons/io5";
-import { RiCustomerService2Line } from "react-icons/ri";
-import { MdOutlineAddHomeWork } from "react-icons/md";
+//import { RiCustomerService2Line } from "react-icons/ri";
+//import { MdOutlineAddHomeWork } from "react-icons/md";
 import { PiPackage } from "react-icons/pi";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { TbPackageImport } from "react-icons/tb";
@@ -251,8 +251,8 @@ const MainPage = () => {
     { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} /> },
     { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> },
     { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
-    { label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
-    { label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> }
+    //{ label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
+    //{ label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> }
 
   ];
 
