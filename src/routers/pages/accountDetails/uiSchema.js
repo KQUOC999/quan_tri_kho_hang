@@ -10,6 +10,13 @@ const uiSchemaAccountDetails = {
   userWardsACommunes: {
     "ui:placeholder": "Chọn phường/xã",
     "ui:widget": "select",
+  },
+  'ui:submitButtonOptions': {
+    submitText: "Lưu",
+    norender: false,
+    props: {
+      disabled: false,
+    }
   }
 };
 

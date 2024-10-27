@@ -38,6 +38,7 @@ import Reporting from "../routers/pages/reporting/main/reporting";
 import NotAccessPage from "../routers/pages/notAccess/notAccess";
 import DecentralizationPage from "../routers/pages/decentralization/main/decentralization";
 import GoogleMap from "../routers/pages/googleMap/googleMap";
+import Employee from "../routers/pages/employee/main/employee";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 const highAdminRole = process.env.REACT_APP_HIGH_ADMIN_ROLE;
@@ -55,7 +56,57 @@ const MainPage = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
   const { data } = useAppContext();
+  const { setFormData } = useAppContext();
+  const { setJonSchemaAccountDetails } = useAppContext();
+  const { setDataAdress } = useAppContext();
   const [showAccountDetails, setShowAccountDetails] = useState(false);
+
+
+  const fetchData = useCallback( () => {
+    async function fetchDataAccountDetails() {
+      try {
+        const functionName = 'call_accountDetails';
+        const response = await app?.currentUser?.callFunction(functionName);
+        const schemaData = response?.public?.input?.jsonSchemaAccountDetail;
+        if (schemaData) {
+          setJonSchemaAccountDetails(schemaData);
+          setFormData(schemaData);
+        } else {
+          console.log("No schema data available");
+        }
+      } catch (error) {
+        console.log("Error fetching account details:", error.message);
+      }
+    }
+  
+    async function fetchDataAdministrativeUnit() {
+      try {
+        const savedData = localStorage.getItem('administrativeData');
+        if (savedData) {
+          setDataAdress(JSON.parse(savedData));
+        } else {
+          const functionName = 'call_administrativeUnit';
+          const response = await app?.currentUser?.callFunction(functionName);
+          if (response) {
+            setDataAdress(response);
+            localStorage.setItem('administrativeData', JSON.stringify(response));
+          }
+        }
+      } catch (error) {
+        console.log('Error fetching administrative data:', error.message);
+      }
+    }
+  
+    async function fetchAllData() {
+      await fetchDataAdministrativeUnit();
+      await fetchDataAccountDetails();
+    }
+    fetchAllData();
+  }, [setFormData, setDataAdress, setJonSchemaAccountDetails])
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleOpenAccountClick = () => {
     setShowAccountDetails(!showAccountDetails);
@@ -209,7 +260,7 @@ const MainPage = () => {
       case "/quản_trị/package":
         return <Merchandise />;
       case "/quản_trị/employee":
-        return null;
+        return <Employee />;
       case "/quản_trị/customer":
         return null;
       case "/quản_trị/importPackage":

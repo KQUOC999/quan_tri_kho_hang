@@ -19,7 +19,7 @@ body {
 }
 .overlay_container {
   background-color: white;
-  padding: 1vw;
+  padding: 20px;
   border-radius: 10px;
   color: #333;
   width: 60%;
@@ -32,7 +32,7 @@ body {
 }
 .container_form {
   background-color: white;
-  padding: 1vw;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -49,4 +49,59 @@ body {
   z-index: 10;
 }
 
-
+.custom_formInfoAccount {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.custom_formInfoAccount .form-group {
+  display: flex;
+  justify-content: space-between;
+}
+.custom_formInfoAccount fieldset{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+@media (max-width: 1100px) {
+  .custom_formInfoAccount fieldset {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+.custom_formInfoAccount fieldset div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom_formInfoAccount legend {
+  display: none;
+}
+.custom_formInfoAccount input,
+.custom_formInfoAccount select {
+  max-width: 200px;
+  width: 50vw;         
+  height: 35px;           
+  padding: 5px;           
+  box-sizing: border-box;  
+}
+.custom_formInfoAccount button {
+  padding: 10px 25px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.custom_formInfoAccount button:active {
+  background-color: var(--activeButtonBackground-color);
+}

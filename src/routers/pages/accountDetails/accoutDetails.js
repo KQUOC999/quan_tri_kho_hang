@@ -9,12 +9,9 @@ import LoadingPage from '../loadingPage/loadingPage';
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
-
 const AccountDetails = ({ initialFormData }) => {
   const [isFormReady, setIsFormReady] = useState(false);
-  const [jsonSchemaAccountDetails, setJonSchemaAccountDetails] = useState(null);
   const [showAccountDetails, setShowAccountDetails] = useState(true);
-  const [dataDataAdress, setDataAdress] = useState([]);
   const [listCityEnums, setListCityEnums] = useState([]);
   const [selectedCity, setSelectedCity] = useState(initialFormData?.userProvinceCity || '');
 
@@ -22,8 +19,12 @@ const AccountDetails = ({ initialFormData }) => {
   const [selectedDistrict, setSelectedDistrict] = useState('');
 
   const [listCommunesWardsEnums, setListCommunesWardsEnums] = useState([]);
+  const { formData } = useAppContext();
+  const { setFormData } = useAppContext();
+  const { jsonSchemaAccountDetails } = useAppContext();
+  const { setJonSchemaAccountDetails } = useAppContext();
+  const { dataDataAdress } = useAppContext();
   const { setData } = useAppContext();
-  const [formData, setFormData] = useState(initialFormData || {});
 
   const handleCloseAccountClick = () => {
     const updatedShowAccountDetails = !showAccountDetails;
@@ -33,53 +34,7 @@ const AccountDetails = ({ initialFormData }) => {
         setData({});
     }, 1000);
   };
-
-  function fetchData() {
-    async function fetchDataAccountDetails() {
-      try {
-        const functionName = 'call_accountDetails';
-        const response = await app?.currentUser?.callFunction(functionName);
-        const schemaData = response?.public?.input?.jsonSchemaAccountDetail;
-        if (schemaData) {
-          setJonSchemaAccountDetails(schemaData);
-          setFormData(schemaData);
-        } else {
-          console.log("No schema data available");
-        }
-      } catch (error) {
-        console.log("Error fetching account details:", error.message);
-      }
-    }
-  
-    async function fetchDataAdministrativeUnit() {
-      try {
-        const savedData = localStorage.getItem('administrativeData');
-        if (savedData) {
-          setDataAdress(JSON.parse(savedData));
-        } else {
-          const functionName = 'call_administrativeUnit';
-          const response = await app?.currentUser?.callFunction(functionName);
-          if (response) {
-            setDataAdress(response);
-            localStorage.setItem('administrativeData', JSON.stringify(response));
-          }
-        }
-      } catch (error) {
-        console.log('Error fetching administrative data:', error.message);
-      }
-    }
-  
-    async function fetchAllData() {
-      await fetchDataAdministrativeUnit();
-      await fetchDataAccountDetails();
-    }
-    fetchAllData();
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-  
+ 
   const listCity = useCallback(() => {
     if (!dataDataAdress || dataDataAdress.length === 0) {
       return;
@@ -179,7 +134,7 @@ const AccountDetails = ({ initialFormData }) => {
       }
       return null;
     }
-  }, [jsonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums, formData]);
+  }, [jsonSchemaAccountDetails, setJonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums, formData]);
 
   useEffect(() => {
     updateJsonSchemaEnums();
@@ -220,9 +175,9 @@ const AccountDetails = ({ initialFormData }) => {
       setFormData(updatedSchema);
     }
   
-  }, [selectedCity, selectedDistrict, listDistrictEnums, listDistrict, listCommunesWards, listCommunesWardsEnums]);
+  }, [selectedCity, selectedDistrict, listDistrictEnums, listDistrict, listCommunesWards, listCommunesWardsEnums, setFormData]);
   
-  if (!isFormReady) {
+  if (!isFormReady || !app.currentUser) {
     return <LoadingPage />; 
   }
 
@@ -233,7 +188,7 @@ const AccountDetails = ({ initialFormData }) => {
         <div className={styles.overlay_content}>
           <div className={styles.container_form}>
             <Form
-              className={styles.custom_form}
+              className={styles.custom_formInfoAccount}
               schema={jsonSchemaAccountDetails}
               validator={validator}
               onChange={handleFormChange}
