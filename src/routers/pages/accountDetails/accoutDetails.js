@@ -109,7 +109,6 @@ const AccountDetails = ({ initialFormData }) => {
       // Cập nhật enum cho Tỉnh/Thành phố
       if (listCityEnums.length > 0) {
         updatedSchema.properties.userProvinceCity.enum = listCityEnums;
-        console.log(formData)
       }
 
       // Cập nhật enum cho Quận/Huyện
@@ -134,7 +133,7 @@ const AccountDetails = ({ initialFormData }) => {
       }
       return null;
     }
-  }, [jsonSchemaAccountDetails, setJonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums, formData]);
+  }, [jsonSchemaAccountDetails, setJonSchemaAccountDetails, listCityEnums, listDistrictEnums, listCommunesWardsEnums]);
 
   useEffect(() => {
     updateJsonSchemaEnums();
