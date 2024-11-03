@@ -15,13 +15,23 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [addNewEmployeesDecentralization, setAddNewEmployeesDecentralization] = useState(false);
     const [addNewItemImportPackage, setAddNewItemImportPackage] = useState(false);
     const [addNewItemExportPackage, setAddNewItemExportPackage] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const [activePage, setActivePage] = useState('product');
+
+    const handleNavigation = (page) => {
+        setActivePage(page);
+        setIsVisible(false);
+        
+        localStorage.setItem('activePageMerchandise', page);
+    };
 
     return (
         <AppContext.Provider value={{   dataDataAdress, setDataAdress, formData, setFormData, jsonSchemaAccountDetails, setJonSchemaAccountDetails,
                                         data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
                                         selectedDay, setSelectedDay, addNewEmployeesDecentralization, setAddNewEmployeesDecentralization,
                                         addNewEmployees, setAddNewEmployees, addNewItemImportPackage, setAddNewItemImportPackage,
-                                        addNewItemExportPackage, setAddNewItemExportPackage}}>
+                                        addNewItemExportPackage, setAddNewItemExportPackage,
+                                        isVisible, setIsVisible, activePage, setActivePage, handleNavigation }}>
             {children}
         </AppContext.Provider>
     );
