@@ -11,6 +11,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^5.16.4",
+    "@mui/material": "^6.1.6",
     "@mui/x-data-grid": "^7.22.0",
     "@mui/x-data-grid-pro": "^7.22.0",
     "@react-spring/web": "^9.7.4",

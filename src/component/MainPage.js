@@ -41,13 +41,11 @@ import GoogleMap from "../routers/pages/googleMap/googleMap";
 import Employee from "../routers/pages/employee/main/employee";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
-const highAdminRole = process.env.REACT_APP_HIGH_ADMIN_ROLE;
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(app.currentUser);
-  const [access, setAccess] = useState(null);
   const [selectedTaskbar, setSelectedTaskbar] = useState(null);
   const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
   const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
@@ -55,6 +53,8 @@ const MainPage = () => {
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
+  const {access} = useAppContext();
+  const {setAccess} = useAppContext();
   const { data } = useAppContext();
   const { setFormData } = useAppContext();
   const { setJonSchemaAccountDetails } = useAppContext();
@@ -181,7 +181,7 @@ const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, setAccess]);
 
   useEffect (() => {
     if (isLoggedIn) {
@@ -271,7 +271,7 @@ const MainPage = () => {
         return <Reporting />;
 
       case "/tùy_chỉnh/decentralization":
-        if (access !== highAdminRole) return <NotAccessPage />;
+        if (access !== process.env.REACT_APP_HIGH_ADMIN_ROLE) return <NotAccessPage />;
           return <DecentralizationPage />;
       case "/tùy_chỉnh/unit":
         return <GoogleMap />;
