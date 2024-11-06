@@ -13,7 +13,6 @@ import { IoAccessibilityOutline } from "react-icons/io5";
 import { TbPackageImport } from "react-icons/tb";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPackageExport } from "react-icons/tb";
-import { TbRulerMeasure } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { BiMessageEdit } from "react-icons/bi";
@@ -23,11 +22,11 @@ import { IoFileTrayStackedOutline } from "react-icons/io5";
 import { LuFileBarChart2 } from "react-icons/lu";
 import { BiPrinter } from "react-icons/bi";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { FaUserLock } from "react-icons/fa6";
 
 import Taskbar from "./T_MainTaskbar";
 import SubTaskbar from "./SubTaskbar";
 import Account from "../routers/pages/accountLogin/adminAccount";
-//import AttendancePage from "../routers/pages/home/AttendancePage";
 import LoadingPage from "../routers/pages/loadingPage/loadingPage";
 import AccountDetails from "../routers/pages/accountDetails/accoutDetails";
 import Overall from "../routers/pages/overAll/overall";
@@ -47,20 +46,21 @@ const MainPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(app.currentUser);
   const [selectedTaskbar, setSelectedTaskbar] = useState(null);
-  const [openTabs, setOpenTabs] = useState([]); // State to store open tabs
-  const [activeTab, setActiveTab] = useState(null); // State to store the currently active tab
+  const [openTabs, setOpenTabs] = useState([]);
+  const [activeTab, setActiveTab] = useState(null);
   const navigate = useNavigate();
   const [closeTabStatus, setCloseTabStatus] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
   const [isVisible, setIsVisible] = useState(false);
+  const [showAccountDetails, setShowAccountDetails] = useState(false);
+
   const {access} = useAppContext();
   const {setAccess} = useAppContext();
   const { data } = useAppContext();
   const { setFormData } = useAppContext();
   const { setJonSchemaAccountDetails } = useAppContext();
   const { setDataAdress } = useAppContext();
-  const [showAccountDetails, setShowAccountDetails] = useState(false);
-
+  const { permissionUsePageAccess } = useAppContext();
 
   const fetchData = useCallback( () => {
     async function fetchDataAccountDetails() {
@@ -256,19 +256,28 @@ const MainPage = () => {
 
     switch(activeTab.path) {
       case "/quản_trị/overview":
+        if (permissionUsePageAccess(access, 'Tổng quan') !== true) return <NotAccessPage />;
         return <Overall />;
+
       case "/quản_trị/package":
+        if (permissionUsePageAccess(access, 'Hàng hóa') !== true) return <NotAccessPage />;
         return <Merchandise />;
-      case "/quản_trị/employee":
-        return <Employee />;
-      case "/quản_trị/customer":
-        return null;
+
       case "/quản_trị/importPackage":
+        if (permissionUsePageAccess(access, 'Nhập hàng') !== true) return <NotAccessPage />;
         return <ImportPackage />;
+
       case "/quản_trị/exportPackage":
+        if (permissionUsePageAccess(access, 'Xuất hàng') !== true) return <NotAccessPage />;
         return <ExportPackage />;
+
       case "/quản_trị/reporting":
+        if (permissionUsePageAccess(access, 'Báo cáo') !== true) return <NotAccessPage />;
         return <Reporting />;
+
+      case "/quản_trị/employee":
+        if (permissionUsePageAccess(access, 'Nhân viên') !== true) return <NotAccessPage />;
+        return <Employee />;
 
       case "/tùy_chỉnh/decentralization":
         if (access !== process.env.REACT_APP_HIGH_ADMIN_ROLE) return <NotAccessPage />;
@@ -296,12 +305,23 @@ const MainPage = () => {
   ];
 
   const attendanceSubTaskbarItems = [
-    { label: "Tổng quan", path: "/quản_trị/overview", icon: <FaRegEye size={isSmallScreen ? 15 : 20} /> },
-    { label: "Hàng hóa", path: "/quản_trị/package", icon: <PiPackage size={isSmallScreen ? 15 : 20} />},
-    { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: <TbPackageImport size={isSmallScreen ? 15 : 20} /> },
-    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: <TbPackageExport size={isSmallScreen ? 15 : 20} /> },
-    { label: "Báo cáo", path: "/quản_trị/reporting", icon: <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> },
-    { label: "Nhân viên", path: "/quản_trị/employee", icon: <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
+    { label: "Tổng quan", path: "/quản_trị/overview", icon: permissionUsePageAccess(access, 'Tổng quan') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <FaRegEye size={isSmallScreen ? 15 : 20}/> },
+
+    { label: "Hàng hóa", path: "/quản_trị/package", icon: permissionUsePageAccess(access, 'Hàng hóa') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <PiPackage size={isSmallScreen ? 15 : 20} />},
+
+    { label: "Nhập hàng", path: "/quản_trị/importPackage", icon: permissionUsePageAccess(access, 'Nhập hàng') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <TbPackageImport size={isSmallScreen ? 15 : 20} /> },
+
+    { label: "Xuất hàng", path: "/quản_trị/exportPackage", icon: permissionUsePageAccess(access, 'Xuất hàng') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <TbPackageExport size={isSmallScreen ? 15 : 20} /> },
+
+    { label: "Báo cáo", path: "/quản_trị/reporting", icon: permissionUsePageAccess(access, 'Báo cáo') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <TbReportAnalytics size={isSmallScreen ? 15 : 20} /> },
+
+    { label: "Nhân viên", path: "/quản_trị/employee", icon: permissionUsePageAccess(access, 'Nhân viên') !== true 
+      ? <FaUserLock size={isSmallScreen ? 15 : 20} /> : <IoPeopleOutline size={isSmallScreen ? 15 : 20} /> },
     //{ label: "Nhà cung cấp", path: "/quản_trị/supplier", icon: <MdOutlineAddHomeWork size={isSmallScreen ? 15 : 20} /> },
     //{ label: "Khách hàng", path: "/quản_trị/customer", icon: <RiCustomerService2Line size={isSmallScreen ? 15 : 20} /> }
 
@@ -309,6 +329,7 @@ const MainPage = () => {
 
   const customizationSubTaskbarItems = [
     { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={isSmallScreen ? 15 : 20} /> },
+    /*
     { label: "Đơn vị", path: "/tùy_chỉnh/unit", icon: <TbRulerMeasure size={isSmallScreen ? 15 : 20} /> },
     { label: "Nghỉ chế độ", path: "/tùy_chỉnh/nghỉ_chế_độ"},
     { label: "Phép năm", path: "/tùy_chỉnh/phép_năm" },
@@ -317,6 +338,7 @@ const MainPage = () => {
     { label: "Form", path: "/form-page" },
     { label: "NodeRed", path: "/client-page" },
     { label: "Search", path: "/search-page" }
+    */
   ];
 
   if (loading) {
