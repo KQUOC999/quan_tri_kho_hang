@@ -18,6 +18,7 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [activePage, setActivePage] = useState('product');
     const [access, setAccess] = useState(null);
+    const [isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage] = useState(true);
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: false, mediumAdminRole: false, lowAdminRole: true },
@@ -196,7 +197,8 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         permissionsHighAdmin, setPermissionsHighAdmin,
                                         permissionsMediumAdmin, setPermissionsMediumAdmin,
                                         permissionsLowAdmin, setPermissionsLowAdmin,
-                                        permissionUsePageAccess }}>
+                                        permissionUsePageAccess,
+                                        isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage }}>
             {children}
         </AppContext.Provider>
     );
