@@ -1,7 +1,10 @@
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as Realm from 'realm-web';
 
 const AppContext = createContext();
+
+const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
 export const AppProvider = ({ children, initialFormData }) => {
     const [formData, setFormData] = useState(initialFormData || {});
@@ -19,6 +22,8 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [activePage, setActivePage] = useState('product');
     const [access, setAccess] = useState(null);
     const [isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage] = useState(true);
+    const [rowDataDefault, setRowDataDefault] = useState([]);
+    const [loadingDataFetch, setLoadingDataFetch] = useState(true);
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -184,6 +189,102 @@ export const AppProvider = ({ children, initialFormData }) => {
         return false;
       }
 
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const functionName = 'call_productList_INLIST_FC';
+          const response = await app?.currentUser?.callFunction(functionName);
+          const arrangeDataFillTable = response.map((item, index) => ({
+            iD: index,
+            productName:      item['Form SP']?.nameProduct,
+            productType:      item['Form SP']?.nameProductDad,
+            typeCodeProduct:  item['Form SP']?.typeCodeProduct,
+            code:             item['Form SP']?.code,
+            dateCreated:      item['Form SP']?.dateCreated,
+            giaVon:           item['Form SP']?.giaNhap,
+            giaBan:           item['Form SP']?.giaBan,
+            quantity:         item['Form TK']?.numbersProduct,
+            DvTinh:           item['Form DM']?.unitCaculation,
+          }));
+    
+          setRowDataDefault(arrangeDataFillTable);
+
+          const uniqueProductTypes = [...new Set(arrangeDataFillTable.map(item => item.productType))];
+          const uniqueUnitCaculations = [...new Set(arrangeDataFillTable.map(item => item.DvTinh))];
+
+          setFilterProductsSchemaFormSP(prevSchema => ({
+            ...prevSchema,
+            properties: {
+              ...prevSchema.properties,
+              nameProductDad: {
+                ...prevSchema.properties.nameProductDad,
+                enum: ['', ...uniqueProductTypes]
+              }
+            }
+          }));
+
+          setfilterProductsSchemaDM(prevSchema => ({
+            ...prevSchema,
+            properties: {
+              ...prevSchema.properties,
+              unitCaculation: {
+                ...prevSchema.properties.unitCaculation,
+                enum: ['', ...uniqueUnitCaculations]
+              }
+            }
+          }));
+
+        } catch (error) {
+          return error.error;
+        } finally {
+          setLoadingDataFetch(false);
+        }
+      }
+    
+      fetchData();
+    }, []);
+
+    const [filterProductsSchemaFormSP, setFilterProductsSchemaFormSP] = useState({
+      title: 'Form SP',
+      type: 'object',
+      required: ['nameProduct', 'nameProductDad', 'typeCodeProduct', 'code', 'giaNhap', 'giaBan', 'dateCreated' ],
+      properties: {
+        nameProduct: { type: 'string', title: 'Tên SP'},
+        nameProductDad: { type: 'string', title: 'Loại SP', enum: ['', 'Dầu gội', 'Sữa tắm']},
+        typeCodeProduct: {type: 'string', title: 'Loại mã', enum: ['', 'Mã vạch', 'Mã QR', 'Khác']},
+        code: {type: 'string', title: 'Mã'},
+        giaNhap: {type: 'number', title: 'Giá nhập'},
+        giaBan: { type: 'number', title: 'Giá bán'},
+        statusProduct: { type: 'string', title: 'Trạng thái', enum: ['', 'Mới', 'Đang bán', 'Ngừng bán', 'Hết hàng']},
+        dateCreated: { type: 'string', title: 'Ngày tạo', format: 'date'},
+      },
+    });
+    
+    const [filterProductsSchemaDM, setfilterProductsSchemaDM] = useState({
+      title: 'Form DM',
+      type: 'object',
+      required: ['danhMuc', 'unitCaculation'],
+      properties: {
+        danhMuc: { type: 'string', title: 'Danh mục'},
+        thuongHieu: {type: 'string', title: 'Thương hiệu'},
+        weightProduct: { type: 'string', title: 'Khối lượng'},
+        unitCaculation: {type: 'string', title: 'Đơn vị tính', enum: ['', 'Cái', 'Chai', 'Hộp']},
+        sizeProduct: {type: 'string', title: 'Kích thước'},
+        imgProduct: { type: 'string', title: 'Ảnh đại diện'}
+      },
+    });
+    
+    const filterInventoryProductTK = {
+      title: 'Form TK',
+      type: 'object',
+      required: ['numbersProduct'],
+      properties: {
+        numbersProduct: {type: 'number', title: 'Số lượng'},
+        stores: {type: 'string', title: 'Cửa hàng'},
+        providers: { type: 'string', title: 'Nhà cung cấp'}
+      },
+    };
+
     return (
         <AppContext.Provider value={{   dataDataAdress, setDataAdress, formData, setFormData, jsonSchemaAccountDetails, setJonSchemaAccountDetails,
                                         data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
@@ -198,7 +299,11 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         permissionsMediumAdmin, setPermissionsMediumAdmin,
                                         permissionsLowAdmin, setPermissionsLowAdmin,
                                         permissionUsePageAccess,
-                                        isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage }}>
+                                        isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage,
+                                        rowDataDefault, setRowDataDefault, loadingDataFetch, setLoadingDataFetch,
+                                        filterProductsSchemaFormSP, setFilterProductsSchemaFormSP,
+                                        filterProductsSchemaDM, setfilterProductsSchemaDM,
+                                        filterInventoryProductTK }}>
             {children}
         </AppContext.Provider>
     );
