@@ -22,8 +22,11 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [activePage, setActivePage] = useState('product');
     const [access, setAccess] = useState(null);
     const [isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage] = useState(true);
+    const [isShowButtonBackVoteListPage, setIsShowButtonBackProductVoteListPage] = useState(true);
     const [rowDataDefault, setRowDataDefault] = useState([]);
     const [loadingDataFetch, setLoadingDataFetch] = useState(true);
+    const [isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch] = useState(false);
+    const [numberVoteShowing, setNumberVoteShowing] = useState('');
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -300,10 +303,13 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         permissionsLowAdmin, setPermissionsLowAdmin,
                                         permissionUsePageAccess,
                                         isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage,
+                                        isShowButtonBackVoteListPage, setIsShowButtonBackProductVoteListPage,
                                         rowDataDefault, setRowDataDefault, loadingDataFetch, setLoadingDataFetch,
                                         filterProductsSchemaFormSP, setFilterProductsSchemaFormSP,
                                         filterProductsSchemaDM, setfilterProductsSchemaDM,
-                                        filterInventoryProductTK }}>
+                                        filterInventoryProductTK,
+                                        isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch,
+                                        numberVoteShowing, setNumberVoteShowing }}>
             {children}
         </AppContext.Provider>
     );
