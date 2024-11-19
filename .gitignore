@@ -29,4 +29,4 @@ yarn-error.log*
 /node_modules
 
 # Bỏ qua AppContext folder
-src/routers/pages/appContext/
+src/routers/pages/appContext
