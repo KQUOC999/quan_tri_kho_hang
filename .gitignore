@@ -27,3 +27,6 @@ yarn-error.log*
 /src
 /public
 /node_modules
+
+# Bỏ qua AppContext folder
+appContext/
