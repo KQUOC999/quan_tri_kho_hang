@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import * as Realm from 'realm-web';
+import { ToastContainer } from "react-toastify";
 import './MainPage.css';
 import { useAppContext } from '../routers/pages/appContext/AppContext';
 
@@ -351,6 +352,7 @@ const MainPage = () => {
   
   return (
     <div className="main-page">
+      <ToastContainer autoClose={2000} />
       {isLoggedIn ? (
         <>
           <div className="taskbar-container">

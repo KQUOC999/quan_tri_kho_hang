@@ -27,6 +27,8 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [loadingDataFetch, setLoadingDataFetch] = useState(true);
     const [isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch] = useState(false);
     const [numberVoteShowing, setNumberVoteShowing] = useState('');
+    const [addProductTypesEnumsSP, setAddProductTypesEnumsSP] = useState('');
+    const [addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM] = useState('');
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -221,7 +223,7 @@ export const AppProvider = ({ children, initialFormData }) => {
               ...prevSchema.properties,
               nameProductDad: {
                 ...prevSchema.properties.nameProductDad,
-                enum: ['', ...uniqueProductTypes]
+                enum: [ ...(addProductTypesEnumsSP ? ['', addProductTypesEnumsSP] : ['']), ...uniqueProductTypes]
               }
             }
           }));
@@ -232,7 +234,7 @@ export const AppProvider = ({ children, initialFormData }) => {
               ...prevSchema.properties,
               unitCaculation: {
                 ...prevSchema.properties.unitCaculation,
-                enum: ['', ...uniqueUnitCaculations]
+                enum: [ ...(addUnitcalculateEnumsDM ? ['', addUnitcalculateEnumsDM] : ['']), ...uniqueUnitCaculations]
               }
             }
           }));
@@ -245,7 +247,7 @@ export const AppProvider = ({ children, initialFormData }) => {
       }
     
       fetchData();
-    }, []);
+    }, [addProductTypesEnumsSP, addUnitcalculateEnumsDM]);
 
     const [filterProductsSchemaFormSP, setFilterProductsSchemaFormSP] = useState({
       title: 'Form SP',
@@ -309,7 +311,9 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         filterProductsSchemaDM, setfilterProductsSchemaDM,
                                         filterInventoryProductTK,
                                         isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch,
-                                        numberVoteShowing, setNumberVoteShowing }}>
+                                        numberVoteShowing, setNumberVoteShowing,
+                                        addProductTypesEnumsSP, setAddProductTypesEnumsSP,
+                                        addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM }}>
             {children}
         </AppContext.Provider>
     );
