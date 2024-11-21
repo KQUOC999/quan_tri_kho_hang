@@ -23,10 +23,14 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [access, setAccess] = useState(null);
     const [isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage] = useState(true);
     const [isShowButtonBackVoteListPage, setIsShowButtonBackProductVoteListPage] = useState(true);
+    const [isShowButtonBackProductExportPage, setIsShowButtonBackProductExportPage] = useState(true);
+    const [isShowButtonBackVoteListExportPage, setIsShowButtonBackProductVoteListExportPage] = useState(true);
     const [rowDataDefault, setRowDataDefault] = useState([]);
     const [loadingDataFetch, setLoadingDataFetch] = useState(true);
     const [isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch] = useState(false);
+    const [isOpenAddVotesPageBySearchExportPage, setIsOpenAddVotesPageBySearchExportPage] = useState(false);
     const [numberVoteShowing, setNumberVoteShowing] = useState('');
+    const [numberVoteShowingExportPage, setNumberVoteShowingExportPage] = useState('');
     const [addProductTypesEnumsSP, setAddProductTypesEnumsSP] = useState('');
     const [addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM] = useState('');
 
@@ -306,12 +310,16 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         permissionUsePageAccess,
                                         isShowButtonBackProductImportPage, setIsShowButtonBackProductImportPage,
                                         isShowButtonBackVoteListPage, setIsShowButtonBackProductVoteListPage,
+                                        isShowButtonBackProductExportPage, setIsShowButtonBackProductExportPage,
+                                        isShowButtonBackVoteListExportPage, setIsShowButtonBackProductVoteListExportPage,
                                         rowDataDefault, setRowDataDefault, loadingDataFetch, setLoadingDataFetch,
                                         filterProductsSchemaFormSP, setFilterProductsSchemaFormSP,
                                         filterProductsSchemaDM, setfilterProductsSchemaDM,
                                         filterInventoryProductTK,
                                         isOpenAddVotesPageBySearch, setIsOpenAddVotesPageBySearch,
+                                        isOpenAddVotesPageBySearchExportPage, setIsOpenAddVotesPageBySearchExportPage,
                                         numberVoteShowing, setNumberVoteShowing,
+                                        numberVoteShowingExportPage, setNumberVoteShowingExportPage,
                                         addProductTypesEnumsSP, setAddProductTypesEnumsSP,
                                         addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM }}>
             {children}
