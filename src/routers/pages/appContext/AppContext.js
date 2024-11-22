@@ -33,6 +33,7 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [numberVoteShowingExportPage, setNumberVoteShowingExportPage] = useState('');
     const [addProductTypesEnumsSP, setAddProductTypesEnumsSP] = useState('');
     const [addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM] = useState('');
+    const [isReloadDataExportVote, setIsReloadDataExportVote] = useState(false);
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -321,7 +322,8 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         numberVoteShowing, setNumberVoteShowing,
                                         numberVoteShowingExportPage, setNumberVoteShowingExportPage,
                                         addProductTypesEnumsSP, setAddProductTypesEnumsSP,
-                                        addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM }}>
+                                        addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM,
+                                        isReloadDataExportVote, setIsReloadDataExportVote }}>
             {children}
         </AppContext.Provider>
     );
