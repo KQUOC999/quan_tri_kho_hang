@@ -186,19 +186,19 @@ export const AppProvider = ({ children, initialFormData }) => {
       ]);
 
     const permissionUsePageAccess = (access, pages) => {
-        let permissions;
-        if (access === process.env.REACT_APP_HIGH_ADMIN_ROLE) {
-          permissions = permissionsHighAdmin;
-        } else if (access === process.env.REACT_APP_MEDIUM_ADMIN_ROLE) {
-          permissions = permissionsMediumAdmin;
-        } else if (access === process.env.REACT_APP_LOW_ADMIN_ROLE) {
-          permissions = permissionsLowAdmin;
-        }
-        if (permissions) {
-          return permissions.filter(item => item.checked === true).some(e => e.label === pages);
-        }
-        return false;
+      let permissions;
+      if (access === process.env.REACT_APP_HIGH_ADMIN_ROLE) {
+        permissions = permissionsHighAdmin;
+      } else if (access === process.env.REACT_APP_MEDIUM_ADMIN_ROLE) {
+        permissions = permissionsMediumAdmin;
+      } else if (access === process.env.REACT_APP_LOW_ADMIN_ROLE) {
+        permissions = permissionsLowAdmin;
       }
+      if (permissions) {
+        return permissions.filter(item => item.checked === true).some(e => e.label === pages);
+      }
+      return false;
+    };
 
     useEffect(() => {
       async function fetchData() {
