@@ -11,6 +11,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 //import { MdOutlineAddHomeWork } from "react-icons/md";
 import { PiPackage } from "react-icons/pi";
 import { IoAccessibilityOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 import { TbPackageImport } from "react-icons/tb";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPackageExport } from "react-icons/tb";
@@ -39,6 +40,7 @@ import NotAccessPage from "../routers/pages/notAccess/notAccess";
 import DecentralizationPage from "../routers/pages/decentralization/main/decentralization";
 import GoogleMap from "../routers/pages/googleMap/googleMap";
 import Employee from "../routers/pages/employee/main/employee";
+import SettingAll from "../routers/pages/setting/main/settingAll";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -285,8 +287,8 @@ const MainPage = () => {
           return <DecentralizationPage />;
       case "/tùy_chỉnh/unit":
         return <GoogleMap />;
-      case "/tùy_chỉnh/nghỉ_chế_độ":
-        return null;
+      case "/tùy_chỉnh/setting":
+        return <SettingAll />;
       case "/tùy_chỉnh/phép_năm":
         return null;
       case "/tùy_chỉnh/phân_giờ":
@@ -330,6 +332,7 @@ const MainPage = () => {
 
   const customizationSubTaskbarItems = [
     { label: "Phân quyền", path: "/tùy_chỉnh/decentralization", icon: <IoAccessibilityOutline size={isSmallScreen ? 15 : 20} /> },
+    { label: "Cài đặt", path: "/tùy_chỉnh/setting", icon: <IoSettingsOutline size={isSmallScreen ? 15 : 20} /> },
     /*
     { label: "Đơn vị", path: "/tùy_chỉnh/unit", icon: <TbRulerMeasure size={isSmallScreen ? 15 : 20} /> },
     { label: "Nghỉ chế độ", path: "/tùy_chỉnh/nghỉ_chế_độ"},

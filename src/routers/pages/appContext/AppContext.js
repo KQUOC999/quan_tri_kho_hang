@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import * as Realm from 'realm-web';
 
 const AppContext = createContext();
@@ -35,6 +35,8 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM] = useState('');
     const [isReloadDataExportVote, setIsReloadDataExportVote] = useState(false);
     const [isReloadDataImportVote, setIsReloadDataImportVote] = useState(false);
+    const [isReloadDataProductList, setIsReloadDataProductList] = useState(false);
+    const innerScrollRef = useRef(null);
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -249,14 +251,15 @@ export const AppProvider = ({ children, initialFormData }) => {
           return error.error;
         } finally {
           setLoadingDataFetch(false);
+          setIsReloadDataProductList(false);
         }
       }
     
       fetchData();
-      if (isReloadDataImportVote || isReloadDataExportVote) {
+      if (isReloadDataImportVote || isReloadDataExportVote || isReloadDataProductList) {
         fetchData();
       };
-    }, [addProductTypesEnumsSP, addUnitcalculateEnumsDM, isReloadDataImportVote, isReloadDataExportVote]);
+    }, [addProductTypesEnumsSP, addUnitcalculateEnumsDM, isReloadDataImportVote, isReloadDataExportVote, isReloadDataProductList]);
 
     const [filterProductsSchemaFormSP, setFilterProductsSchemaFormSP] = useState({
       title: 'Form SP',
@@ -328,7 +331,9 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         addProductTypesEnumsSP, setAddProductTypesEnumsSP,
                                         addUnitcalculateEnumsDM, setAddUnitcalculateEnumsDM,
                                         isReloadDataExportVote, setIsReloadDataExportVote,
-                                        isReloadDataImportVote, setIsReloadDataImportVote }}>
+                                        isReloadDataImportVote, setIsReloadDataImportVote,
+                                        isReloadDataProductList, setIsReloadDataProductList,
+                                        innerScrollRef }}>
             {children}
         </AppContext.Provider>
     );
