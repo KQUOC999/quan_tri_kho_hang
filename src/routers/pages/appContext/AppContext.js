@@ -89,103 +89,145 @@ export const AppProvider = ({ children, initialFormData }) => {
     };
 
     const [permissionsHighAdmin, setPermissionsHighAdmin] = useState([
-        {
-          label: "Tổng quan",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
-          checked: true
-        },
-        {
-          label: "Hàng hóa",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
-          checked: true
-        },
-        {
-          label: "Nhập hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
-          checked: true
-        },
-        {
-          label: "Xuất hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
-          checked: true
-        },
-        {
-          label: "Báo cáo",
-          description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
-          checked: true
-        },
-        {
-          label: "Nhân viên",
-          description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
-          checked: true
-        }    
-      ]);
+      {
+        label: "Tổng quan",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
+        checked: true
+      },
+      {
+        label: "Hàng hóa",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
+        checked: true
+      },
+      {
+        label: "Nhập hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
+        checked: true
+      },
+      {
+        label: "Xuất hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
+        checked: true
+      },
+      {
+        label: "Báo cáo",
+        description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
+        checked: true
+      },
+      {
+        label: "Nhân viên",
+        description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
+        checked: true
+      }    
+    ]);
+  
+    const [permissionsMediumAdmin, setPermissionsMediumAdmin] = useState([
+      {
+        label: "Tổng quan",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
+        checked: false
+      },
+      {
+        label: "Hàng hóa",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
+        checked: false
+      },
+      {
+        label: "Nhập hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
+        checked: true
+      },
+      {
+        label: "Xuất hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
+        checked: false
+      },
+      {
+        label: "Báo cáo",
+        description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
+        checked: false
+      },
+      {
+        label: "Nhân viên",
+        description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
+        checked: false
+      }    
+    ]);
     
-      const [permissionsMediumAdmin, setPermissionsMediumAdmin] = useState([
-        {
-          label: "Tổng quan",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
-          checked: false
-        },
-        {
-          label: "Hàng hóa",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
-          checked: false
-        },
-        {
-          label: "Nhập hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
-          checked: true
-        },
-        {
-          label: "Xuất hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
-          checked: false
-        },
-        {
-          label: "Báo cáo",
-          description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
-          checked: false
-        },
-        {
-          label: "Nhân viên",
-          description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
-          checked: false
-        }    
-      ]);
-    
-      const [permissionsLowAdmin, setPermissionsLowAdmin] = useState([
-        {
-          label: "Tổng quan",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
-          checked: false
-        },
-        {
-          label: "Hàng hóa",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
-          checked: false
-        },
-        {
-          label: "Nhập hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
-          checked: false
-        },
-        {
-          label: "Xuất hàng",
-          description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
-          checked: true
-        },
-        {
-          label: "Báo cáo",
-          description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
-          checked: false
-        },
-        {
-          label: "Nhân viên",
-          description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
-          checked: false
-        }    
-      ]);
+    const [permissionsLowAdmin, setPermissionsLowAdmin] = useState([
+      {
+        label: "Tổng quan",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ xem các khách hàng mà họ phụ trách.",
+        checked: false
+      },
+      {
+        label: "Hàng hóa",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các khách hàng có 'cửa hàng mua cuối cùng' là những cửa hàng mà họ quản lý.",
+        checked: false
+      },
+      {
+        label: "Nhập hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các yêu cầu nhập hàng do chính họ tạo.",
+        checked: false
+      },
+      {
+        label: "Xuất hàng",
+        description: "Giới hạn quyền truy cập của nhân viên để chỉ thấy các phiếu xuất hàng do chính họ tạo.",
+        checked: true
+      },
+      {
+        label: "Báo cáo",
+        description: "Cho phép nhân viên bán hàng hoặc thu ngân được quyền xem báo cáo này và xem doanh thu của các nhân viên khác.",
+        checked: false
+      },
+      {
+        label: "Nhân viên",
+        description: "Cho phép nhân viên được quyền xem báo cáo này để theo dõi doanh số toàn bộ các cửa hàng (thường dùng cho mục đích khen thưởng hoặc thi đua).",
+        checked: false
+      }    
+    ]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const functionName = 'call_permissionUsedPages_INLIST_FC';
+          const response = await app?.currentUser?.callFunction(functionName);
+
+          const listPageHighAdminRole = response.reduce((acc, item) => {
+            const enums = item?.highAdminRole?.properties?.enum;
+            if (Array.isArray(enums)) {
+              acc.push(...enums);
+            }
+            return acc;
+          }, []);
+
+          const listPageMediumAdminRole = response.reduce((acc, item) => {
+            const enums = item?.mediumAdminRole?.properties?.enum;
+            if (Array.isArray(enums)) {
+              acc.push(...enums);
+            }
+            return acc;
+          }, []);
+
+          const listPageLowAdminRole = response.reduce((acc, item) => {
+            const enums = item?.lowAdminRole?.properties?.enum;
+            if (Array.isArray(enums)) {
+              acc.push(...enums);
+            }
+            return acc;
+          }, []);
+
+          setPermissionsHighAdmin(listPageHighAdminRole);
+          setPermissionsMediumAdmin(listPageMediumAdminRole);
+          setPermissionsLowAdmin(listPageLowAdminRole);
+          
+          return response;
+        } catch (error) {
+          return error.error;
+        }
+      }
+      fetchData();
+    }, []);
 
     const permissionUsePageAccess = (access, pages) => {
       let permissions;
