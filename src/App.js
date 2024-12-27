@@ -4,6 +4,7 @@ import * as Realm from 'realm-web';
 import MainPage from './component/MainPage';
 import './index.css';
 import Footers from "./routers/pages/footer/footer";
+import LoadingPage from "./routers/pages/loadingPage/loadingPage";
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
 
@@ -22,13 +23,14 @@ function App() {
     document.title = "Your App Title";
   }, []);
 
+
   if (initializing) {
-    return <div>Loading....</div>;
-  }
+    return <div> <LoadingPage/> </div>;
+  };
 
   return (
     <Router>
-      <Suspense fallback={<div>Loading....</div>}>
+      <Suspense fallback={<div> <LoadingPage/></div>}>
         <Routes>
           {!isLoggedIn ? (
             <Route path="/*" element={<Navigate to="/admitration_warehouse_app" />} />
