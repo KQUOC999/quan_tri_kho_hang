@@ -377,10 +377,10 @@ export const AppProvider = ({ children, initialFormData }) => {
         clientRefExportPage.current = null;
       }
     
-      const broker = "wss://7c1953c894094f7c82714c9feea34dd6.s1.eu.hivemq.cloud:8884/mqtt";
+      const broker = process.env.REACT_APP_URL_MQTTBROKER;
       const options = {
-        username: "raspberryPi",
-        password: "Anhquoc123456789",
+        username: process.env.REACT_APP_OPTION_USERNAME_MQTTBROKER,
+        password: process.env.REACT_APP_OPTION_PASSWORD_MQTTBROKER,
         reconnectPeriod: 300000,
         connectTimeout: 10000, 
       };
@@ -445,10 +445,10 @@ export const AppProvider = ({ children, initialFormData }) => {
         clientRefImportPage.current = null;
       }
     
-      const broker = "wss://7c1953c894094f7c82714c9feea34dd6.s1.eu.hivemq.cloud:8884/mqtt";
+      const broker = process.env.REACT_APP_URL_MQTTBROKER;
       const options = {
-        username: "raspberryPi",
-        password: "Anhquoc123456789",
+        username: process.env.REACT_APP_OPTION_USERNAME_MQTTBROKER,
+        password: process.env.REACT_APP_OPTION_PASSWORD_MQTTBROKER,
         reconnectPeriod: 300000,
         connectTimeout: 10000, 
       };
