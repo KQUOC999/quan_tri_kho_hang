@@ -1,6 +1,8 @@
 
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import * as Realm from 'realm-web';
+import mqtt from 'mqtt';
+import { toast } from 'react-toastify';
 
 const AppContext = createContext();
 
@@ -37,6 +39,31 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [isReloadDataImportVote, setIsReloadDataImportVote] = useState(false);
     const [isReloadDataProductList, setIsReloadDataProductList] = useState(false);
     const innerScrollRef = useRef(null);
+
+    // Dữ liệu hàng exportPackageVote
+    const [updatedDataExportPage, setUpdatedDataExportPage] = useState([]);
+
+    // Dữ liệu hàng importPackageVote
+    const [updatedDataImportPage, setUpdatedDataImportPage] = useState([]);
+    
+    //Dữ liêu MQTT
+    const isConnectedRefExportPages = useRef(false);
+    const [isconnectedMQTTBrokerExportPage, setIsconnectedMQTTBrokerExportPage] = useState(false);
+    const [messageMQTTBrokerExportPage, setMessageMQTTBrokerExportPage] = useState([]);
+    const [connectAttemptsExportPage, setConnectAttemptsExportPage] = useState(0);
+    const clientRefExportPage = useRef(null);
+    const lastReceivedMessageRefExportPage = useRef('');
+    const lastReceivedTimeRefExportPage = useRef(0);
+    const topicExportPage = 'home/data/export';
+
+    const isConnectedRefImportPages = useRef(false);
+    const [isconnectedMQTTBrokerImportPage, setIsconnectedMQTTBrokerImportPage] = useState(false);
+    const [messageMQTTBrokerImportPage, setMessageMQTTBrokerImportPage] = useState([]);
+    const [connectAttemptsImportPage, setConnectAttemptsImportPage] = useState(0);
+    const clientRefImportPage = useRef(null);
+    const lastReceivedMessageRefImportPage = useRef('');
+    const lastReceivedTimeRefImportPage = useRef(0);
+    const topicImportPage = 'home/data/import';
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -344,6 +371,142 @@ export const AppProvider = ({ children, initialFormData }) => {
       },
     };
 
+    const handleConnectingMQTTBrokerExportPage = () => {
+      if (clientRefExportPage.current) {
+        clientRefExportPage.current.end(true); 
+        clientRefExportPage.current = null;
+      }
+    
+      const broker = "wss://7c1953c894094f7c82714c9feea34dd6.s1.eu.hivemq.cloud:8884/mqtt";
+      const options = {
+        username: "raspberryPi",
+        password: "Anhquoc123456789",
+        reconnectPeriod: 300000,
+        connectTimeout: 10000, 
+      };
+    
+      const client = mqtt.connect(broker, options);
+      clientRefExportPage.current = client;
+    
+      client.on('connect', () => {
+        isConnectedRefExportPages.current = true;
+        setIsconnectedMQTTBrokerExportPage(true);
+        setConnectAttemptsExportPage(0);
+        console.log('Đã kết nối đến MQTT Broker');
+        client.subscribe(topicExportPage, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${topicExportPage}`);
+          } else {
+            console.error('Subscription failed:', err);
+          }
+        });
+      });
+    
+      client.on('error', (err) => {
+        console.error('Kết nối thất bại đến MQTT Broker:', err.message);
+        setConnectAttemptsExportPage((prev) => prev + 1);
+    
+        if (connectAttemptsExportPage + 1 > 5) {
+          console.error('Quá nhiều lần thử. Kết nối thất bại...');
+          client.end();
+          isConnectedRefExportPages.current = false;
+          setIsconnectedMQTTBrokerExportPage(false);
+          toast.error("Đã ngắt kết nối sau quá nhiều lần thất bại!", { autoClose: 2000 });
+        }
+      });
+    
+      client.on('message', (topic, payload) => {
+        let count = 0;
+        const receivedMessage = payload.toString();
+        console.log(`Received message: ${receivedMessage} on topic ${topic}`);
+      
+        if (receivedMessage === lastReceivedMessageRefExportPage.current) {
+          const currentTime = Date.now();
+          const timeElapsed = currentTime - lastReceivedTimeRefExportPage.current;
+          
+          if (timeElapsed > 2000) {
+            console.log('2 seconds passed, updating data...');
+            count++;
+            setMessageMQTTBrokerExportPage({ message: receivedMessage, count }); 
+          }
+        } else {
+          setMessageMQTTBrokerExportPage({ message: receivedMessage, count });
+          lastReceivedMessageRefExportPage.current = receivedMessage;
+          lastReceivedTimeRefExportPage.current = Date.now();
+        }
+      });
+    
+      return client;
+    };
+
+    const handleConnectingMQTTBrokerImportPage = () => {
+      if (clientRefImportPage.current) {
+        clientRefImportPage.current.end(true); 
+        clientRefImportPage.current = null;
+      }
+    
+      const broker = "wss://7c1953c894094f7c82714c9feea34dd6.s1.eu.hivemq.cloud:8884/mqtt";
+      const options = {
+        username: "raspberryPi",
+        password: "Anhquoc123456789",
+        reconnectPeriod: 300000,
+        connectTimeout: 10000, 
+      };
+    
+      const client = mqtt.connect(broker, options);
+      clientRefImportPage.current = client;
+    
+      client.on('connect', () => {
+        isConnectedRefImportPages.current = true;
+        setIsconnectedMQTTBrokerImportPage(true);
+        setConnectAttemptsImportPage(0);
+        console.log('Đã kết nối đến MQTT Broker');
+        client.subscribe(topicImportPage, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${topicImportPage}`);
+          } else {
+            console.error('Subscription failed:', err);
+          }
+        });
+      });
+    
+      client.on('error', (err) => {
+        console.error('Kết nối thất bại đến MQTT Broker:', err.message);
+        setConnectAttemptsImportPage((prev) => prev + 1);
+    
+        if (connectAttemptsImportPage + 1 > 5) {
+          console.error('Quá nhiều lần thử. Kết nối thất bại...');
+          client.end();
+          isConnectedRefImportPages.current = false;
+          setIsconnectedMQTTBrokerImportPage(false);
+          toast.error("Đã ngắt kết nối sau quá nhiều lần thất bại!", { autoClose: 2000 });
+        }
+      });
+    
+      client.on('message', (topic, payload) => {
+        let count = 0;
+        const receivedMessage = payload.toString();
+        console.log(`Received message: ${receivedMessage} on topic ${topic}`);
+      
+        if (receivedMessage === lastReceivedMessageRefImportPage.current) {
+          const currentTime = Date.now();
+          const timeElapsed = currentTime - lastReceivedTimeRefImportPage.current;
+          
+          if (timeElapsed > 2000) {
+            console.log('2 seconds passed, updating data...');
+            count++;
+            setMessageMQTTBrokerImportPage({ message: receivedMessage, count }); 
+          }
+        } else {
+          setMessageMQTTBrokerImportPage({ message: receivedMessage, count });
+          lastReceivedMessageRefImportPage.current = receivedMessage;
+          lastReceivedTimeRefImportPage.current = Date.now();
+        }
+      });
+    
+      return client;
+    };
+
     return (
         <AppContext.Provider value={{   dataDataAdress, setDataAdress, formData, setFormData, jsonSchemaAccountDetails, setJonSchemaAccountDetails,
                                         data, setData, addNewItem, setAddNewItem, addPrintCode, setAddPrintCode,
@@ -375,7 +538,19 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         isReloadDataExportVote, setIsReloadDataExportVote,
                                         isReloadDataImportVote, setIsReloadDataImportVote,
                                         isReloadDataProductList, setIsReloadDataProductList,
-                                        innerScrollRef }}>
+                                        innerScrollRef,
+                                        
+                                        updatedDataExportPage, setUpdatedDataExportPage,
+                                        isConnectedRefExportPages,
+                                        isconnectedMQTTBrokerExportPage, setIsconnectedMQTTBrokerExportPage,
+                                        messageMQTTBrokerExportPage, setMessageMQTTBrokerExportPage,
+                                        handleConnectingMQTTBrokerExportPage,
+
+                                        updatedDataImportPage, setUpdatedDataImportPage,
+                                        isConnectedRefImportPages,
+                                        isconnectedMQTTBrokerImportPage, setIsconnectedMQTTBrokerImportPage,
+                                        messageMQTTBrokerImportPage, setMessageMQTTBrokerImportPage,
+                                        handleConnectingMQTTBrokerImportPage}}>
             {children}
         </AppContext.Provider>
     );
