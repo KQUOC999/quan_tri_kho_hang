@@ -33,7 +33,7 @@ function App() {
       <Suspense fallback={<div> <LoadingPage/></div>}>
         <Routes>
           {!isLoggedIn ? (
-            <Route path="/*" element={<Navigate to="/admitration_warehouse_app" />} />
+            <Route path="/*" element={<Navigate to="/quan_tri_kho_hang" />} />
           ) : (
             <Route path="/*" element={<MainPage />}/>
           )}
