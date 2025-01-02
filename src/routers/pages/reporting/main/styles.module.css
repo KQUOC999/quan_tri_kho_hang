@@ -1,0 +1,172 @@
+
+.container {
+  display: flex;
+  flex: 1;
+  width: 100%; 
+  height: 100%; 
+  overflow-y: auto;
+}
+
+.containerBody {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  gap: 10px;
+}
+
+.menuTab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 8vw;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 11; 
+  color: rgb(96, 94, 94);
+}
+.menuTabIcon {
+  width: 50px;
+  cursor: pointer;
+}
+.menuTabChoose {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(38, 166, 154);
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  gap: 10px;
+}
+.menuTabChooseIcon {
+  padding: 0;
+  display: flex;
+}
+.menuTabChooseActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.menuTabChooseActiveIcon {
+  padding: 0;
+  display: flex;
+  cursor: pointer;
+}
+
+.menuTabChooseDropList {
+  position: absolute;
+  display: flex;
+  top: 100%;
+  right: 0;
+  width: 40vw;
+  max-width: 200px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 15;
+}
+.menuTabChooseDropListBody{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  color: #252525;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0 1px 0 #fff;
+  text-decoration: none; 
+  gap: 5px;
+}
+.menuTabToday,
+.menuTabYesterday,
+.menuTabThisWeek,
+.menuTabTodayThisMonth,
+.menuTabTodayLastMonth {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  flex: 1;
+  cursor: pointer;
+  gap: 15px;
+}
+.menuTabToday:hover,
+.menuTabYesterday:hover,
+.menuTabThisWeek:hover,
+.menuTabTodayThisMonth:hover,
+.menuTabTodayLastMonth:hover {
+  background-color: #dae0e4;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: -40vw;
+  max-width: 250px;
+  width: 40vw;
+  height: 100vh;
+  background-color: #f0f0f0;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease;
+  z-index: 10; 
+}
+
+.visible {
+  left: 0; 
+}
+
+
+.sidebarContent {
+  padding: 20px 0;
+}
+
+.sidebarContent ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.sidebarContentItems {
+  cursor: pointer;
+}
+.sidebarContentItems:hover {
+  background-color: #ffffff;
+}
+
+.sidebarContentProducts {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  padding: 10px 5px 10px 10px;
+  gap: 5px;
+}
+.sidebarContentInventory {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  padding: 10px 5px 10px 10px;
+  gap: 5px;
+}
+
+.sidebarContentProducts.active,
+.sidebarContentInventory.active {
+  color: red;
+}
+
+.pageContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+

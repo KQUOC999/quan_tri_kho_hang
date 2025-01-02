@@ -1,0 +1,703 @@
+.containerProducts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  box-shadow: var(--boxShadow-color);
+  box-sizing: border-box;
+  padding: 0 10px;
+  background-color: rgb(240, 240, 240);
+}
+
+.newShowListVotePageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.closeButtonListVotePage {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+}
+.closeButtonListVotePage button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(253, 47, 47);
+}
+.closeButtonListVotePage button:hover {
+  background-color: rgb(204, 35, 35);
+}
+
+.showListVotePage {
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 10px 5px 5px;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.headerButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+.headerName {
+  padding: 5px;
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+}
+.buttonCloseSelectedRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
+}
+.buttonCloseSelectedRow:hover {
+  border-radius: 50%;
+  background-color: #d7d6d6;
+}
+.buttonCloseSelectedRow:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.headerButtonOperation {
+  position: relative;
+}
+
+.headerButtonOperation,
+.headerButtonImport, 
+.headerButtonList,
+.headerButtonSave {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  gap: 5px;
+  border: 0.5px solid rgb(218, 218, 218);
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.headerButtonOperation:hover,
+.headerButtonImport:hover, 
+.headerButtonList:hover,
+.headerButtonSave:hover {
+  background-color: rgb(215, 215, 215);
+}
+.headerButtonOperation:active,
+.headerButtonImport:active, 
+.headerButtonList:active,
+.headerButtonSave:active {
+  background-color: rgb(200, 200, 200);
+}
+
+.droplistOperationActive {
+  display: none;
+}
+.headerButtonOperation:hover .droplistOperationActive {
+  display: block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+  height: 100px;
+  border: none;
+  border-radius: 5px;
+  z-index: 10;
+  background-color: white;
+  box-shadow: var(--boxShadow-color);
+}
+
+.buttonPrinteOperation,
+.buttonExportExcelOperation {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+}
+.buttonPrinteOperation span,
+.buttonExportExcelOperation span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonPrinteOperation:hover,
+.buttonExportExcelOperation:hover {
+  background-color: #f0f0f0;
+}
+
+.custom_formImportPackage {
+  margin-top: 10px;
+}
+.custom_formImportPackage .form-group {
+  display: flex;
+  justify-content: space-between;
+}
+.custom_formImportPackage fieldset{
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(1, 1fr);
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+
+.custom_formImportPackage fieldset div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom_formImportPackage legend {
+  display: none;
+}
+.custom_formImportPackage input,
+.custom_formImportPackage select {
+  max-width: 300px;
+  width: 50vw;         
+  height: 35px;           
+  padding: 5px;           
+  box-sizing: border-box;  
+}
+.custom_formImportPackage button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.custom_formImportPackage button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.importProductBody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+.addProduct {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 50%;
+  margin-top: 10px;
+}
+.detailCreateImportPakage {
+  display: flex;
+  flex-basis: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  border-left: 0.5px solid #e4e4e4;
+  border-right: 0.5px solid #e4e4e4;
+  border-bottom: 0.5px solid #e4e4e4;
+}
+@media (max-width: 1000px) {
+  .detailCreateImportPakage {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.searchProductLayerHeader {
+  display: flex;
+}
+.searchProductName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  border: 0.5px solid black;
+  padding: 0 10px 0 10px;
+}
+.searchProductForm {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-top: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+}
+
+.activeProductIcon { 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  border: 0.5px solid black;
+}
+.methodSetupScannerDevices,
+.methodFillProductIcon,
+.listFillProductIcon,
+.addNewProductIcon,
+.refreshListIcon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px 0 5px;
+  color: green;
+  cursor: pointer;
+}
+.methodSetupScannerDevices:hover,
+.methodFillProductIcon:hover,
+.listFillProductIcon:hover,
+.addNewProductIcon:hover,
+.refreshListIcon:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: #e9e9e9; 
+}
+
+.methodSetupScannerDevices:hover .methodSetupScannerDevicesDescription,
+.methodFillProductIcon:hover .methodFillProductDescription,
+.listFillProductIcon:hover .listFillProductDescription,
+.addNewProductIcon:hover .addNewProductDescription,
+.refreshListIcon:hover .refreshListTable {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 150px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  white-space: nowrap;
+  color: white;
+  background-color: #383b39;
+  z-index: 15;
+}
+.methodSetupScannerDevices span,
+.methodFillProductDescription span,
+.listFillProductDescription span,
+.addNewProductDescription span ,
+.refreshListTable span {
+  display: none;
+}
+.methodSetupScannerDevices:hover .methodSetupScannerDevicesDescription span,
+.methodFillProductIcon:hover .methodFillProductDescription span,
+.listFillProductIcon:hover .listFillProductDescription span,
+.addNewProductIcon:hover .addNewProductDescription span,
+.refreshListIcon:hover .refreshListTable span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: white;
+}
+
+.addNewProductIcon:active {
+  background-color: #f1f1f1;
+}
+
+.listFillProductTaskOverlay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  z-index: 15;
+}
+.listFillProductTaskLayer {
+  position: relative;
+  display: flex;
+  top: 50px;
+  height: 215px;
+  width: 75vw;
+  max-width: 400px;
+  gap: 20px;
+  padding: 5px;
+  box-sizing: border-box;
+  flex-direction: column;
+  border: none;
+  border-radius: 8px;
+  color: #383b39;
+  background-color: #f1f1f1;
+}
+.listFillProductTaskHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.listFillProductTaskHeaderName {
+  padding: 8px 15px;
+  font-weight: bold;
+}
+.listFillProductTaskHeaderActive {
+  padding: 8px 15px;
+  border: none;
+  background-color: none;
+  cursor: pointer;
+}
+.listFillProductTaskHeaderActive:hover {
+  border-radius: 5px;
+  background-color: #c7c7c7;
+}
+.listFillProductTaskBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.listFillProductTaskBodySearchForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+.listFillProductTaskBodySearchFormName {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 30px;
+  gap: 20px;
+}
+.listFillProductTaskBodySearchFormName label {
+  padding-bottom: 10px;
+}
+.selectBoxByPressActive {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+.selectBoxOutput {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid black;
+  font-size: 14px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+.listFillProductTaskBodySearchFormEnums {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 16;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: var(--boxShadow-color);
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionListContainer {
+  display: flex;
+  flex: 1;
+}
+.optionsList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 200px;
+  list-style: none;
+  overflow-y: auto;
+}
+.optionsList li {
+  padding: 10px;
+  cursor: pointer;
+}
+.optionsList li:hover {
+  background-color: #e9e9e9;
+}
+
+.listFillProductTaskBodySearchFormEnums select, 
+.listFillProductTaskBodySearchFormEnums input {
+  width: 100%;
+  height: 40px;                     
+  box-sizing: border-box;  
+  border: none;
+  border-bottom: 2px solid rgb(7, 211, 7);
+  cursor: pointer;
+}
+
+.listFillProductTaskBodyButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+  box-sizing: border-box;
+  gap: 10px;
+}
+.saveButtonTaskBody,
+.dismissButtonTaskBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  width: 100px;
+  height: 40px;
+  white-space: nowrap;
+  color: white;
+  cursor: pointer;
+}
+.saveButtonTaskBody {
+  background-color: rgb(0, 182, 62);
+}
+.dismissButtonTaskBody {
+  background-color: rgb(103, 116, 132);
+}
+.saveButtonTaskBody:hover {
+  background-color: rgb(4, 153, 54);
+}
+.dismissButtonTaskBody:hover {
+  background-color: rgb(93, 101, 112);
+}
+.saveButtonTaskBody:active,
+.dismissButtonTaskBody:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.custom_formSearch{
+  width: 100%;
+}
+.custom_formSearch fieldset{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+.custom_formSearch fieldset >div {
+  display: flex;
+  align-items: center;
+}
+.custom_formSearch legend {
+  display: none;
+}
+.custom_formSearch label {
+  display: none;
+}
+.custom_formSearch input,
+.custom_formSearch select {
+  flex: 1;        
+  height: 35px;                  
+  box-sizing: border-box;  
+  border: none;
+}
+.custom_formSearch button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.custom_formSearch button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.fillInputTable {
+  flex: 1;
+  padding-bottom: 10px;
+}
+.buttonDeleteRowTable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(249, 249, 248);
+  cursor: pointer;
+  padding: 8px 15px;
+}
+.buttonDeleteRowTable:hover {
+  background-color: #c7c7c7;
+}
+
+.AddNewItemPage {
+  position: relative;
+}
+.AddNewItemPageOverLay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+.AddNewItemPageLayer {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-height: 90%;
+  max-width: 50%;
+  min-width: 350px;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  overflow-y: auto;
+}
+.AddNewItemPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #02820a;
+  background-color: white;
+}
+.AddNewItemPageHeaderName,
+.AddNewItemPageHeaderIconX {
+  padding: 10px;
+}
+.AddNewItemPageHeaderIconX > button{
+  cursor: pointer;
+}
+.AddNewItemPageBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 10px;
+  overflow-y: auto;
+}
+.AddNewItemPageBodyLayer {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  gap: 10px;
+}
+.AddNewItemPageBodyList {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: var(--boxShadow-color);
+}
+.overallDevices,
+.setupDataShowFromScannerDevices {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 15px;
+}
+.overallDevicesHeader,
+.setupDataShowFromScannerDevicesHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+.overallDevicesDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.overallDevicesControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overallDevicesControl > button {
+  padding: 6px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(131, 135, 133);
+}
+.overallDevicesControl > button:hover {
+  background-color: rgb(0, 150, 140);
+}
+.overallDevicesControl > button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+.saveconfigDataScannerDevicesButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.saveconfigDataScannerDevicesButton > button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(38, 166, 47);
+}
+.saveconfigDataScannerDevicesButton > button:hover {
+  background-color: rgb(0, 150, 40);
+}
+.saveconfigDataScannerDevicesButton > button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.containerProductsLayerEnd {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+.containerProductsLayerEnd span {
+  padding: 8px 25px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(76, 175, 80);
+}
+.containerProductsLayerEnd span:active {
+  background-color: rgb(0, 0, 0);
+}

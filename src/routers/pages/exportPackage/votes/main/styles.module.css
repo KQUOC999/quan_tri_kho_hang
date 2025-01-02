@@ -1,0 +1,518 @@
+
+.container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(250, 250, 250);
+  gap: 50px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.headerButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.headerName {
+  padding: 5px 10px;
+}
+.addVotes,
+.deleteVotes,
+.exportExcellVotes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  gap: 5px;
+  border: 0.5px solid rgb(218, 218, 218);
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.addVotes:hover, 
+.deleteVotes:hover,
+.exportExcellVotes:hover {
+  background-color: rgb(215, 215, 215);
+}
+.addVotes:active, 
+.deleteVotes:active,
+.exportExcellVotes:active {
+  background-color: rgb(200, 200, 200);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fillFormSearchVotes {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  gap: 10px;
+}
+.buttonRefreshInputSearch {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.buttonRefreshInputSearch button {
+  padding: 10px 25px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.buttonRefreshInputSearch button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.tableContainerHeader {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 0.5px solid rgb(210, 210, 210);
+}
+.switchTotalInventoryProduct,
+.switchStillInventoryProduct,
+.switchOutInventoryProduct {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.switchTotalInventoryProductName,
+.switchStillInventoryProductName,
+.switchOutInventoryProductName {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switchTotalInventoryProductName span,
+.switchStillInventoryProductName span,
+.switchOutInventoryProductName span {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-weight: normal;
+  color: rgb(116, 124, 135);
+}
+.switchTotalInventoryProductName:hover span,
+.switchStillInventoryProductName:hover span,
+.switchOutInventoryProductName:hover span {
+  font-weight: bold;
+}
+.switchTotalInventoryProductName.active span,
+.switchStillInventoryProductName.active span,
+.switchOutInventoryProductName.active span {
+  color: rgb(0, 136, 255);
+}
+
+.switchTotalInventoryProductName:hover .switchTotalInventoryProductUnderbar,
+.switchStillInventoryProductName:hover .switchStillInventoryProductUnderbar,
+.switchOutInventoryProductName:hover .switchOutInventoryProductUnderbar {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  top: 100%;
+  left: 0;
+  border-radius: 5px;
+  background-color: rgb(132, 132, 132);
+}
+.switchTotalInventoryProductName.active .switchTotalInventoryProductUnderbar,
+.switchStillInventoryProductName.active .switchStillInventoryProductUnderbar,
+.switchOutInventoryProductName.active .switchOutInventoryProductUnderbar {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  top: 100%;
+  left: 0;
+  border-radius: 5px;
+  background-color: rgb(0, 136, 255);
+}
+
+
+.tableVotes {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.custom_formImportPackageVote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.custom_formImportPackageVote .form-group {
+  display: flex;
+  justify-content: space-between;
+}
+.custom_formImportPackageVote fieldset{
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.custom_formImportPackageVote legend {
+  display: none;
+}
+.custom_formImportPackageVote input,
+.custom_formImportPackageVote select {
+  max-width: 200px;
+  width: 30vw;         
+  height: 35px;           
+  padding: 5px;           
+  box-sizing: border-box;  
+}
+.custom_formImportPackageVote button {
+  padding: 10px 25px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.custom_formImportPackageVote button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+.panel.panel-danger.errors {
+  display: none;
+}
+
+.AddNewItemPage {
+  position: relative;
+}
+.AddNewItemPageOverLay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+.AddNewItemPageLayer {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-height: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  overflow-y: auto;
+}
+.AddNewItemPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #02820a;
+  background-color: white;
+}
+.AddNewItemPageHeaderName,
+.AddNewItemPageHeaderIconX {
+  padding: 10px;
+}
+.AddNewItemPageBody {
+  overflow-y: auto;
+}
+
+.voteDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #d9f4e2;
+}
+
+.voteDetailsInfoName {
+  display: flex;
+  justify-content: flex-start;
+}
+.voteDetailsInfoNameLayer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.voteDetailsInfoNameLayer h2 {
+  margin-top: none;
+}
+
+.voteDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 20px;
+  background-color: white;
+}
+
+.voteDetailsHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.voteDetailsHeaderLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.voteDetailsHeaderLeftData {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.dataShow {
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgb(198, 198, 198);
+  white-space: nowrap;
+}
+
+.voteDetailsHeaderRight {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  border-left: 1px solid rgb(198, 198, 198);
+}
+.textareaInput {
+  min-width: 500px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.voteDetailsSummary {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+.voteDetailsSummaryLayer {
+  display: flex;
+  flex-direction: column;
+}
+.dataShowSummary {
+  display: flex;
+  justify-content: space-between;
+  min-width: 250px;
+  padding: 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.voteDetailsButton {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+.voteDetailsButtonLayer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.openVotesButton,
+.approvedVotesButton,
+.printCodeVotesButton,
+.cancelCodeVotesButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 25px;
+  gap: 5px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.openVotesButton,
+.approvedVotesButton {
+  background-color: rgb(0, 182, 62);
+}
+.approvedVotesButton.active {
+  background-color: rgb(167, 166, 166);
+}
+.approvedVotesButton.active:hover {
+  background-color: rgb(167, 166, 166);
+}
+.openVotesButton:hover,
+.approvedVotesButton:hover {
+  background-color: rgb(5, 154, 55);
+}
+
+.printCodeVotesButton {
+  background-color: rgb(103, 116, 132);
+}
+.printCodeVotesButton:hover {
+  background-color: rgb(101, 109, 120);
+}
+
+.cancelCodeVotesButton {
+  background-color: rgb(237, 35, 47);
+}
+.cancelCodeVotesButton:hover {
+  background-color: rgb(209, 28, 40);
+}
+.cancelCodeVotesButton.active {
+  background-color: rgb(167, 166, 166);
+}
+.cancelCodeVotesButton.active:hover {
+  background-color: rgb(167, 166, 166);
+}
+
+.openVotesButton:active,
+.approvedVotesButton:active,
+.printCodeVotesButton:active,
+.cancelCodeVotesButton:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.rowTable {
+  cursor: pointer;
+}
+.rowTable:hover {
+  background-color: #d9f4e2;
+}
+.AddNewItemPageHeaderIconXActive {
+  padding-right: 10px;
+}
+.AddNewItemPageHeaderIconXActive button {
+  padding: 5px 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.confirmDeleteProduct {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirmDeleteImportVoteOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.confirmDeleteImportVoteBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 10px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.confirmDeleteImportVoteBodyHeader {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+.confirmDeleteImportVoteBodyHeader button {
+  padding: 10px 15px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+}
+.confirmDeleteImportVoteBodyHeader button:hover {
+  background-color: #e0e0e0;
+}
+.confirmDeleteImportVoteBodyHeader button:active {
+  background-color: #b0b0b0;
+}
+
+.confirmDeleteImportVoteAnnouncation {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  font-stretch: 100%;
+  font-style: normal;
+}
+
+.buttonActiveContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.confirmButton {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.confirmButton:hover {
+  background-color: #c9302c;
+}
+.cancelButton {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancelButton:hover {
+  background-color: #ddd;
+}

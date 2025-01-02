@@ -1,0 +1,240 @@
+:root {
+  /* Màu chính (Primary colors) */
+  --contanerBody-color: #3498db; /* Màu xanh biển */
+  --contanerBody-light: #5dade2; /* Màu xanh biển nhạt */
+  --contanerBody-dark: #2e86c1; /* Màu xanh biển đậm */
+
+  /* Màu phụ (Secondary colors) */
+  --Revenue-color: #4CAF50; /* Màu đỏ */
+  --Retail-color: #2196F3; /* Màu đỏ nhạt */
+  --Order-color: #FF7043; /* Màu đỏ đậm */
+  --Inventory-color: #876a37; /* Màu đỏ đậm */
+
+  /* Màu nền (Background colors) */
+  --background-color: #f4f4f4; /* Màu nền chung */
+  --background-item: white; /* Màu nền tối */
+  --background-light: #ffffff; /* Màu nền sáng */
+
+  /* Màu văn bản (Text colors) */
+  --textItems-color: white; /* Màu văn bản chính */
+  --text-light: #ecf0f1; /* Màu văn bản sáng */
+  --text-dark: #876a37; /* Màu văn bản đậm */
+
+  /* Màu nhấn (Accent colors) */
+  --accent-color: #f1c40f; /* Màu vàng nhấn */
+  --accent-light: #f7dc6f; /* Màu vàng nhạt */
+  --accent-dark: #d4ac0d; /* Màu vàng đậm */
+  --activeButtonBackground-color: rgb(176, 176, 176);
+
+  /* Màu cảnh báo, thông báo (Alert colors) */
+  --success-color: #2ecc71; /* Màu xanh lá cho thành công */
+  --error-color: #e74c3c; /* Màu đỏ cho lỗi */
+  --warning-color: #f39c12; /* Màu cam cho cảnh báo */
+
+  /*Đổ bóng chân*/
+  --boxShadow-color: 0 4px 8px rgba(0, 0, 0, 0.1) ;
+}
+
+.containerProducts {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.containerFormProducts {
+  position: relative;
+  width: 100%;
+  background-color: var(--background-item);
+  box-shadow: var(--boxShadow-color);
+  box-sizing: border-box;
+  padding: 10px;
+}
+.containerFormLayerProducts {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.custom_formProducts {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom_formProducts .form-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom_formProducts fieldset{
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.custom_formProducts legend {
+  display: none;
+}
+.custom_formProducts input,
+.custom_formProducts select {
+  max-width: 200px;
+  width: 30vw;         
+  height: 35px;           
+  padding: 5px;           
+  box-sizing: border-box;  
+}
+
+.custom_formProducts button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(38, 166, 154);
+}
+.custom_formProducts button:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.containerButtonProducts {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+}
+.createNewBtn, 
+.operationBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 90px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.createNewBtn {
+  background-color: rgb(76, 175, 80);
+}
+.operationBtn {
+  background-color: rgb(33, 150, 243);
+}
+.createNewBtn:active,
+.operationBtn:active {
+  background-color: var(--activeButtonBackground-color);
+}
+
+.createNewBtnDropList,
+.operationBtnDropList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  z-index: 12;
+}
+
+.addItemsCreateNew,
+.addFormExcelItemsCreateNew,
+.exportExcellOperation,
+.printBarcodeOperation,
+.stickyLabelOperation,
+.unStickyLabelOperation,
+.deleteLineOperation {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  font-size: 13px;
+  font-weight: lighter;
+  padding: 8px;
+  gap: 5px;
+}
+
+.addItemsCreateNew:hover,
+.addFormExcelItemsCreateNew:hover,
+.exportExcellOperation:hover,
+.printBarcodeOperation:hover,
+.stickyLabelOperation:hover,
+.unStickyLabelOperation:hover,
+.deleteLineOperation:hover {
+  background-color: #f1f1f1;
+}
+
+.containercreateNewBtn_operationBtnLayer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  box-sizing: border-box;
+}
+.settingItemAgGrid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  font-size: 18px;
+  gap: 5px;
+  cursor: pointer;
+}
+.settingItemAgGrid:hover {
+  background-color: #f1f1f1;
+}
+.addItemAgGridBtnDropList {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 55vw;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  z-index: 12;
+}
+.addItemAgGrid {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(3, 1fr); 
+  flex-wrap: wrap;
+  padding: 10px 0;
+  margin-bottom: none;                                  
+  margin: 0 auto;   
+}
+.checkbox_item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: small;
+  padding: 5px;
+  gap: 5px;
+}
+
+.agGridTable {
+  width: 100%;
+  background-color: var(--background-item);
+  box-shadow: var(--boxShadow-color);
+  box-sizing: border-box;
+}
