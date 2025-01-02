@@ -1,40 +1,32 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependencies
-node_modules/
-.pnp/
+# dependencies
+/node_modules
+/.pnp
 .pnp.js
 
-# Testing
-coverage/
+# testing
+/coverage
 
-# Production build
-build/
+# production
+/build
 
-# Environment variables
+# misc
 .env
+.DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Miscellaneous
-.DS_Store
-
-# IDE files
-.vscode/
-.idea/
-
-# Ignore sensitive or temporary folders
-/src/routers/pages/appContext
-
-# If you want to ignore deploy-related files
-# Uncomment the lines below if deploying from a different branch
+#deploy
 /src
 /public
 /node_modules
+
+# Bỏ qua AppContext folder
+/src/routers/pages/appContext
