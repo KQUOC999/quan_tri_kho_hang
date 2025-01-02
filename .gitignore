@@ -9,7 +9,7 @@
 /coverage
 
 # production
-#/build
+/build
 
 # misc
 .env
@@ -24,9 +24,9 @@ yarn-debug.log*
 yarn-error.log*
 
 #deploy
-#src
-#public/
-#node_modules
+/src
+/public
+/node_modules
 
 # Bỏ qua AppContext folder
 /src/routers/pages/appContext
