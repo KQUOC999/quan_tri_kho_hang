@@ -1,3 +1,44 @@
-node_modules
+# Bỏ qua thư mục node_modules
+node_modules/
 
+# Bỏ qua các tệp cấu hình môi trường
 .env
+.env.local
+.env.*.local
+
+# Bỏ qua tệp build và sản phẩm biên dịch
+/build
+/dist
+
+# Bỏ qua các tệp tạm hoặc không cần thiết
+*.log
+*.tmp
+*.lock
+*.pid
+*.seed
+*.pid.lock
+
+# Bỏ qua tệp hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Bỏ qua các tệp IDE và trình soạn thảo
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Bỏ qua các tệp cache
+.cache/
+.npm/
+.yarn/
+.pnp/
+.pnp.js
+
+# Bỏ qua các tệp test coverage
+coverage/
+
+# Bỏ qua các tệp khác không cần thiết
+*.bak
+*.old
+*.orig
