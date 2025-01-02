@@ -1,0 +1,117 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.containerLayer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--background-color);
+}
+.header {
+  position: relative;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-light);
+  box-shadow: var(--boxShadow-color);
+}
+.headerName {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  white-space: nowrap;
+  gap: 10px;
+}
+.headerIconActive {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropListContainer {
+  position: relative;
+  width: 100%;
+}
+.dropListContainerLayer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 0.5px solid rgb(188, 188, 188);
+  background-color: white;
+  box-shadow: var(--boxShadow-color);
+}
+
+.dropListItem {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 0.5px solid rgb(188, 188, 188);
+}
+.permissions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 10px 10px 0;
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  min-width: 50px;
+  min-height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider_round {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgb(182, 182, 182);
+  background-color: rgb(237, 237, 237);
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider_round:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 2.5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider_round {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider_round:before {
+  transform: translateX(25px);
+}
+
+.slider_round {
+  border-radius: 25px;
+}

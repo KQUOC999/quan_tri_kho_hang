@@ -1,0 +1,579 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.containerLayer {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+  gap: 5px;
+  background-color: var(--background-color);
+}
+
+.settingScannerDeviceHeader {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  border: 2px solid #e4e4e4;
+  background-color: white;
+}
+.settingScannerDeviceHeaderIcon {
+  display: flex;
+  flex: 1;
+  justify-content:flex-start;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.iconStatusConnectedDevices{
+  color: red;
+}
+.iconStatusConnectedDevices.active {
+  color: rgb(26, 255, 0);
+}
+
+.settingScannerDeviceBody {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.settingScannerDeviceBodyLayer {
+  display: flex;
+  width: 90%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.settingScannerDeviceBodyItem {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.typeTag {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+}
+.typeTagButton {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+.openExistingConfigureTag,
+.createNewConfigureTag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 300px;
+  width: 70vw;
+  border: none;
+  font-size: 15px;
+  background: linear-gradient(to bottom, #d1cfcf, #9f9d9d);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.typeTagSearch {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  height: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.typeTagSearchName {
+  display: flex;
+  flex-direction: column;
+  max-width: 290px;
+  width: 70vw;
+  gap: 10px;
+}
+.typeTagSearchCategory {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 70vw;
+  gap: 10px;
+}
+
+.settingScannerDeviceCategory {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.categoryDescription {
+  font-weight: bold;
+  font-size: 15px;
+}
+.categoryItemCardContainer {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-width: 100%;
+}
+.categoryItemCardContainerLayer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+}
+
+.cardItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-Shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cardItems:hover {
+  transform: scale(1.1);
+  background-color: rgb(194, 194, 194);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.cardItems:active {
+  background-color: rgb(227, 227, 227);
+}
+
+.newPageSettingDevices {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  background-color: white;
+}
+.newPageSettingDevicesLayer {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+.routerPage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.routerPageHome,
+.routerPageNext,
+.routerPageConnected,
+.routerPageSetting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  gap: 5px;
+  font-size: 15px;
+  padding: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: white;
+}
+.routerPageHome:hover,
+.routerPageNext:hover,
+.routerPageConnected:hover,
+.routerPageSetting:hover {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #f5f5f5;
+}
+
+.cardItemsChoosen {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 20px;
+  background-color: white;
+  box-Shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.cardItemsChoosenLayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 200px;
+  border: 1px solid #56eb15;
+  border-radius: 8px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.cardItemsChoosenData {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-left: 20px;
+  text-align: center;
+  width: 200px;
+  border: 2px solid #dddddd;
+  border-radius: 8px;
+  margin-left: 20px;
+  cursor: pointer;
+  background-color: #e4e4e4;
+}
+
+.cardItemsChoosenButton {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.cardItemsChoosenButton button {
+  max-width: 200px;
+  width: 40vw;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #ececec, #8e8e8e);
+  cursor: pointer;
+}
+.cardItemsChoosenButton button:active {
+  background: #e4e4e4;
+}
+
+.configureDevicesContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.configureDevicesContainerLeft {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  box-Shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.configureDevicesContainerLeftHeader,
+.configureDevicesContainerRightHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: white;
+  background-color: rgb(70, 70, 192);
+}
+.scannerDevices,
+.configuretionHistory,
+.typeCodeGenneration {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.scannerDevicesHeader,
+.configuretionHistoryHeader,
+.typeCodeGennerationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  color: white;
+  background-color: rgb(167, 70, 70);
+}
+.scannerDevicesBody,
+.configuretionHistoryBody {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+  gap: 5px;
+}
+.scannerDevicesCard,
+.scannerDevicesDetails {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.typeCodeGennerationBody {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+  gap: 5px;
+}
+
+.custom_formProducts {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.custom_formProducts .form-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+.custom_formProducts fieldset {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);;
+  width: 100%;
+  gap: 10px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom_formProducts fieldset > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom_formProducts legend {
+  display: none;
+}
+
+.custom_formProducts label {
+  flex: 0 0 30%;
+  height: 35px;
+  text-align: left; 
+}
+
+.custom_formProducts input,
+.custom_formProducts select {
+  flex: 1;
+  height: 35px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.buttonActiveSettingDevice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px 20px 10px;
+}
+.buttonActiveSettingDevice button{
+  width: 30vw;
+  max-width: 200px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #ececec, #8e8e8e);
+  cursor: pointer;
+}
+.buttonActiveSettingDevice button:active {
+  background: #dddddd;
+}
+
+.configureDevicesContainerRight {
+  display: flex;
+  flex-grow: 10;
+  flex-direction: column;
+  background-color: white;
+  box-Shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.configureDevicesContainerRightBody {
+  display: flex;
+  flex-grow: 10;
+  flex-direction: column;
+  background-color: white;
+}
+.tagSettingDevices {
+  display: flex;
+}
+.tagSettingDevices > ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: none;
+  width: 100%;
+  height: 100%; 
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-Shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.tagSettingDevices > ul > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 80px;
+  padding: 5px;
+  border-right: 2px solid rgb(228, 228, 228);
+  background-color: white;
+  cursor: pointer;
+}
+.tagSettingDevices > ul > li:last-child {
+  border-right: none;
+}
+.tagSettingDevices > ul > li:hover {
+  background-color: #f0f0f0;
+}
+.tagSettingDevices > ul li.active  {
+  color: white;
+  background-color: rgb(167, 70, 70);
+}
+
+/* Container for the formSettingBeep */
+.settingMode {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.formSettingBeepContainer {
+  display: flex;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+}
+.formSettingBeep {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  max-width: 450px;
+}
+.formSettingBeepGroup {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.formSettingBeepLabel {
+  font-size: 14px;
+  color: #333;
+  margin-right: 10px;
+  flex: 1;
+}
+.inputNumberFormSetting, .inputCheckboxFormSetting, .selectFormSetting {
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.inputNumberFormSetting {
+  width: 60px;
+}
+.inputCheckboxFormSetting {
+  width: 20px;
+  height: 20px;
+}
+.selectFormSetting {
+  width: 100px;
+  padding: 5px;
+  font-size: 14px;
+}
+.inputNumberFormSetting:focus, .inputCheckboxFormSetting:focus, .selectFormSetting:focus {
+  border-color: #4A90E2;
+}
+.formSettingBeepGroup:hover {
+  background-color: #e8e8e8;
+  transition: background-color 0.2s ease;
+}
+.inputCheckboxFormSetting:checked {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+.inputCheckboxFormSetting:checked + .formSettingBeepLabel {
+  color: #4CAF50;
+}
+.formSettingBeepLabel {
+  color: #333;
+}
+.inputCheckboxFormSetting[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+.inputCheckboxFormSetting[type="checkbox"]{
+  background-color: #eb0923;
+  border-color: #eb0923;
+}
+.inputCheckboxFormSetting[type="checkbox"]:checked {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.selectedFormSettingMode {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 0 20px;
+  box-sizing: border-box;
+}
+.selectedFormSettingModeLayer {
+  display: flex;
+  flex: 1;
+  box-Shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.selectTypeSetting {
+  flex: 1;
+  border: none; 
+  outline: none;
+  padding: 5px;
+  font-size: 14px;
+}
