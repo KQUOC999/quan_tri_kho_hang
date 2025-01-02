@@ -40,6 +40,10 @@ export const AppProvider = ({ children, initialFormData }) => {
     const [isReloadDataProductList, setIsReloadDataProductList] = useState(false);
     const innerScrollRef = useRef(null);
 
+    //Trạng thái kết nối máy scan từ thiết bị điều khiển
+    const [isConnectedScanFromDevices, setisConnectedScanFromDevices] = useState(false);
+    const isConnectedScanFromDevicesRef = useRef(false);
+
     // Dữ liệu hàng exportPackageVote
     const [updatedDataExportPage, setUpdatedDataExportPage] = useState([]);
 
@@ -63,7 +67,11 @@ export const AppProvider = ({ children, initialFormData }) => {
     const clientRefImportPage = useRef(null);
     const lastReceivedMessageRefImportPage = useRef('');
     const lastReceivedTimeRefImportPage = useRef(0);
-    const topicImportPage = 'home/data/import';
+    const topicImportPage = 'scan/data/import';
+    
+    const request_connect_mqtt = 'scan/request/connect/mqtt';
+    const response_connect_mqtt = 'scan/response/connect/mqtt';
+
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -393,11 +401,28 @@ export const AppProvider = ({ children, initialFormData }) => {
         setIsconnectedMQTTBrokerExportPage(true);
         setConnectAttemptsExportPage(0);
         console.log('Đã kết nối đến MQTT Broker');
+
         client.subscribe(topicExportPage, (err) => {
           if (!err) {
             console.log(`Subscribed to topic ${topicExportPage}`);
           } else {
             console.error('Subscription failed:', err);
+          }
+        });
+
+        client.subscribe(response_connect_mqtt, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${response_connect_mqtt}`);
+          } else {
+            console.error('Subscription failed:', err);
+          }
+        });
+
+        client.publish(request_connect_mqtt, 'check', (err) => {
+          if (!err) {
+            console.log(`Publish to topic ${request_connect_mqtt} with message "check"`);
+          } else {
+            console.error('Publish failed:', err);
           }
         });
       });
@@ -410,7 +435,9 @@ export const AppProvider = ({ children, initialFormData }) => {
           console.error('Quá nhiều lần thử. Kết nối thất bại...');
           client.end();
           isConnectedRefExportPages.current = false;
+          isConnectedScanFromDevicesRef.current = false;
           setIsconnectedMQTTBrokerExportPage(false);
+          setisConnectedScanFromDevices(false);
           toast.error("Đã ngắt kết nối sau quá nhiều lần thất bại!", { autoClose: 2000 });
         }
       });
@@ -419,20 +446,30 @@ export const AppProvider = ({ children, initialFormData }) => {
         let count = 0;
         const receivedMessage = payload.toString();
         console.log(`Received message: ${receivedMessage} on topic ${topic}`);
-      
+
+        if (receivedMessage === 'Kết nối thành công!' && topic === response_connect_mqtt) {
+          isConnectedScanFromDevicesRef.current = true;
+          setisConnectedScanFromDevices(true);
+          toast.success("Máy scan đã kết nối với máy tính thành công!", { autoClose: 2000 });
+        };
+
         if (receivedMessage === lastReceivedMessageRefExportPage.current) {
           const currentTime = Date.now();
           const timeElapsed = currentTime - lastReceivedTimeRefExportPage.current;
           
-          if (timeElapsed > 2000) {
-            console.log('2 seconds passed, updating data...');
+          if (timeElapsed > 1000) {
+            console.log('1 seconds passed, updating data...');
             count++;
-            setMessageMQTTBrokerExportPage({ message: receivedMessage, count }); 
+            if (topic === topicExportPage) {
+              setMessageMQTTBrokerExportPage({ message: receivedMessage, count });
+            };
           }
         } else {
-          setMessageMQTTBrokerExportPage({ message: receivedMessage, count });
+          if (topic === topicExportPage) {
+            setMessageMQTTBrokerExportPage({ message: receivedMessage, count });
+          };
           lastReceivedMessageRefExportPage.current = receivedMessage;
-          lastReceivedTimeRefExportPage.current = Date.now();
+          lastReceivedMessageRefExportPage.current = Date.now();
         }
       });
     
@@ -460,12 +497,30 @@ export const AppProvider = ({ children, initialFormData }) => {
         isConnectedRefImportPages.current = true;
         setIsconnectedMQTTBrokerImportPage(true);
         setConnectAttemptsImportPage(0);
+        setisConnectedScanFromDevices(false);
         console.log('Đã kết nối đến MQTT Broker');
+
         client.subscribe(topicImportPage, (err) => {
           if (!err) {
             console.log(`Subscribed to topic ${topicImportPage}`);
           } else {
             console.error('Subscription failed:', err);
+          }
+        });
+
+        client.subscribe(response_connect_mqtt, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${response_connect_mqtt}`);
+          } else {
+            console.error('Subscription failed:', err);
+          }
+        });
+
+        client.publish(request_connect_mqtt, 'check', (err) => {
+          if (!err) {
+            console.log(`Publish to topic ${request_connect_mqtt} with message "check"`);
+          } else {
+            console.error('Publish failed:', err);
           }
         });
       });
@@ -478,7 +533,9 @@ export const AppProvider = ({ children, initialFormData }) => {
           console.error('Quá nhiều lần thử. Kết nối thất bại...');
           client.end();
           isConnectedRefImportPages.current = false;
+          isConnectedScanFromDevicesRef.current = false;
           setIsconnectedMQTTBrokerImportPage(false);
+          setisConnectedScanFromDevices(false);
           toast.error("Đã ngắt kết nối sau quá nhiều lần thất bại!", { autoClose: 2000 });
         }
       });
@@ -487,18 +544,28 @@ export const AppProvider = ({ children, initialFormData }) => {
         let count = 0;
         const receivedMessage = payload.toString();
         console.log(`Received message: ${receivedMessage} on topic ${topic}`);
-      
+
+        if (receivedMessage === 'Kết nối thành công!' && topic === response_connect_mqtt) {
+          setisConnectedScanFromDevices(true);
+          isConnectedScanFromDevicesRef.current = true;
+          toast.success("Máy scan đã kết nối với máy tính thành công!", { autoClose: 2000 });
+        };
+
         if (receivedMessage === lastReceivedMessageRefImportPage.current) {
           const currentTime = Date.now();
           const timeElapsed = currentTime - lastReceivedTimeRefImportPage.current;
           
-          if (timeElapsed > 2000) {
-            console.log('2 seconds passed, updating data...');
+          if (timeElapsed > 1000) {
+            console.log('1 seconds passed, updating data...');
             count++;
-            setMessageMQTTBrokerImportPage({ message: receivedMessage, count }); 
+            if (topic === topicImportPage) {
+              setMessageMQTTBrokerImportPage({ message: receivedMessage, count });
+            };
           }
         } else {
-          setMessageMQTTBrokerImportPage({ message: receivedMessage, count });
+          if (topic === topicImportPage) {
+            setMessageMQTTBrokerImportPage({ message: receivedMessage, count });
+          };
           lastReceivedMessageRefImportPage.current = receivedMessage;
           lastReceivedTimeRefImportPage.current = Date.now();
         }
@@ -539,7 +606,10 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         isReloadDataImportVote, setIsReloadDataImportVote,
                                         isReloadDataProductList, setIsReloadDataProductList,
                                         innerScrollRef,
-                                        
+
+                                        isConnectedScanFromDevices, setisConnectedScanFromDevices,
+                                        isConnectedScanFromDevicesRef,
+
                                         updatedDataExportPage, setUpdatedDataExportPage,
                                         isConnectedRefExportPages,
                                         isconnectedMQTTBrokerExportPage, setIsconnectedMQTTBrokerExportPage,
