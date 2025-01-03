@@ -280,15 +280,15 @@ const AddNewItemImportPackagePage = () => {
       setSelectedRows(dataToUpdate.map(row => row.code));
     }
     
-  }, [dataFetch, isOpenAddVotesPageBySearch, numberVoteShowing, rowDataDefault, 
-      setUpdatedDataImportPage, isconnectedMQTTBrokerImportPage,
+  }, [dataFetch, isOpenAddVotesPageBySearch, numberVoteShowing, 
+      rowDataDefault, isconnectedMQTTBrokerImportPage, setUpdatedDataImportPage,
       messageMQTTBrokerImportPage, switchSelectedOptionFillDataScannerDevices]);
   
   useEffect (() => {
     checkOpenDataBySearchFromVotePageButton();
-  }, [checkOpenDataBySearchFromVotePageButton])
+  }, [checkOpenDataBySearchFromVotePageButton]);
 
-  useEffect(() => {
+  useEffect (() => {
     setData(updatedDataImportPage);
   }, [updatedDataImportPage]);
 

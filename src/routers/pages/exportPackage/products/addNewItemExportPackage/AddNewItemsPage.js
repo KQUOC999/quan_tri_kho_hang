@@ -280,9 +280,10 @@ const AddNewItemExportPackagePage = () => {
       setSelectedRows(dataToUpdate.map(row => row.code));
     };
     
-  }, [dataFetch, isOpenAddVotesPageBySearchExportPage, numberVoteShowingExportPage, 
+  }, [dataFetch, isOpenAddVotesPageBySearchExportPage, numberVoteShowingExportPage,
+      setUpdatedDataExportPage, 
       rowDataDefault, isconnectedMQTTBrokerExportPage, switchSelectedOptionFillDataScannerDevices, 
-      messageMQTTBrokerExportPage, setUpdatedDataExportPage]);
+      messageMQTTBrokerExportPage]);
   
   useEffect (() => {
     checkOpenDataBySearchFromVotePageButton();

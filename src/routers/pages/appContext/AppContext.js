@@ -58,7 +58,7 @@ export const AppProvider = ({ children, initialFormData }) => {
     const clientRefExportPage = useRef(null);
     const lastReceivedMessageRefExportPage = useRef('');
     const lastReceivedTimeRefExportPage = useRef(0);
-    const topicExportPage = 'home/data/export';
+    const topicExportPage = 'scan/data/export';
 
     const isConnectedRefImportPages = useRef(false);
     const [isconnectedMQTTBrokerImportPage, setIsconnectedMQTTBrokerImportPage] = useState(false);
