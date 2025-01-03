@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/quan_tri_kho_hang/static/css/main.278fb4a1.css",
-    "main.js": "/quan_tri_kho_hang/static/js/main.19825ec1.js",
+    "main.js": "/quan_tri_kho_hang/static/js/main.f841ed1a.js",
     "static/media/work.mp4": "/quan_tri_kho_hang/static/media/work.0c4b3dca9b3b42ee254b.mp4",
     "static/media/Logo-DH-Ton-Duc-Thang-TDT.jpg": "/quan_tri_kho_hang/static/media/Logo-DH-Ton-Duc-Thang-TDT.79ee1555da40204898d8.jpg",
     "static/media/graduation.png": "/quan_tri_kho_hang/static/media/graduation.bd02e9e86f94d3669f4c.png",
@@ -10,6 +10,6 @@
   },
   "entrypoints": [
     "static/css/main.278fb4a1.css",
-    "static/js/main.19825ec1.js"
+    "static/js/main.f841ed1a.js"
   ]
 }
