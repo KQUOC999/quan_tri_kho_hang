@@ -701,3 +701,49 @@
 .containerProductsLayerEnd span:active {
   background-color: rgb(0, 0, 0);
 }
+
+.AddNewProducts {
+  position: relative;
+}
+.AddNewProductsPageOverLay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+.AddNewProductsPageLayer {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-height: 90%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  overflow-y: auto;
+}
+.AddNewProductsPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #02820a;
+  background-color: white;
+}
+.AddNewProductsHeaderName,
+.AddNewProductsHeaderIconX {
+  padding: 10px;
+}
+.AddNewProductsHeaderIconX > button{
+  cursor: pointer;
+}
+.AddNewProductsPageBody {
+  display: flex;
+  flex: 1;
+}
+

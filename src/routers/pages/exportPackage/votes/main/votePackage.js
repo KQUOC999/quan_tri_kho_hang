@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import LoadingPage from '../../../loadingPage/loadingPage';
 import uiSchema from './uiSchema';
-import AddNewItemImportPackagePage from '../../products/addNewItemExportPackage/AddNewItemsPage';
+import AddNewItemExportPackagePage from '../../products/addNewItemExportPackage/AddNewItemsPage';
 
 import { FaShare } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
@@ -624,7 +624,7 @@ const VotePageExport = () => {
             </div>
           </div>
           <div className={styles.AddNewItemPageBody}>
-            <AddNewItemImportPackagePage />
+            <AddNewItemExportPackagePage />
           </div>
         </div>
       ) : ( 
@@ -650,7 +650,7 @@ const VotePageExport = () => {
                         </div>
                       </div>
                       <div className={styles.AddNewItemPageBody}>
-                        <AddNewItemImportPackagePage />
+                        <AddNewItemExportPackagePage />
                       </div>
                     </div>
                   </div>

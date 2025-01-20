@@ -27,6 +27,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 import LoadingPage from '../../../loadingPage/loadingPage';
 import ListVotePage from '../../votes/main/votePackage';
+import AddNewItemPage from '../../../merchandise/products/addNewItems/AddNewItemsPage';
 import { useAppContext } from '../../../appContext/AppContext';
 
 const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
@@ -49,6 +50,7 @@ const formCreatVoteInfomation = ({
 
 const AddNewItemImportPackagePage = () => {
   const [statusSetEnumContries, setStatusSetEnumContries] = useState({});
+  const [isOpenSettingScannerDevice, setIsOpenSettingScannerDevice] = useState(false);
   const [isOpenCreateNewProduct, setIsOpenCreateNewProduct] = useState(false);
   const [isOpenListFillProduct, setIsOpenListFillProduct] = useState(false);
   const [isOpenTaskFormEnumsList, setIsOpenTaskFormEnumsList] = useState(false);
@@ -98,151 +100,151 @@ const AddNewItemImportPackagePage = () => {
   }, []);
 
   const switchSelectedOptionFillDataScannerDevices = useCallback (() => {
-      switch (selectedOptionFillDataScannerDevicesImportPage) {
-        case 'default':
-          setUpdatedDataImportPage((pre) => {
-            const previousData = Array.isArray(pre) ? pre : [];
-            let updatedData = [...previousData]; 
-            const matchedItemInDefaultList = updatedData.find(
-              (item) => item?.code === messageMQTTBrokerImportPage?.message
-            );
-        
-            if (matchedItemInDefaultList) {
-              const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
-  
-              if (existingItemIndex !== -1) {
-                updatedData[existingItemIndex] = {
-                  ...updatedData[existingItemIndex],
-                  quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
-                };
-              } else {
-                updatedData.push(matchedItemInDefaultList);
-              }
-            } else {
-              const newItem = {
-                iD: updatedData.length,
-                productName: 'nameProduct',
-                productType: 'nameProductDad',
-                typeCodeProduct: 'typeCodeProduct',
-                code: messageMQTTBrokerImportPage?.message,
-                dateCreated: 'dateCreated',
-                giaVon: 'giaNhap',
-                giaBan: 'giaBan',
-                quantity: 120,
-                DvTinh: 'unitCaculation',
-                quantityAdd: 1,
-                totalPrice: '',
-              };
-        
-              updatedData.unshift(newItem);
-            }
-        
-            return updatedData;
-          });
-          break;
-  
-        case 'refresh':
-          setUpdatedDataImportPage((pre) => {
-            const previousData = Array.isArray(pre) ? pre : [];
-            let updatedData = [...previousData]; 
-            const matchedItemInDefaultList = rowDataDefault.find(
-              (item) => item?.code === messageMQTTBrokerImportPage?.message
-            );
-            const matchedItemInUpdateList = updatedData.find(
-              (item) => item?.code === messageMQTTBrokerImportPage?.message
-            );
-  
-            if (matchedItemInDefaultList && !matchedItemInUpdateList) { 
-              const updatedItem = { 
-                ...matchedItemInDefaultList, 
-                quantityAdd: 1,
-                totalPrice: (+matchedItemInDefaultList?.giaBan || 0) * 1,
-              };
-              updatedData.push(updatedItem);
-              return updatedData;
-            }
-        
-            if (matchedItemInUpdateList) {
-              const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
+    switch (selectedOptionFillDataScannerDevicesImportPage) {
+      case 'default':
+        setUpdatedDataImportPage((pre) => {
+          const previousData = Array.isArray(pre) ? pre : [];
+          let updatedData = [...previousData]; 
+          const matchedItemInDefaultList = updatedData.find(
+            (item) => item?.code === messageMQTTBrokerImportPage?.message
+          );
       
-              if (existingItemIndex !== -1) {
-                updatedData[existingItemIndex] = {
-                  ...updatedData[existingItemIndex],
-                  quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
-                  totalPrice: (+updatedData[existingItemIndex].quantityAdd + 1 || 0) * (+updatedData[existingItemIndex].giaBan || 0),
-                };
-              } else { 
-                updatedData.push(matchedItemInUpdateList);
-              }
-            } else {
-              const newItem = {
-                iD: updatedData.length,
-                productName: 'nameProduct',
-                productType: 'nameProductDad',
-                typeCodeProduct: 'typeCodeProduct',
-                code: messageMQTTBrokerImportPage?.message,
-                dateCreated: 'dateCreated',
-                giaVon: 'giaNhap',
-                giaBan: '',
-                quantity: 120,
-                DvTinh: 'unitCaculation',
-                quantityAdd: 1,
-                totalPrice: '',
+          if (matchedItemInDefaultList) {
+            const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
+
+            if (existingItemIndex !== -1) {
+              updatedData[existingItemIndex] = {
+                ...updatedData[existingItemIndex],
+                quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
               };
-        
-              updatedData.unshift(newItem);
-            };
-        
-            return updatedData;
-          });
-          break;   
-  
-        case 'append':
-          setUpdatedDataImportPage((pre) => {
-            const previousData = Array.isArray(pre) ? pre : [];
-            let updatedData = [...previousData]; 
-            const matchedItemInDefaultList = updatedData.find(
-              (item) => item?.code === messageMQTTBrokerImportPage?.message
-            );
-        
-            if (matchedItemInDefaultList) {
-              const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
-        
-              if (existingItemIndex !== -1) {
-                updatedData[existingItemIndex] = {
-                  ...updatedData[existingItemIndex],
-                  quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1
-                };
-              } else {
-                updatedData.push(matchedItemInDefaultList);
-              }
             } else {
-              const newItem = {
-                iD: updatedData.length,
-                productName: 'nameProduct',
-                productType: 'nameProductDad',
-                typeCodeProduct: 'typeCodeProduct',
-                code: messageMQTTBrokerImportPage?.message,
-                dateCreated: 'dateCreated',
-                giaVon: 'giaNhap',
-                giaBan: 'giaBan',
-                quantity: 120,
-                DvTinh: 'unitCaculation',
-                quantityAdd: 1,
-                totalPrice: '',
-              };
-        
-              updatedData.unshift(newItem);
+              updatedData.push(matchedItemInDefaultList);
             }
-        
+          } else {
+            const newItem = {
+              iD: updatedData.length,
+              productName: 'nameProduct',
+              productType: 'nameProductDad',
+              typeCodeProduct: 'typeCodeProduct',
+              code: messageMQTTBrokerImportPage?.message,
+              dateCreated: 'dateCreated',
+              giaVon: 'giaNhap',
+              giaBan: 'giaBan',
+              quantity: 120,
+              DvTinh: 'unitCaculation',
+              quantityAdd: 1,
+              totalPrice: '',
+            };
+      
+            updatedData.unshift(newItem);
+          }
+      
+          return updatedData;
+        });
+        break;
+
+      case 'refresh':
+        setUpdatedDataImportPage((pre) => {
+          const previousData = Array.isArray(pre) ? pre : [];
+          let updatedData = [...previousData]; 
+          const matchedItemInDefaultList = rowDataDefault.find(
+            (item) => item?.code === messageMQTTBrokerImportPage?.message
+          );
+          const matchedItemInUpdateList = updatedData.find(
+            (item) => item?.code === messageMQTTBrokerImportPage?.message
+          );
+
+          if (matchedItemInDefaultList && !matchedItemInUpdateList) { 
+            const updatedItem = { 
+              ...matchedItemInDefaultList, 
+              quantityAdd: 1,
+              totalPrice: (+matchedItemInDefaultList?.giaBan || 0) * 1,
+            };
+            updatedData.push(updatedItem);
             return updatedData;
-          });
-          break;
-  
-        default:
-          break;
-      }
-    }, [messageMQTTBrokerImportPage, selectedOptionFillDataScannerDevicesImportPage, rowDataDefault, setUpdatedDataImportPage]);
+          }
+      
+          if (matchedItemInUpdateList) {
+            const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
+    
+            if (existingItemIndex !== -1) {
+              updatedData[existingItemIndex] = {
+                ...updatedData[existingItemIndex],
+                quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
+                totalPrice: (+updatedData[existingItemIndex].quantityAdd + 1 || 0) * (+updatedData[existingItemIndex].giaBan || 0),
+              };
+            } else { 
+              updatedData.push(matchedItemInUpdateList);
+            }
+          } else {
+            const newItem = {
+              iD: updatedData.length,
+              productName: 'nameProduct',
+              productType: 'nameProductDad',
+              typeCodeProduct: 'typeCodeProduct',
+              code: messageMQTTBrokerImportPage?.message,
+              dateCreated: 'dateCreated',
+              giaVon: 'giaNhap',
+              giaBan: '',
+              quantity: 120,
+              DvTinh: 'unitCaculation',
+              quantityAdd: 1,
+              totalPrice: '',
+            };
+      
+            updatedData.unshift(newItem);
+          };
+      
+          return updatedData;
+        });
+        break;   
+
+      case 'append':
+        setUpdatedDataImportPage((pre) => {
+          const previousData = Array.isArray(pre) ? pre : [];
+          let updatedData = [...previousData]; 
+          const matchedItemInDefaultList = updatedData.find(
+            (item) => item?.code === messageMQTTBrokerImportPage?.message
+          );
+      
+          if (matchedItemInDefaultList) {
+            const existingItemIndex = updatedData.findIndex(item => item.code === messageMQTTBrokerImportPage?.message);
+      
+            if (existingItemIndex !== -1) {
+              updatedData[existingItemIndex] = {
+                ...updatedData[existingItemIndex],
+                quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1
+              };
+            } else {
+              updatedData.push(matchedItemInDefaultList);
+            }
+          } else {
+            const newItem = {
+              iD: updatedData.length,
+              productName: 'nameProduct',
+              productType: 'nameProductDad',
+              typeCodeProduct: 'typeCodeProduct',
+              code: messageMQTTBrokerImportPage?.message,
+              dateCreated: 'dateCreated',
+              giaVon: 'giaNhap',
+              giaBan: 'giaBan',
+              quantity: 120,
+              DvTinh: 'unitCaculation',
+              quantityAdd: 1,
+              totalPrice: '',
+            };
+      
+            updatedData.unshift(newItem);
+          }
+      
+          return updatedData;
+        });
+        break;
+
+      default:
+        break;
+    }
+  }, [messageMQTTBrokerImportPage, selectedOptionFillDataScannerDevicesImportPage, rowDataDefault, setUpdatedDataImportPage]);
 
   const checkOpenDataBySearchFromVotePageButton = useCallback(() => {
     if (isOpenAddVotesPageBySearch === false) {
@@ -788,10 +790,14 @@ const AddNewItemImportPackagePage = () => {
       }
     };
 
-  const handleOpenScanDataMode = () => {
+  const handleOpenSettingScannerDeviceMode = () => {
     if (!isOpenAddVotesPageBySearch) {
-      setIsOpenCreateNewProduct(!isOpenCreateNewProduct);
+      setIsOpenSettingScannerDevice(!isOpenSettingScannerDevice);
     }
+  };
+
+  const handleCloseSettingScannerDeviceMode = () => {
+    setIsOpenSettingScannerDevice(false);
   };
   
   const handleOpenCreatNewProduct = () => {
@@ -1035,7 +1041,7 @@ const AddNewItemImportPackagePage = () => {
                   />
                 </div>
                 <div className={styles.activeProductIcon}>
-                  <div className={styles.methodSetupScannerDevices} onClick={handleOpenScanDataMode}>
+                  <div className={styles.methodSetupScannerDevices} onClick={handleOpenSettingScannerDeviceMode}>
                     <MdOutlineSettings size={20}/>
                     <div className={styles.methodSetupScannerDevicesDescription}>
                       <span>Chế độ cài đặt máy quét</span>
@@ -1132,7 +1138,7 @@ const AddNewItemImportPackagePage = () => {
                   </div>
                 </div>  
 
-                {isOpenCreateNewProduct && (
+                {isOpenSettingScannerDevice && (
                   <div className={styles.AddNewItemPage}>
                     <div className={styles.AddNewItemPageOverLay}>
                       <div className={styles.AddNewItemPageLayer}>
@@ -1140,7 +1146,7 @@ const AddNewItemImportPackagePage = () => {
                           <div className={styles.AddNewItemPageHeaderName}>
                             <span>Cài đặt máy quét và dữ liệu</span> 
                           </div>
-                          <div className={styles.AddNewItemPageHeaderIconX} onClick={handleCloseCreatNewProduct}>
+                          <div className={styles.AddNewItemPageHeaderIconX} onClick={handleCloseSettingScannerDeviceMode}>
                             <button>X</button>
                           </div>
                         </div>
@@ -1193,6 +1199,27 @@ const AddNewItemImportPackagePage = () => {
                           <div className={styles.saveconfigDataScannerDevicesButton}>
                             <button>Lưu thay đổi</button>
                           </div>                       
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {isOpenCreateNewProduct && (
+                  <div className={styles.AddNewProducts}>
+                    <div className={styles.AddNewProductsPageOverLay}>
+                      <div className={styles.AddNewProductsPageLayer}>
+                        <div className={styles.AddNewProductsPageHeader}>
+                          <div className={styles.AddNewProductsHeaderName}>
+                            <span>Thêm sản phẩm mới</span>
+                          </div>
+                          <div className={styles.AddNewProductsHeaderIconX} onClick={handleCloseCreatNewProduct}>
+                            <button>X</button>
+                          </div>
+                        </div>
+              
+                        <div className={styles.AddNewProductsPageBody}>
+                          <AddNewItemPage/>
                         </div>
                       </div>
                     </div>
