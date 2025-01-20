@@ -631,7 +631,7 @@ const AddNewItemExportPackagePage = () => {
   const [shouldPrint, setShouldPrint] = useState(false);
 
   const calculateTotals = () => {
-    const totalQuantity = rows.reduce((sum, row) => sum + row.original.quantity, 0);
+    const totalQuantity = rows.reduce((sum, row) => sum + row.original.quantityAdd, 0);
     const totalPrices = rows.reduce((sum, row) => sum + row.original.totalPrice, 0);
 
     const getCurrentDateTime = () => {
