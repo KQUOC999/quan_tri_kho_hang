@@ -116,6 +116,7 @@ const AddNewItemImportPackagePage = () => {
               updatedData[existingItemIndex] = {
                 ...updatedData[existingItemIndex],
                 quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
+                totalPrice: (+updatedData[existingItemIndex].quantityAdd + 1 || 0) * (+updatedData[existingItemIndex].giaBan || 0),
               };
             } else {
               updatedData.push(matchedItemInDefaultList);
@@ -213,7 +214,8 @@ const AddNewItemImportPackagePage = () => {
             if (existingItemIndex !== -1) {
               updatedData[existingItemIndex] = {
                 ...updatedData[existingItemIndex],
-                quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1
+                quantityAdd: +updatedData[existingItemIndex].quantityAdd + 1,
+                totalPrice: (+updatedData[existingItemIndex].quantityAdd + 1 || 0) * (+updatedData[existingItemIndex].giaBan || 0),
               };
             } else {
               updatedData.push(matchedItemInDefaultList);
@@ -428,7 +430,26 @@ const AddNewItemImportPackagePage = () => {
   };
 
   // Chỉnh sửa dữ liệu trong ô
-  const handleEditCell = (rowIndex, columnId, value) => {
+  const handleEditCell = useCallback ((rowIndex, columnId, value) => {
+    setUpdatedDataImportPage((oldData) =>
+      oldData.map((row, index) => {
+        if (index === rowIndex) {
+          const updatedRow = {
+            ...row,
+            [columnId]: value || row[columnId],
+          };
+  
+          if (columnId === 'quantityAdd' || columnId === 'giaBan') {
+            updatedRow.totalPrice = 
+              (updatedRow.quantityAdd || 0) * (updatedRow.giaBan || 0);
+          }
+          console.log(updatedRow);
+          return updatedRow;
+        }
+        return row;
+      })
+    );
+
     setData((oldData) =>
       oldData.map((row, index) => {
         if (index === rowIndex) {
@@ -447,7 +468,7 @@ const AddNewItemImportPackagePage = () => {
         return row;
       })
     );
-  };
+  }, [setUpdatedDataImportPage]);
   
   // Xóa sản phẩm
   const handleDelete = useCallback((code) => {
@@ -619,7 +640,7 @@ const AddNewItemImportPackagePage = () => {
         ),
       },
     ],
-    [selectAll, selectedRows, handleDelete, handleSelectAll]
+    [selectAll, selectedRows, handleDelete, handleSelectAll, handleEditCell]
   );
   
   // Thiết lập bảng react-table
