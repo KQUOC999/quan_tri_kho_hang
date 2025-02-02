@@ -643,6 +643,12 @@
   flex-direction: column;
   gap: 10px;
 }
+.statusConnectedScannerDeviceON {
+  color: rgb(15, 207, 15);
+}
+.statusConnectedScannerDeviceOFF {
+  color: rgb(207, 15, 15);
+}
 .overallDevicesControl {
   display: flex;
   justify-content: center;
@@ -701,3 +707,56 @@
 .containerProductsLayerEnd span:active {
   background-color: rgb(0, 0, 0);
 }
+
+@keyframes blink {
+  0% { background-color: yellow; }
+  50% { background-color: white; }
+  100% { background-color: yellow; }
+}
+
+.highlightRow {
+  animation: blink 1s ease-in-out;
+}
+
+.switchControlMode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.switchControlModeLayer {
+  width: 50px;
+  height: 25px;
+  background: gray;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.autoControlMode {
+  background: green;
+}
+
+.manualControlMode {
+  background: red;
+}
+
+.switchControlModeCircle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3px;
+  transition: left 0.3s ease-in-out;
+}
+
+.autoControlMode .switchControlModeCircle {
+  left: 27px;
+}
+

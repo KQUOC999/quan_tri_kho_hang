@@ -79,9 +79,13 @@ const AddNewItemExportPackagePage = () => {
   const { messageMQTTBrokerExportPage } = useAppContext();
   const { setMessageMQTTBrokerExportPage } = useAppContext();
   const { handleConnectingMQTTBrokerExportPage } = useAppContext();
+  const {sendControlModeToScannerDevicesExportPage} = useAppContext();
 
   //Dữ liệu máy scan
   const { isConnectedScanFromDevicesRef } = useAppContext();
+  const [isAutoControlMode, setIsAutoControlMode] = useState(true);
+  const lastToggleTimeControlMode = useRef(0);
+  const previousControlModeRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -466,6 +470,7 @@ const AddNewItemExportPackagePage = () => {
         return row;
       })
     );
+
   }, [setUpdatedDataExportPage]);
   
   // Xóa sản phẩm
@@ -478,12 +483,12 @@ const AddNewItemExportPackagePage = () => {
   const handleCountSelectedRows = () => {
     let count = selectedRows.length;
     return count;
-  }
+  };
 
   const handleResetSelectedRows = () => {
     setSelectedRows('');
     setSelectAll('');
-  }
+  };
 
   // Dữ liệu cột trong react-table
   const columns = useMemo(
@@ -972,6 +977,40 @@ const AddNewItemExportPackagePage = () => {
     }
   };
 
+  const handleOpenConfigureScannerDevices = async () => {
+    if (!isOpenAddVotesPageBySearchExportPage) {
+      if (isConnectedRefExportPages.current && isConnectedScanFromDevicesRef.current) {
+        toast.success("Máy scan sẵn sàng!", { autoClose: 2000 });
+      } else {
+        toast.info("Đang kết nối đến máy scan...", { autoClose: 2000 });
+
+        await handleConnectingMQTTBrokerExportPage();
+
+        setTimeout(() => {
+          if (isConnectedRefExportPages.current && isConnectedScanFromDevicesRef.current) {
+            toast.success("Kết nối thành công! Dữ liệu sẵn sàng...", { autoClose: 2000 });
+          } else {
+            toast.error("Kết nối thất bại đến máy scan!", { autoClose: 2000 });
+          }
+        }, 5000);
+      }
+    }
+  };
+
+  const toggleControlMode = () => {
+    const now = Date.now();
+    if (now - lastToggleTimeControlMode.current < 2000) return; 
+  
+    lastToggleTimeControlMode.current = now;
+    previousControlModeRef.current = isAutoControlMode;
+    
+    const newMode = !isAutoControlMode;
+    setIsAutoControlMode(newMode);
+  
+    const modeString = newMode ? 'auto' : 'manual';
+    sendControlModeToScannerDevicesExportPage(modeString);
+  };
+
   if (app.currentUser === null || statusSetEnumContries.length === 0) {
     return <div><LoadingPage /></div>
   }
@@ -1165,11 +1204,28 @@ const AddNewItemExportPackagePage = () => {
                                 <div className={styles.overallDevicesDetails}>
                                   <span><strong>Tên thiết bị:</strong> Image Scan Code Devices</span>
                                   <span><strong>Số seris:</strong> 123456789</span>
-                                  <span><strong>Loại kết nối:</strong> WIFI</span>
-                                  <span><strong>Trạng thái kết nối:</strong> ON/OFF</span>
+                                  <strong>Trạng thái kết nối: <span className={`${styles.statusConnectedScannerDevice} ${isConnectedScanFromDevicesRef.current ? styles.statusConnectedScannerDeviceON : styles.statusConnectedScannerDeviceOFF}`}>
+                                    {isConnectedScanFromDevicesRef.current ? 'ON' : 'OFF'}</span>
+                                  </strong>
+                                  {
+                                    isConnectedScanFromDevicesRef.current && (
+                                      <>
+                                        <span><strong>Loại kết nối:</strong> WIFI</span>
+                                        <span><strong>Chế độ điều khiển:</strong></span>
+                                        <div className={styles.switchControlMode}>
+                                          <span>MANUAL</span>
+                                          <div className={`${styles.switchControlModeLayer} ${isAutoControlMode ? styles.autoControlMode : styles.manualControlMode}`} onClick={toggleControlMode}>
+                                            <div className={styles.switchControlModeCircle}></div>
+                                          </div>
+                                          <span>AUTO</span>
+                                        </div>
+                                        <span style={{color: 'red'}}>Note: Bạn chỉ có thể thay đổi chế độ điều khiển sau 2 giây kể từ lần thay đổi trước!</span>
+                                      </>                                 
+                                    )
+                                  }    
                                 </div>
 
-                                <div className={styles.overallDevicesControl}>
+                                <div className={styles.overallDevicesControl} onClick={handleOpenConfigureScannerDevices}>
                                   <button>Cấu hình</button>
                                 </div>
                               </div>

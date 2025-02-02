@@ -71,6 +71,7 @@ export const AppProvider = ({ children, initialFormData }) => {
     
     const request_connect_mqtt = 'scan/request/connect/mqtt';
     const response_connect_mqtt = 'scan/response/connect/mqtt';
+    const request_controlMode_mqtt_exportPage = "scan/request/controlMode/mqtt"
 
 
     const [rowData, setRowData] = useState([
@@ -476,6 +477,18 @@ export const AppProvider = ({ children, initialFormData }) => {
       return client;
     };
 
+    const sendControlModeToScannerDevicesExportPage = (status) => {
+      if (isConnectedRefExportPages.current && isConnectedScanFromDevicesRef.current) {
+        clientRefExportPage.current.publish(request_controlMode_mqtt_exportPage, status, (err) => {
+          if (!err) {
+            console.log(`Publish to topic ${request_controlMode_mqtt_exportPage} with message ${status} of "controlMode"`);
+          } else {
+            console.error('Publish failed:', err);
+          }
+        });
+      }
+    };
+
     const handleConnectingMQTTBrokerImportPage = () => {
       if (clientRefImportPage.current) {
         clientRefImportPage.current.end(true); 
@@ -615,6 +628,7 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         isconnectedMQTTBrokerExportPage, setIsconnectedMQTTBrokerExportPage,
                                         messageMQTTBrokerExportPage, setMessageMQTTBrokerExportPage,
                                         handleConnectingMQTTBrokerExportPage,
+                                        sendControlModeToScannerDevicesExportPage,
 
                                         updatedDataImportPage, setUpdatedDataImportPage,
                                         isConnectedRefImportPages,
