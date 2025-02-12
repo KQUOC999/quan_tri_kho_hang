@@ -714,6 +714,64 @@
   100% { background-color: yellow; }
 }
 
+.passwordInternetScannerDevices {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
+}
+.toggleShowPasswordButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.deleteInternetScannerDevices {
+  display: flex;
+  justify-content: flex-start;
+}
+.deleteInternetScannerDevicesButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(239, 21, 21);
+  cursor: pointer;
+}
+.deleteInternetScannerDevicesButton:hover {
+  background-color: rgb(214, 15, 15);
+}
+
+.ipAdressInternetScannerDevices {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.openNewWebsiteConfigInternetButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  border: none;
+  margin: none;
+  cursor: pointer;
+  background-color: white;
+}
+.openNewWebsiteConfigInternetButton:hover {
+  padding: 8px 10px;
+  border-radius: 5px;
+  background-color: rgb(237, 233, 233);
+}
+
 .highlightRow {
   animation: blink 1s ease-in-out;
 }

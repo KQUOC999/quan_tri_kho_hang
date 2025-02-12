@@ -23,6 +23,9 @@ import { RiQrScan2Line } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaBan } from "react-icons/fa";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 import LoadingPage from '../../../loadingPage/loadingPage';
 //import AddNewItemPage from '../../../merchandise/products/addNewItems/AddNewItemsPage';
@@ -58,6 +61,7 @@ const AddNewItemExportPackagePage = () => {
   const [formCreatVoteInfomationData, setFormCreatVoteInfomationData] = useState(null);
   const formCreatVoteInfomationDataRef = useRef(null);
   const [selectedOptionFillDataScannerDevices, setSelectedOptionFillDataScannerDevices] = useState("default");
+  const [isShowPassword, setIsShowPassword] = useState(false);
   
   // Dữ liệu hàng
   const [data, setData] = useState([]);
@@ -80,6 +84,11 @@ const AddNewItemExportPackagePage = () => {
   const { setMessageMQTTBrokerExportPage } = useAppContext();
   const { handleConnectingMQTTBrokerExportPage } = useAppContext();
   const {sendControlModeToScannerDevicesExportPage} = useAppContext();
+  const {sendDeleteInternetScannerDevicesExportPage} = useAppContext();
+  const {ipAdressInternetScannerDevices} = useAppContext();
+  const {ipAdressConnnetScannerDevices} = useAppContext();
+  const {ssidInternetScannerDevices} = useAppContext();
+  const {passwordInternetScannerDevices} = useAppContext();
 
   //Dữ liệu máy scan
   const { isConnectedScanFromDevicesRef } = useAppContext();
@@ -1011,6 +1020,27 @@ const AddNewItemExportPackagePage = () => {
     sendControlModeToScannerDevicesExportPage(modeString);
   };
 
+  const toggleShowPassword = () => { 
+    setIsShowPassword(!isShowPassword);
+  };
+
+  const handleDeleteInternetScannerDevices = () => {
+    if (ssidInternetScannerDevices === '' && passwordInternetScannerDevices === '') return null;
+    setTimeout(() => {
+      sendDeleteInternetScannerDevicesExportPage("delete");
+    }, 1000);
+  };
+
+  const handleOpenNewWebsiteConfigInternet = () => {
+    if (ipAdressInternetScannerDevices === '') return;
+    if (ipAdressInternetScannerDevices) {
+      const url = `http://${ipAdressInternetScannerDevices.message}/`;
+      window.open(url, "_blank");
+    } else {
+      console.error("Không có địa chỉ IP hợp lệ!");
+    }
+  };
+  
   if (app.currentUser === null || statusSetEnumContries.length === 0) {
     return <div><LoadingPage /></div>
   }
@@ -1199,7 +1229,7 @@ const AddNewItemExportPackagePage = () => {
                               <div className={styles.overallDevices}>
                                 <div className={styles.overallDevicesHeader}>
                                   <strong>Thiết bị</strong>
-                                </div>
+                                </div> 
 
                                 <div className={styles.overallDevicesDetails}>
                                   <span><strong>Tên thiết bị:</strong> Image Scan Code Devices</span>
@@ -1207,10 +1237,43 @@ const AddNewItemExportPackagePage = () => {
                                   <strong>Trạng thái kết nối: <span className={`${styles.statusConnectedScannerDevice} ${isConnectedScanFromDevicesRef.current ? styles.statusConnectedScannerDeviceON : styles.statusConnectedScannerDeviceOFF}`}>
                                     {isConnectedScanFromDevicesRef.current ? 'ON' : 'OFF'}</span>
                                   </strong>
+                                  {!isConnectedScanFromDevicesRef.current && (
+                                    <>
+                                      <span><strong>Tên WIFI:</strong> AP Setup WiFi</span>
+                                      <span><strong>Địa chỉ IP:</strong> 192.168.4.1</span>
+                                      <span style={{color: 'red'}}>Note: Nếu máy scan đã khởi động nhưng kết nối thất bại! Bạn có thể kết nối vào mạng WiFi trên.
+                                      Sau khi kết nối vào mạng, mở trình duyệt lên truy cập vào địa chỉ IP đó và cấu hình mạng lại cho máy scan!</span> 
+                                    </>
+                                  )}                               
                                   {
                                     isConnectedScanFromDevicesRef.current && (
                                       <>
-                                        <span><strong>Loại kết nối:</strong> WIFI</span>
+                                        <span><strong>Tên mạng:</strong> {ssidInternetScannerDevices?.message}</span>
+
+                                        <div className={styles.passwordInternetScannerDevices}>
+                                          <span><strong>Mật khẩu:</strong> {isShowPassword ? passwordInternetScannerDevices?.message : '********' }</span>
+                                          <button className={styles.toggleShowPasswordButton} onClick={toggleShowPassword}>
+                                            {isShowPassword ? <BiSolidShow size={20}/> : <BiSolidHide size={20}/>}
+                                          </button>
+                                        </div>
+
+                                        <div className={styles.deleteInternetScannerDevices}>
+                                          <button className={styles.deleteInternetScannerDevicesButton} onClick={handleDeleteInternetScannerDevices}>
+                                            Xóa mạng
+                                          </button>
+                                        </div>
+
+                                        <div className={styles.ipAdressInternetScannerDevices}>
+                                          <span><strong>Địa chỉ IP cấu hình mạng:</strong> {ipAdressInternetScannerDevices?.message}</span>
+                                          {
+                                            ipAdressInternetScannerDevices !== '' && ( 
+                                            <button className={styles.openNewWebsiteConfigInternetButton} onClick={handleOpenNewWebsiteConfigInternet}>
+                                              <FaExternalLinkAlt size={15}/>
+                                            </button>
+                                          )}
+                                        </div>                        
+                                        <span><strong>Địa chỉ IP kết nối máy scan:</strong> {ipAdressConnnetScannerDevices?.message}</span>
+
                                         <span><strong>Chế độ điều khiển:</strong></span>
                                         <div className={styles.switchControlMode}>
                                           <span>MANUAL</span>
