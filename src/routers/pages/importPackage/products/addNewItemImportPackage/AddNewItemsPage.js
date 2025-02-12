@@ -24,6 +24,9 @@ import { RiQrScan2Line } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaBan } from "react-icons/fa";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 import LoadingPage from '../../../loadingPage/loadingPage';
 import ListVotePage from '../../votes/main/votePackage';
@@ -60,6 +63,7 @@ const AddNewItemImportPackagePage = () => {
   const [formCreatVoteInfomationData, setFormCreatVoteInfomationData] = useState(null);
   const formCreatVoteInfomationDataRef = useRef(null);
   const [selectedOptionFillDataScannerDevicesImportPage, setSelectedOptionFillDataScannerDevicesImportPage] = useState("default");
+  const [isShowPasswordImportPage, setIsShowPasswordImportPage] = useState(false);
   
   // Dữ liệu hàng
   const [data, setData] = useState([]);
@@ -81,9 +85,18 @@ const AddNewItemImportPackagePage = () => {
   const { messageMQTTBrokerImportPage } = useAppContext();
   const { setMessageMQTTBrokerImportPage } = useAppContext();
   const { handleConnectingMQTTBrokerImportPage } = useAppContext();
+  const {sendControlModeToScannerDevicesImportPage} = useAppContext();
+  const {sendDeleteInternetScannerDevicesImportPage} = useAppContext();
+  const {ipAdressInternetScannerDevices} = useAppContext();
+  const {ipAdressConnnetScannerDevices} = useAppContext();
+  const {ssidInternetScannerDevices} = useAppContext();
+  const {passwordInternetScannerDevices} = useAppContext();
 
   //Dữ liệu máy scan
   const { isConnectedScanFromDevicesRef } = useAppContext();
+  const [isAutoControlMode, setIsAutoControlMode] = useState(true);
+  const lastToggleTimeControlMode = useRef(0);
+  const previousControlModeRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -981,6 +994,41 @@ const AddNewItemImportPackagePage = () => {
     }
   };
 
+  const toggleControlModeImportPage = () => {
+    const now = Date.now();
+    if (now - lastToggleTimeControlMode.current < 2000) return; 
+  
+    lastToggleTimeControlMode.current = now;
+    previousControlModeRef.current = isAutoControlMode;
+    
+    const newMode = !isAutoControlMode;
+    setIsAutoControlMode(newMode);
+  
+    const modeString = newMode ? 'auto' : 'manual';
+    sendControlModeToScannerDevicesImportPage(modeString);
+  };
+
+  const toggleShowPasswordImportPage = () => { 
+    setIsShowPasswordImportPage(!isShowPasswordImportPage);
+  };
+
+  const handleDeleteInternetScannerDevicesImportPage = () => {
+    if (ssidInternetScannerDevices === '' && passwordInternetScannerDevices === '') return null;
+    setTimeout(() => {
+      sendDeleteInternetScannerDevicesImportPage("delete");
+    }, 1000);
+  };
+
+  const handleOpenNewWebsiteConfigInternetImportPage = () => {
+    if (ipAdressInternetScannerDevices === '') return;
+    if (ipAdressInternetScannerDevices) {
+      const url = `http://${ipAdressInternetScannerDevices.message}/`;
+      window.open(url, "_blank");
+    } else {
+      console.error("Không có địa chỉ IP hợp lệ!");
+    }
+  };
+
   if (app.currentUser === null || statusSetEnumContries.length === 0) {
     return <div><LoadingPage /></div>
   };
@@ -1182,11 +1230,61 @@ const AddNewItemImportPackagePage = () => {
                                 <div className={styles.overallDevicesDetails}>
                                   <span><strong>Tên thiết bị:</strong> Image Scan Code Devices</span>
                                   <span><strong>Số seris:</strong> 123456789</span>
-                                  <span><strong>Loại kết nối:</strong> WIFI</span>
-                                  <span><strong>Trạng thái kết nối:</strong> ON/OFF</span>
+                                  <strong>Trạng thái kết nối: <span className={`${styles.statusConnectedScannerDevice} ${isConnectedScanFromDevicesRef.current ? styles.statusConnectedScannerDeviceON : styles.statusConnectedScannerDeviceOFF}`}>
+                                    {isConnectedScanFromDevicesRef.current ? 'ON' : 'OFF'}</span>
+                                  </strong>
+                                  {!isConnectedScanFromDevicesRef.current && (
+                                    <>
+                                      <span><strong>Tên WIFI:</strong> AP Setup WiFi</span>
+                                      <span><strong>Địa chỉ IP:</strong> 192.168.4.1</span>
+                                      <span style={{color: 'red'}}>Note: Nếu máy scan đã khởi động nhưng kết nối thất bại! Bạn có thể kết nối vào mạng WiFi trên.
+                                      Sau khi kết nối vào mạng, mở trình duyệt lên truy cập vào địa chỉ IP đó và cấu hình mạng lại cho máy scan!</span> 
+                                    </>
+                                  )}                               
+                                  {
+                                    isConnectedScanFromDevicesRef.current && (
+                                      <>
+                                        <span><strong>Tên mạng:</strong> {ssidInternetScannerDevices?.message}</span>
+
+                                        <div className={styles.passwordInternetScannerDevicesImportPage}>
+                                          <span><strong>Mật khẩu:</strong> {isShowPasswordImportPage ? passwordInternetScannerDevices?.message : '********' }</span>
+                                          <button className={styles.toggleShowPasswordButtonImportPage} onClick={toggleShowPasswordImportPage}>
+                                            {isShowPasswordImportPage ? <BiSolidShow size={20}/> : <BiSolidHide size={20}/>}
+                                          </button>
+                                        </div>
+
+                                        <div className={styles.deleteInternetScannerDevicesImportPage}>
+                                          <button className={styles.deleteInternetScannerDevicesImportPageButton} onClick={handleDeleteInternetScannerDevicesImportPage}>
+                                            Xóa mạng
+                                          </button>
+                                        </div>
+
+                                        <div className={styles.ipAdressInternetScannerDevicesImportPage}>
+                                          <span><strong>Địa chỉ IP cấu hình mạng:</strong> {ipAdressInternetScannerDevices?.message}</span>
+                                          {
+                                            ipAdressInternetScannerDevices !== '' && ( 
+                                            <button className={styles.openNewWebsiteConfigInternetImportPageButton} onClick={handleOpenNewWebsiteConfigInternetImportPage}>
+                                              <FaExternalLinkAlt size={15}/>
+                                            </button>
+                                          )}
+                                        </div>                        
+                                        <span><strong>Địa chỉ IP kết nối máy scan:</strong> {ipAdressConnnetScannerDevices?.message}</span>
+
+                                        <span><strong>Chế độ điều khiển:</strong></span>
+                                        <div className={styles.switchControlModeImportPage}>
+                                          <span>MANUAL</span>
+                                          <div className={`${styles.switchControlModeLayerImportPage} ${isAutoControlMode ? styles.autoControlMode : styles.manualControlMode}`} onClick={toggleControlModeImportPage}>
+                                            <div className={styles.switchControlModeCircleImportPage}></div>
+                                          </div>
+                                          <span>AUTO</span>
+                                        </div>
+                                        <span style={{color: 'red'}}>Note: Bạn chỉ có thể thay đổi chế độ điều khiển sau 2 giây kể từ lần thay đổi trước!</span>
+                                      </>                                 
+                                    )
+                                  }    
                                 </div>
 
-                                <div className={styles.overallDevicesControl}>
+                                <div className={styles.overallDevicesControlImportPage} onClick={handleScanningDataModeImportPage}>
                                   <button>Cấu hình</button>
                                 </div>
                               </div>

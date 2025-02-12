@@ -565,6 +565,10 @@ export const AppProvider = ({ children, initialFormData }) => {
             isConnectedScanFromDevicesRef.current = false;
             setIsconnectedMQTTBrokerExportPage(false);
             setisConnectedScanFromDevices(false);
+            setIpAdressInternetScannerDevices('');
+            setIpAdressConnnetScannerDevices('');
+            setSsidInternetScannerDevices('');
+            setPasswordInternetScannerDevices('');
             
           } else {
             console.error('Publish failed:', err);
@@ -590,36 +594,66 @@ export const AppProvider = ({ children, initialFormData }) => {
       const client = mqtt.connect(broker, options);
       clientRefImportPage.current = client;
     
-      client.on('connect', () => {
+      client.on('connect', async () => {
         isConnectedRefImportPages.current = true;
         setIsconnectedMQTTBrokerImportPage(true);
         setConnectAttemptsImportPage(0);
         setisConnectedScanFromDevices(false);
         console.log('Đã kết nối đến MQTT Broker');
 
-        client.subscribe(topicImportPage, (err) => {
-          if (!err) {
-            console.log(`Subscribed to topic ${topicImportPage}`);
-          } else {
-            console.error('Subscription failed:', err);
-          }
-        });
+        const subscribeToTopic = (topic) => {
+          return new Promise((resolve, reject) => {
+            client.subscribe(topic, (err) => {
+              if (!err) {
+                console.log(`Subscribed: ${topic}`);
+                resolve();
+              } else {
+                console.error(`Lỗi Subscribe: ${topic}`, err);
+                reject(err);
+              }
+            });
+          });
+        };
+      
+        const publishToTopic = (topic, message) => {
+          return new Promise((resolve, reject) => {
+            client.publish(topic, message, (err) => {
+              if (!err) {
+                console.log(`Published: ${topic} - message: "${message}"`);
+                resolve();
+              } else {
+                console.error(`Lỗi Publish: ${topic}`, err);
+                reject(err);
+              }
+            });
+          });
+        };
+        
+        const topicsToSubscribe = [
+          topicImportPage,
+          response_connect_mqtt,
+          response_ssidInternetScannerDevices_mqtt,
+          response_passwordInternetScannerDevices_mqtt,
+          response_ipAdressInternetScannerDevices_mqtt,
+          response_ipAdressConnnetScannerDevices_mqtt,
+        ];
 
-        client.subscribe(response_connect_mqtt, (err) => {
-          if (!err) {
-            console.log(`Subscribed to topic ${response_connect_mqtt}`);
-          } else {
-            console.error('Subscription failed:', err);
-          }
-        });
+        const topicsToPublish = [
+          { topic: request_connect_mqtt, message: "check" },
+          { topic: request_ssidInternetScannerDevices_mqtt, message: "check" },
+          { topic: request_passwordInternetScannerDevices_mqtt, message: "check" },
+          { topic: request_ipAdressInternetScannerDevices_mqtt, message: "check" },
+          { topic: request_ipAdressConnnetScannerDevices_mqtt, message: "check" },
+        ];
 
-        client.publish(request_connect_mqtt, 'check', (err) => {
-          if (!err) {
-            console.log(`Publish to topic ${request_connect_mqtt} with message "check"`);
-          } else {
-            console.error('Publish failed:', err);
-          }
-        });
+        try {
+          await Promise.all(topicsToSubscribe.map(subscribeToTopic));
+          await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+
+          console.log("Tất cả thao tác MQTT đã hoàn thành!");
+        } catch (error) {
+          console.error("Lỗi khi xử lý MQTT:", error);
+        }
       });
     
       client.on('error', (err) => {
@@ -648,6 +682,26 @@ export const AppProvider = ({ children, initialFormData }) => {
           toast.success("Máy scan đã kết nối với máy tính thành công!", { autoClose: 2000 });
         };
 
+        if (receivedMessage.length > 0 && topic === response_ssidInternetScannerDevices_mqtt) {
+          const currentTime = new Date().getSeconds();
+          setSsidInternetScannerDevices({message: receivedMessage, currentTime});
+        };
+
+        if (receivedMessage.length > 0 && topic === response_passwordInternetScannerDevices_mqtt) {
+          const currentTime = new Date().getSeconds();
+          setPasswordInternetScannerDevices({message: receivedMessage, currentTime});     
+        };
+
+        if (receivedMessage.length > 0 && topic === response_ipAdressInternetScannerDevices_mqtt) {
+          const currentTime = new Date().getSeconds();
+          setIpAdressInternetScannerDevices({message: receivedMessage, currentTime});
+        };
+
+        if (receivedMessage.length > 0 && topic === response_ipAdressConnnetScannerDevices_mqtt) {
+          const currentTime = new Date().getSeconds();
+          setIpAdressConnnetScannerDevices({message: receivedMessage, currentTime});     
+        };
+
         if (receivedMessage === lastReceivedMessageRefImportPage.current) {
           const currentTime = Date.now();
           const timeElapsed = currentTime - lastReceivedTimeRefImportPage.current;
@@ -669,6 +723,39 @@ export const AppProvider = ({ children, initialFormData }) => {
       });
     
       return client;
+    };
+
+    const sendControlModeToScannerDevicesImportPage = (status) => {
+      if (isConnectedRefImportPages.current && isConnectedScanFromDevicesRef.current) {
+        clientRefImportPage.current.publish(request_controlMode_mqtt_exportPage, status, (err) => {
+          if (!err) {
+            console.log(`Publish to topic ${request_controlMode_mqtt_exportPage} with message ${status} of "controlMode"`);
+          } else {
+            console.error('Publish failed:', err);
+          }
+        });
+      }
+    };
+
+    const sendDeleteInternetScannerDevicesImportPage = (request) => {
+      if (isConnectedRefImportPages.current && isConnectedScanFromDevicesRef.current) {
+        clientRefImportPage.current.publish(request_deleteInternet_mqtt, request, (err) => {
+          if (!err) {
+            console.log(`Publish to topic ${request_deleteInternet_mqtt} with message ${request} of "deleteInternetScannerDevices"`);
+            isConnectedRefImportPages.current = false;
+            isConnectedScanFromDevicesRef.current = false;
+            setIsconnectedMQTTBrokerImportPage(false);
+            setisConnectedScanFromDevices(false);
+            setIpAdressInternetScannerDevices('');
+            setIpAdressConnnetScannerDevices('');
+            setSsidInternetScannerDevices('');
+            setPasswordInternetScannerDevices('');
+            
+          } else {
+            console.error('Publish failed:', err);
+          }
+        });
+      }
     };
 
     return (
@@ -723,7 +810,9 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         isConnectedRefImportPages,
                                         isconnectedMQTTBrokerImportPage, setIsconnectedMQTTBrokerImportPage,
                                         messageMQTTBrokerImportPage, setMessageMQTTBrokerImportPage,
-                                        handleConnectingMQTTBrokerImportPage}}>
+                                        handleConnectingMQTTBrokerImportPage,
+                                        sendControlModeToScannerDevicesImportPage,
+                                        sendDeleteInternetScannerDevicesImportPage}}>
             {children}
         </AppContext.Provider>
     );

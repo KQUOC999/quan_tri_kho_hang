@@ -643,12 +643,18 @@
   flex-direction: column;
   gap: 10px;
 }
-.overallDevicesControl {
+.statusConnectedScannerDeviceON {
+  color: rgb(15, 207, 15);
+}
+.statusConnectedScannerDeviceOFF {
+  color: rgb(207, 15, 15);
+}
+.overallDevicesControlImportPage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.overallDevicesControl > button {
+.overallDevicesControlImportPage > button {
   padding: 6px 20px;
   border: none;
   border-radius: 5px;
@@ -656,10 +662,10 @@
   color: white;
   background-color: rgb(131, 135, 133);
 }
-.overallDevicesControl > button:hover {
+.overallDevicesControlImportPage > button:hover {
   background-color: rgb(0, 150, 140);
 }
-.overallDevicesControl > button:active {
+.overallDevicesControlImportPage > button:active {
   background-color: var(--activeButtonBackground-color);
 }
 .saveconfigDataScannerDevicesButton {
@@ -746,4 +752,109 @@
   display: flex;
   flex: 1;
 }
+
+.passwordInternetScannerDevicesImportPage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
+}
+.toggleShowPasswordButtonImportPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.deleteInternetScannerDevicesImportPage {
+  display: flex;
+  justify-content: flex-start;
+}
+.deleteInternetScannerDevicesImportPageButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(239, 21, 21);
+  cursor: pointer;
+}
+.deleteInternetScannerDevicesImportPageButton:hover {
+  background-color: rgb(214, 15, 15);
+}
+
+.ipAdressInternetScannerDevicesImportPage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.openNewWebsiteConfigInternetImportPageButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  border: none;
+  margin: none;
+  cursor: pointer;
+  background-color: white;
+}
+.openNewWebsiteConfigInternetImportPageButton:hover {
+  padding: 8px 10px;
+  border-radius: 5px;
+  background-color: rgb(237, 233, 233);
+}
+
+.highlightRow {
+  animation: blink 1s ease-in-out;
+}
+
+.switchControlModeImportPage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.switchControlModeLayerImportPage {
+  width: 50px;
+  height: 25px;
+  background: gray;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.autoControlMode {
+  background: green;
+}
+
+.manualControlMode {
+  background: red;
+}
+
+.switchControlModeCircleImportPage {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3px;
+  transition: left 0.3s ease-in-out;
+}
+
+.autoControlMode .switchControlModeCircleImportPage {
+  left: 27px;
+}
+
 
