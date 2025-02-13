@@ -90,6 +90,8 @@ export const AppProvider = ({ children, initialFormData }) => {
     const request_ipAdressConnnetScannerDevices_mqtt = 'scan/request/ipAdressConnnetScannerDevices/mqtt';
     const response_ipAdressConnnetScannerDevices_mqtt = 'scan/response/ipAdressConnnetScannerDevices/mqtt';
 
+    const [isFinishMQTTSetupExportPage, setIsFinishMQTTSetupExportPage] = useState(false);
+    const [isFinishMQTTSetupImportPage, setIsFinishMQTTSetupImportPage] = useState(false);
 
     const [rowData, setRowData] = useState([
         { page: 'Hàng hóa' , category: 'Sản phẩm', feature: 'Thêm mới', highAdminRole: true, mediumAdminRole: false, lowAdminRole: true },
@@ -466,8 +468,16 @@ export const AppProvider = ({ children, initialFormData }) => {
         ];
 
         try {
-          await Promise.all(topicsToSubscribe.map(subscribeToTopic));
-          await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+          if (isFinishMQTTSetupImportPage) {
+            await Promise.all(topicsToSubscribe.slice(0, 2).map(subscribeToTopic));
+            await publishToTopic(topicsToPublish[0].topic, topicsToPublish[0].message);
+          }
+          else {
+            await Promise.all(topicsToSubscribe.map(subscribeToTopic));
+            await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+          }
+
+          setIsFinishMQTTSetupExportPage(true);
 
           console.log("Tất cả thao tác MQTT đã hoàn thành!");
         } catch (error) {
@@ -477,6 +487,8 @@ export const AppProvider = ({ children, initialFormData }) => {
       
       client.on('error', (err) => {
         console.error('Kết nối thất bại đến MQTT Broker:', err.message);
+        setIsFinishMQTTSetupExportPage(false);
+        setIsFinishMQTTSetupImportPage(false);
         setConnectAttemptsExportPage((prev) => prev + 1);
     
         if (connectAttemptsExportPage + 1 > 5) {
@@ -569,11 +581,43 @@ export const AppProvider = ({ children, initialFormData }) => {
             setIpAdressConnnetScannerDevices('');
             setSsidInternetScannerDevices('');
             setPasswordInternetScannerDevices('');
+            setIsFinishMQTTSetupExportPage(false);
+            setIsFinishMQTTSetupImportPage(false);
             
           } else {
             console.error('Publish failed:', err);
           }
         });
+      }
+    };
+
+    const sendRequestMQTTWhenConnectedScannerDevicesExportPage = async () => {
+      const topicsToPublish = [
+        { topic: request_ssidInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_passwordInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_ipAdressInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_ipAdressConnnetScannerDevices_mqtt, message: "check" },
+      ];
+
+      const publishToTopic = (topic, message) => {
+        return new Promise((resolve, reject) => {
+          clientRefExportPage.current.publish(topic, message, (err) => {
+            if (!err) {
+              console.log(`Published: ${topic} - message: "${message}"`);
+              resolve();
+            } else {
+              console.error(`Lỗi Publish: ${topic}`, err);
+              reject(err);
+            }
+          });
+        });
+      };
+
+      try {
+        await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+        console.log("Tất cả thao tác MQTT đã hoàn thành!");
+      } catch (error) {
+        console.error("Lỗi khi xử lý MQTT:", error);
       }
     };
 
@@ -628,7 +672,7 @@ export const AppProvider = ({ children, initialFormData }) => {
             });
           });
         };
-        
+   
         const topicsToSubscribe = [
           topicImportPage,
           response_connect_mqtt,
@@ -647,8 +691,16 @@ export const AppProvider = ({ children, initialFormData }) => {
         ];
 
         try {
-          await Promise.all(topicsToSubscribe.map(subscribeToTopic));
-          await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+          if (isFinishMQTTSetupExportPage) {
+            await Promise.all(topicsToSubscribe.slice(0, 2).map(subscribeToTopic));
+            await publishToTopic(topicsToPublish[0].topic, topicsToPublish[0].message);
+          }
+          else {
+            await Promise.all(topicsToSubscribe.map(subscribeToTopic));
+            await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+          }
+
+          setIsFinishMQTTSetupImportPage(true);
 
           console.log("Tất cả thao tác MQTT đã hoàn thành!");
         } catch (error) {
@@ -658,6 +710,8 @@ export const AppProvider = ({ children, initialFormData }) => {
     
       client.on('error', (err) => {
         console.error('Kết nối thất bại đến MQTT Broker:', err.message);
+        setIsFinishMQTTSetupExportPage(false);
+        setIsFinishMQTTSetupImportPage(false);
         setConnectAttemptsImportPage((prev) => prev + 1);
     
         if (connectAttemptsImportPage + 1 > 5) {
@@ -750,11 +804,43 @@ export const AppProvider = ({ children, initialFormData }) => {
             setIpAdressConnnetScannerDevices('');
             setSsidInternetScannerDevices('');
             setPasswordInternetScannerDevices('');
+            setIsFinishMQTTSetupExportPage(false);
+            setIsFinishMQTTSetupImportPage(false);
             
           } else {
             console.error('Publish failed:', err);
           }
         });
+      }
+    };
+
+    const sendRequestMQTTWhenConnectedScannerDevicesImportPage = async () => {
+      const topicsToPublish = [
+        { topic: request_ssidInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_passwordInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_ipAdressInternetScannerDevices_mqtt, message: "check" },
+        { topic: request_ipAdressConnnetScannerDevices_mqtt, message: "check" },
+      ];
+
+      const publishToTopic = (topic, message) => {
+        return new Promise((resolve, reject) => {
+          clientRefExportPage.current.publish(topic, message, (err) => {
+            if (!err) {
+              console.log(`Published: ${topic} - message: "${message}"`);
+              resolve();
+            } else {
+              console.error(`Lỗi Publish: ${topic}`, err);
+              reject(err);
+            }
+          });
+        });
+      };
+
+      try {
+        await Promise.all(topicsToPublish.map(({ topic, message }) => publishToTopic(topic, message)));
+        console.log("Tất cả thao tác MQTT đã hoàn thành!");
+      } catch (error) {
+        console.error("Lỗi khi xử lý MQTT:", error);
       }
     };
 
@@ -802,17 +888,21 @@ export const AppProvider = ({ children, initialFormData }) => {
                                         ipAdressConnnetScannerDevices, setIpAdressConnnetScannerDevices,
                                         ssidInternetScannerDevices, setSsidInternetScannerDevices,
                                         passwordInternetScannerDevices, setPasswordInternetScannerDevices,
+                                        isFinishMQTTSetupExportPage, setIsFinishMQTTSetupExportPage,
                                         handleConnectingMQTTBrokerExportPage,
                                         sendControlModeToScannerDevicesExportPage,
                                         sendDeleteInternetScannerDevicesExportPage,
+                                        sendRequestMQTTWhenConnectedScannerDevicesExportPage,
 
                                         updatedDataImportPage, setUpdatedDataImportPage,
                                         isConnectedRefImportPages,
                                         isconnectedMQTTBrokerImportPage, setIsconnectedMQTTBrokerImportPage,
                                         messageMQTTBrokerImportPage, setMessageMQTTBrokerImportPage,
+                                        isFinishMQTTSetupImportPage, setIsFinishMQTTSetupImportPage,
                                         handleConnectingMQTTBrokerImportPage,
                                         sendControlModeToScannerDevicesImportPage,
-                                        sendDeleteInternetScannerDevicesImportPage}}>
+                                        sendDeleteInternetScannerDevicesImportPage,
+                                        sendRequestMQTTWhenConnectedScannerDevicesImportPage}}>
             {children}
         </AppContext.Provider>
     );

@@ -91,6 +91,7 @@ const AddNewItemImportPackagePage = () => {
   const {ipAdressConnnetScannerDevices} = useAppContext();
   const {ssidInternetScannerDevices} = useAppContext();
   const {passwordInternetScannerDevices} = useAppContext();
+  const {sendRequestMQTTWhenConnectedScannerDevicesImportPage} = useAppContext();
 
   //Dữ liệu máy scan
   const { isConnectedScanFromDevicesRef } = useAppContext();
@@ -808,6 +809,7 @@ const AddNewItemImportPackagePage = () => {
       if (!isOpenAddVotesPageBySearch) {
         if (isConnectedRefImportPages.current && isConnectedScanFromDevicesRef.current) {
           toast.success("Máy scan sẵn sàng!", { autoClose: 2000 });
+          sendRequestMQTTWhenConnectedScannerDevicesImportPage();
         } else {
           toast.info("Đang kết nối đến máy scan...", { autoClose: 2000 });
   

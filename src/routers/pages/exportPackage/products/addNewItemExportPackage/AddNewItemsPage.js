@@ -89,6 +89,7 @@ const AddNewItemExportPackagePage = () => {
   const {ipAdressConnnetScannerDevices} = useAppContext();
   const {ssidInternetScannerDevices} = useAppContext();
   const {passwordInternetScannerDevices} = useAppContext();
+  const {sendRequestMQTTWhenConnectedScannerDevicesExportPage} = useAppContext();
 
   //Dữ liệu máy scan
   const { isConnectedScanFromDevicesRef } = useAppContext();
@@ -990,6 +991,7 @@ const AddNewItemExportPackagePage = () => {
     if (!isOpenAddVotesPageBySearchExportPage) {
       if (isConnectedRefExportPages.current && isConnectedScanFromDevicesRef.current) {
         toast.success("Máy scan sẵn sàng!", { autoClose: 2000 });
+        sendRequestMQTTWhenConnectedScannerDevicesExportPage();
       } else {
         toast.info("Đang kết nối đến máy scan...", { autoClose: 2000 });
 
