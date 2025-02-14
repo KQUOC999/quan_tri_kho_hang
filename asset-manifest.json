@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/quan_tri_kho_hang/static/css/main.70816508.css",
-    "main.js": "/quan_tri_kho_hang/static/js/main.fc5ac2cc.js",
-    "static/media/work.mp4": "/quan_tri_kho_hang/static/media/work.0c4b3dca9b3b42ee254b.mp4",
+    "main.js": "/quan_tri_kho_hang/static/js/main.02cda4c2.js",
+    "static/media/work.mp4": "/quan_tri_kho_hang/static/media/work.0e9d08bf01e379867b56.mp4",
     "static/media/Logo-DH-Ton-Duc-Thang-TDT.jpg": "/quan_tri_kho_hang/static/media/Logo-DH-Ton-Duc-Thang-TDT.79ee1555da40204898d8.jpg",
     "static/media/graduation.png": "/quan_tri_kho_hang/static/media/graduation.bd02e9e86f94d3669f4c.png",
     "static/media/banhmi.jpg": "/quan_tri_kho_hang/static/media/banhmi.ba9035e298633b26f83b.jpg",
@@ -10,6 +10,6 @@
   },
   "entrypoints": [
     "static/css/main.70816508.css",
-    "static/js/main.fc5ac2cc.js"
+    "static/js/main.02cda4c2.js"
   ]
 }
