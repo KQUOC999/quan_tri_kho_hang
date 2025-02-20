@@ -1027,7 +1027,7 @@ const AddNewItemExportPackagePage = () => {
   };
 
   const handleDeleteInternetScannerDevices = () => {
-    if (ssidInternetScannerDevices === '' && passwordInternetScannerDevices === '') return null;
+    if (ssidInternetScannerDevices === '' || passwordInternetScannerDevices === '' || ipAdressConnnetScannerDevices === '') return null;
     setTimeout(() => {
       sendDeleteInternetScannerDevicesExportPage("delete");
     }, 1000);
