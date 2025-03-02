@@ -1320,10 +1320,7 @@ const AddNewItemExportPackagePage = () => {
                               </div>
                             </div>
                           </div>
-                          
-                          <div className={styles.saveconfigDataScannerDevicesButton}>
-                            <button>Lưu thay đổi</button>
-                          </div>                       
+                       
                         </div>
                       </div>
                     </div>
